@@ -1,6 +1,6 @@
-import React from 'react';
-import logo from '../assets/images/logo.png';
-import { Button, Form, Grid, Header, Image, Segment } from 'semantic-ui-react';
+import React from 'react'
+import logo from '../assets/images/logo.png'
+import { Button, Form, Grid, Header, Image, Segment } from 'semantic-ui-react'
 
 const Login = ({ userName, handleInputValueChange, login }) => {
   return (
@@ -26,7 +26,7 @@ const Login = ({ userName, handleInputValueChange, login }) => {
               size="large"
               disabled={userName === ''}
               onClick={(event) => {
-                login(event);
+                login(event)
               }}
             >
               Login
@@ -35,7 +35,7 @@ const Login = ({ userName, handleInputValueChange, login }) => {
         </Form>
       </Grid.Column>
     </Grid>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

@@ -1,9 +1,11 @@
-import React from 'react';
-import './styles/App.css';
-import MainScreen from './screens/Main';
+import React from 'react'
+import AppRouter from 'routers/AppRouter'
+import './styles/App.css'
+
+const server = `http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}`
 
 const App = () => {
-  return <MainScreen />;
-};
+  return <AppRouter serverAddress={server} />
+}
 
-export default App;
+export default App
