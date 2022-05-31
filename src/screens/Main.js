@@ -1,11 +1,14 @@
-import React, { Component } from "react";
-import { Header } from "semantic-ui-react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+// import { Header } from "semantic-ui-react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import socketIOClient from "socket.io-client";
-import Login from "./components/Login";
-import Dashboard from "./components/Dashboard";
-import "./App.css";
-import { saveItemLocalStorage, getItemLocalStorage, removeItemLocalStorage } from "./services/service";
+
+import Dashboard from "../components/Dashboard";
+import Login from "../components/Login";
+
+import "../styles/App.css";
+
+import { saveItemLocalStorage, getItemLocalStorage, removeItemLocalStorage } from "../services/service";
 
 const style = {
 	h1: {
@@ -25,11 +28,13 @@ const style = {
 
 const WAIT_INTERVAL = 1000;
 
-class App extends Component {
-	state = {
+const MainScreen = () => {
+	const [timer, setTimer] = useState(null);
+
+	const [globalState, setGlobalState] = useState({
 		userName: "",
 		isLoggedIn: false,
-		endpoint: "192.168.0.107:5000",
+		endpoint: "localhost:5000",
 		messages: [],
 		message: "",
 		userTyping: {
@@ -37,66 +42,31 @@ class App extends Component {
 			user: "",
 			message: "",
 		},
-	};
+	});
 
-	componentDidMount() {
+	useEffect(() => {
 		let data = getItemLocalStorage("reactSocketApp");
 		if (data) {
-			this.setState({ userName: data.userName, isLoggedIn: data.isLoggedIn });
+			setGlobalState({ userName: data.userName, isLoggedIn: data.isLoggedIn });
 		}
 
 		// Subscribe to WebSocket events
-		this.listenForMessages();
-		this.listenForTyping();
-		this.listenForStopTyping();
+		listenForMessages();
+		listenForTyping();
+		listenForStopTyping();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
-		this.timer = null;
-	}
-
-	handleInputValueChange = (event) => {
-		this.setState({ [event.target.name]: event.target.value });
-
-		clearTimeout(this.timer);
-		this.timer = setTimeout(this.sendStopTyping, WAIT_INTERVAL);
-	};
-
-	handleKeyPressed = (event) => {
-		if (event.key === "Enter") {
-			this.sendMessage();
-			this.sendStopTyping();
-		} else {
-			this.sendStartTyping();
-		}
-	};
-
-	login = (event) => {
-		event.preventDefault();
-		this.setState({ isLoggedIn: true });
-		saveItemLocalStorage(this.state.userName);
-	};
-
-	logOut = () => {
-		this.setState({ isLoggedIn: false, userName: "" });
-		removeItemLocalStorage("reactSocketApp");
-		this.sendDisconnect();
-	};
-
-	sendMessage = () => {
-		const socket = socketIOClient(this.state.endpoint);
-		socket.emit("chat message", this.state.message);
-		this.setState({ message: "" });
-	};
-
-	listenForMessages = () => {
-		const socket = socketIOClient(this.state.endpoint);
+	const listenForMessages = () => {
+		const socket = socketIOClient(globalState.endpoint);
 		socket.on("received", (message) => {
-			const messages = this.state.messages;
-			this.setState({ messages: [...messages, message] });
+			const messages = globalState.messages;
+			setGlobalState({ messages: [...messages, message] });
 		});
 	};
 
-	listenForTyping = () => {
-		const socket = socketIOClient(this.state.endpoint);
+	const listenForTyping = () => {
+		const socket = socketIOClient(globalState.endpoint);
 		socket.on("notifyTyping", (data) => {
 			const userTyping = {
 				isTyping: true,
@@ -105,14 +75,14 @@ class App extends Component {
 			};
 
 			// Avoid notifing same logged in user
-			if (this.state.userName !== userTyping.user) {
-				this.setState({ userTyping });
+			if (globalState.userName !== userTyping.user) {
+				setGlobalState({ userTyping });
 			}
 		});
 	};
 
-	listenForStopTyping = () => {
-		const socket = socketIOClient(this.state.endpoint);
+	const listenForStopTyping = () => {
+		const socket = socketIOClient(globalState.endpoint);
 		socket.on("notifyStopTyping", () => {
 			console.log("user stop typing");
 
@@ -122,55 +92,87 @@ class App extends Component {
 				message: "",
 			};
 
-			this.setState({ userTyping });
+			setGlobalState({ userTyping });
 		});
 	};
 
-	sendStartTyping = () => {
-		const socket = socketIOClient(this.state.endpoint);
-		const data = { user: this.state.userName, message: this.state.message };
+	const handleInputValueChange = (event) => {
+		setGlobalState({ [event.target.name]: event.target.value });
+
+		clearTimeout(timer);
+		setTimer(setTimeout(this.sendStopTyping, WAIT_INTERVAL));
+	};
+
+	const handleKeyPressed = (event) => {
+		if (event.key === "Enter") {
+			sendMessage();
+			sendStopTyping();
+		} else {
+			sendStartTyping();
+		}
+	};
+
+	const login = (event) => {
+		event.preventDefault();
+		setGlobalState({ isLoggedIn: true });
+		saveItemLocalStorage(globalState.userName);
+	};
+
+	const logOut = () => {
+		setGlobalState({ isLoggedIn: false, userName: "" });
+		removeItemLocalStorage("reactSocketApp");
+		sendDisconnect();
+	};
+
+	const sendMessage = () => {
+		const socket = socketIOClient(globalState.endpoint);
+		socket.emit("chat message", null, null, globalState.message);
+		setGlobalState({ message: "" });
+	};
+
+	const sendStartTyping = () => {
+		const socket = socketIOClient(globalState.endpoint);
+		const data = { user: globalState.userName, message: globalState.message };
 		socket.emit("typing", data);
 	};
 
-	sendStopTyping = () => {
-		const socket = socketIOClient(this.state.endpoint);
+	const sendStopTyping = () => {
+		const socket = socketIOClient(globalState.endpoint);
 		socket.emit("stopTyping");
 	};
 
-	sendDisconnect = () => {
-		const socket = socketIOClient(this.state.endpoint);
+	const sendDisconnect = () => {
+		const socket = socketIOClient(globalState.endpoint);
 		socket.emit("disconnect");
 	};
 
-	render() {
-		return (
-			<Router>
-				<Header as="h1" content="Cliente Chat (React)" textAlign="center" style={style.h1} />
-				<Switch>
-					<Route
-						render={() =>
-							this.state.isLoggedIn ? (
-								<Dashboard
-									{...this.props}
-									userName={this.state.userName}
-									style={style}
-									message={this.state.message}
-									messages={this.state.messages}
-									userTyping={this.state.userTyping}
-									logOut={this.logOut}
-									handleInputValueChange={this.handleInputValueChange}
-									handleKeyPressed={this.handleKeyPressed}
-									sendMessage={this.sendMessage}
-								/>
-							) : (
-								<Login {...this.props} userName={this.state.userName} login={this.login} handleInputValueChange={this.handleInputValueChange} />
-							)
-						}
-					/>
-				</Switch>
-			</Router>
-		);
-	}
-}
+	return (
+		<BrowserRouter>
+			<Routes>
+				{/* <Header as="h1" content="Cliente Chat (React)" textAlign="center" style={style.h1} /> */}
+				<Route
+					path="/"
+					element={
+						globalState.isLoggedIn ? (
+							<Dashboard
+								userName={globalState.userName}
+								style={style}
+								message={globalState.message}
+								messages={globalState.messages}
+								userTyping={globalState.userTyping}
+								logOut={logOut}
+								handleInputValueChange={handleInputValueChange}
+								handleKeyPressed={handleKeyPressed}
+								sendMessage={sendMessage}
+							/>
+						) : (
+							<Login userName={globalState.userName} login={login} handleInputValueChange={handleInputValueChange} />
+						)
+					}
+				/>
+			</Routes>
+		</BrowserRouter>
+	);
+};
 
-export default App;
+export default MainScreen;
