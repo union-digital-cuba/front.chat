@@ -3,12 +3,12 @@ import { Header } from 'semantic-ui-react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import io from 'socket.io-client'
 
-import Dashboard from '../components/Dashboard'
-import Login from '../components/Login'
+import Dashboard from '../../components/Others/Dashboard'
+import Login from '../../components/Login'
 
 import '../styles/App.css'
 
-import { saveItemLocalStorage, getItemLocalStorage, removeItemLocalStorage } from '../services/service'
+import { saveItemLocalStorage, getItemLocalStorage, removeItemLocalStorage } from '../../services/service'
 
 const style = {
   h1: {
