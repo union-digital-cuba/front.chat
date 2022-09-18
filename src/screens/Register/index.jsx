@@ -1,17 +1,24 @@
-import React from 'react'
-
-import { CustomContainer, CustomButton, CustomForm, CustomInput, CustomLogo, CustomSpan } from 'components'
-
+import React, { useState } from 'react'
 import Logo from 'assets/images/logo.svg'
 
+import { CustomContainer, CustomButton, CustomForm, CustomInput, CustomLogo, CustomSpan } from 'components'
+import { HelperFunction } from 'helpers/functions'
+
 const Register = () => {
+  const [values, setValues] = useState({
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  })
+
   const handleSubmit = (event) => {
     event.preventDefault()
     alert('form')
   }
 
   const handleChange = (event) => {
-    alert(event)
+    HelperFunction.handleChange(event, values, setValues)
   }
 
   const makeLogoComponent = <CustomLogo text={'Shy, Shy'} logoSource={Logo} />
