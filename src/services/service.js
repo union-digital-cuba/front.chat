@@ -3,7 +3,7 @@ const saveItemLocalStorage = (item) => {
     userName: item,
     isLoggedIn: true,
   }
-  localStorage.setItem('reactSocketApp', JSON.stringify(data))
+  localStorage.setItem('chatfront', JSON.stringify(data))
 }
 
 const getItemLocalStorage = (item) => {
