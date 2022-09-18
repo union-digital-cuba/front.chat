@@ -1,4 +1,4 @@
-const axios = require('axios')
+import axios from 'axios'
 const url = `http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/api`
 
 const Axios = () => {

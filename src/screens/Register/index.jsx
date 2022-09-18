@@ -24,7 +24,7 @@ const Register = () => {
       CustomPopUp(Icons.error, 'Required Username')
       valid = false
     }
-    if (HelperFunction.EmailValidate(email)) {
+    if (!HelperFunction.EmailValidate(email)) {
       CustomPopUp(Icons.error, 'Required Correct Email')
       valid = false
     }
