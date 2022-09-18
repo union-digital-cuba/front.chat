@@ -28,11 +28,22 @@ const Register = () => {
   return (
     <>
       <CustomContainer>
-        <CustomForm handleOnSubmit={handleSubmit} logoComponent={makeLogoComponent} submitButton={makeSubmitButton} footer={makeFooter}>
+        <CustomForm
+          handleOnSubmit={handleSubmit}
+          logoComponent={makeLogoComponent}
+          submitButton={makeSubmitButton}
+          footer={makeFooter}
+        >
           <CustomInput type="text" placeholder="Username" name="username" required={true} handleChange={handleChange} />
-          <CustomInput type="email" placeholder="Email" name="email" handleChange={handleChange} />
-          <CustomInput type="password" placeholder="Password" name="password" handleChange={handleChange} />
-          <CustomInput type="password" placeholder="Confirm Password" name="confirmPassword" handleChange={handleChange} />
+          <CustomInput type="email" placeholder="Email" name="email" required={true} handleChange={handleChange} />
+          <CustomInput type="password" placeholder="Password" name="password" required={true} handleChange={handleChange} />
+          <CustomInput
+            type="password"
+            placeholder="Confirm Password"
+            name="confirmPassword"
+            required={true}
+            handleChange={handleChange}
+          />
         </CustomForm>
       </CustomContainer>
     </>
