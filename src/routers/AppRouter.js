@@ -6,8 +6,8 @@ const AppRouter = () => {
   return (
     <Router>
       <Switch>
-        <Route path={'/register'} component={Register} />
-        <Route path={'/landing'} component={Landing} />
+        <Route exact path={'/register'} component={Register} />
+        <Route exact path={'/landing'} component={Landing} />
         <Route path={'/'} component={Landing} />
         <Route path={'*'} component={Error404} />
       </Switch>
