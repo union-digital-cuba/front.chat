@@ -12,3 +12,13 @@ input:focus {
   border: 0.1rem solid #997af0;
   outline: none;
 }
+
+.success:focus {
+  border: 0.1rem solid #1dbb0f;
+  outline: none;
+}
+
+.required:focus {
+  border: 0.1rem solid #ff0e2e;
+  outline: none;
+}
