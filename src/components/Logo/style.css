@@ -1,0 +1,15 @@
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.brand > img {
+  height: 5rem;
+}
+
+.brand > h1 {
+  color: white;
+  text-transform: uppercase;
+}

@@ -1,27 +1,15 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Error404 from 'screens/Errors/Error404'
-import Landing from 'screens/Others/Landing'
+import { Register, Error404, Landing } from 'screens'
 
-const AppRouter = ({ serverAddress }) => {
+const AppRouter = () => {
   return (
     <Router>
       <Switch>
-        <Route path={'/landing'}>
-          <h1>
-            <Landing serverAddress={serverAddress} />
-          </h1>
-        </Route>
-        <Route exact path={'/'}>
-          <h1>
-            <Landing serverAddress={serverAddress} />
-          </h1>
-        </Route>
-        <Route path={'*'}>
-          <h1>
-            <Error404 />
-          </h1>
-        </Route>
+        <Route path={'/register'} component={Register} />
+        <Route path={'/landing'} component={Landing} />
+        <Route path={'/'} component={Landing} />
+        <Route path={'*'} component={Error404} />
       </Switch>
     </Router>
   )

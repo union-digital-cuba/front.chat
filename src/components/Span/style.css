@@ -1,0 +1,10 @@
+span {
+  color: white;
+  text-transform: uppercase;
+}
+
+span > a {
+  color: #4e0eff;
+  text-decoration: none;
+  font-weight: bold;
+}
