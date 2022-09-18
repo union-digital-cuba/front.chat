@@ -4,7 +4,7 @@ import './style.css'
 
 const CustomButton = ({ type, text, handleOnClick }) => {
   return (
-    <button type={type} onClick={() => handleOnClick()}>
+    <button type={type} onClick={handleOnClick}>
       {text}
     </button>
   )

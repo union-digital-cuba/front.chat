@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import Logo from 'assets/images/logo.svg'
 
-import { CustomContainer, CustomButton, CustomForm, CustomInput, CustomLogo, CustomSpan } from 'components'
+import { CustomContainer, CustomButton, CustomForm, CustomInput, CustomLogo, CustomSpan, CustomPopUp } from 'components'
 import { HelperFunction } from 'helpers/functions'
+
+import { CustomTypes } from 'common/CustomTypes'
 
 const Register = () => {
   const [values, setValues] = useState({
@@ -12,9 +14,35 @@ const Register = () => {
     confirmPassword: '',
   })
 
+  const handleValidate = () => {
+    const { username, email, password, confirmPassword } = values
+
+    const Icons = CustomTypes.PopUp.Icon
+    var valid = true
+
+    if (!username) {
+      CustomPopUp(Icons.error, 'Required Username')
+      valid = false
+    }
+    if (HelperFunction.EmailValidate(email)) {
+      CustomPopUp(Icons.error, 'Required Correct Email')
+      valid = false
+    }
+    if (password !== confirmPassword) {
+      CustomPopUp(Icons.error, 'Password and Confirmation do not match')
+      valid = false
+    }
+
+    return valid
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault()
-    alert('form')
+
+    const valid = handleValidate()
+    if (valid) {
+      // const { username, email, password, confirmPassword } = values
+    }
   }
 
   const handleChange = (event) => {

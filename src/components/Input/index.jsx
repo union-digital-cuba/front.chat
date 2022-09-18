@@ -9,7 +9,6 @@ const CustomInput = ({ type, placeholder, name, required, handleChange }) => {
   const onValueChange = (e) => {
     const filled = !!e.target.value
     const error = required ? (filled === true ? false : true) : false
-    console.log(filled, error)
     setClassName(error ? 'required' : 'success')
     handleChange(e)
   }
