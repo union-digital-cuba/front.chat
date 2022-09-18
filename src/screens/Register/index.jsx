@@ -5,6 +5,7 @@ import { CustomContainer, CustomButton, CustomForm, CustomInput, CustomLogo, Cus
 import { HelperFunction } from 'helpers/functions'
 
 import { CustomTypes } from 'common/CustomTypes'
+import { AuthenticationAPI } from 'api/Autentication'
 
 const Register = () => {
   const [values, setValues] = useState({
@@ -36,12 +37,17 @@ const Register = () => {
     return valid
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
 
     const valid = handleValidate()
     if (valid) {
-      // const { username, email, password, confirmPassword } = values
+      const { username, email, password } = values
+      const { statusCode, message } = await AuthenticationAPI.Register({ username, email, password })
+
+      statusCode === 200
+        ? CustomPopUp(CustomTypes.PopUp.Icon.success, 'Register Complete')
+        : CustomPopUp(CustomTypes.PopUp.Icon.error, message)
     }
   }
 

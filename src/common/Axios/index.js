@@ -1,7 +1,7 @@
-import axios from 'axios'
+const axios = require('axios')
 const url = `http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/api`
 
-const Axios = () => {
+const CustomAxios = () => {
   const instance = axios.create({
     baseURL: url,
     headers: {
@@ -14,4 +14,4 @@ const Axios = () => {
   return instance
 }
 
-export default Axios
+export default CustomAxios
