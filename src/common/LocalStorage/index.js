@@ -1,18 +1,16 @@
+const StorageName = 'chat-shy-shy'
+
 const LocalStorage = {
-  saveInLocalStorage: (item) => {
-    let data = {
-      userName: item,
-      isLoggedIn: true,
-    }
-    localStorage.setItem('chatApp', JSON.stringify(data))
+  Set: (data) => {
+    localStorage.setItem(StorageName, JSON.stringify(data))
   },
 
-  getInLocalStorage: (item) => {
-    return JSON.parse(localStorage.getItem(item))
+  Get: () => {
+    return JSON.parse(localStorage.getItem(StorageName))
   },
 
-  removeInLocalStorage: (item) => {
-    localStorage.removeItem(item)
+  Remove: () => {
+    localStorage.removeItem(StorageName)
   },
 }
 

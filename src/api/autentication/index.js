@@ -1,4 +1,3 @@
-// import bcrypt from 'bcryptjs';
 import Axios from 'common/Axios'
 
 export const AuthenticationAPI = {

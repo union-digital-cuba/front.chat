@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import Logo from 'assets/images/logo.svg'
 
 import { CustomContainer, CustomButton, CustomForm, CustomInput, CustomLogo, CustomSpan, CustomPopUp } from 'components'
+import { LocalStorage } from 'common'
 import { HelperFunction } from 'helpers/functions'
 
 import { CustomTypes } from 'common/CustomTypes'
 import { AuthenticationAPI } from 'api/Autentication'
 
 const Register = () => {
+  const history = useHistory()
+
   const [values, setValues] = useState({
     username: '',
     email: '',
@@ -41,13 +45,16 @@ const Register = () => {
     event.preventDefault()
 
     const valid = handleValidate()
+
     if (valid) {
       const { username, email, password } = values
       const { statusCode, message } = await AuthenticationAPI.Register({ username, email, password })
 
-      statusCode === 200
-        ? CustomPopUp(CustomTypes.PopUp.Icon.success, 'Register Complete')
-        : CustomPopUp(CustomTypes.PopUp.Icon.error, message)
+      if (statusCode === 200) {
+        CustomPopUp(CustomTypes.PopUp.Icon.success, 'Register Complete')
+        LocalStorage.Set(username)
+        history.push('/')
+      } else CustomPopUp(CustomTypes.PopUp.Icon.error, message)
     }
   }
 
