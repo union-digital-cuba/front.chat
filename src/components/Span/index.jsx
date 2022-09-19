@@ -6,7 +6,7 @@ import './style.css'
 const CustomSpan = ({ text, redirectTo, redirectText }) => {
   return (
     <span>
-      {text}
+      {`${text} `}
       <Link to={redirectTo}>{redirectText}</Link>
     </span>
   )

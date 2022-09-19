@@ -48,11 +48,11 @@ const Register = () => {
 
     if (valid) {
       const { username, email, password } = values
-      const { statusCode, message } = await AuthenticationAPI.Register({ username, email, password })
+      const { statusCode, response, message } = await AuthenticationAPI.Register({ username, email, password })
 
       if (statusCode === 200) {
         CustomPopUp(CustomTypes.PopUp.Icon.success, 'Register Complete')
-        LocalStorage.Set(username)
+        LocalStorage.Set(response)
         history.push('/')
       } else CustomPopUp(CustomTypes.PopUp.Icon.error, message)
     }
