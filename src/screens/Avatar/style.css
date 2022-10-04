@@ -1,0 +1,18 @@
+h1 {
+  color: white;
+}
+
+.avatars {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+
+  width: 80vw;
+  height: 20vh;
+}
+
+.avatar {
+  width: 200px;
+  height: 200px;
+}
