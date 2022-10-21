@@ -1,6 +1,7 @@
 import fs from 'fs'
 import { GetRandomElementFromList } from './random'
 
+const listOfAvatarsName = ['daniel.jpg', 'elliot.jpg', 'jenny.jpg', 'matthew.png', 'molly.png', 'steve.jpg']
 const avatarFolderPath = 'assets/images/avatars'
 
 const ListOfAvatarsByName = () =>
@@ -9,8 +10,11 @@ const ListOfAvatarsByName = () =>
   })
 
 const GetRandomAvatarName = () => {
-  const listOfAvatars = ['daniel.jpg', 'elliot.jpg', 'jenny.jpg', 'matthew.png', 'molly.png', 'steve.jpg']
-  return GetRandomElementFromList(listOfAvatars)
+  return GetRandomElementFromList(listOfAvatarsName)
 }
 
-export { ListOfAvatarsByName, GetRandomAvatarName }
+const GetTakeFirstNElements = (amount) => {
+  return listOfAvatarsName.slice(0, amount > 6 ? 6 : amount)
+}
+
+export { ListOfAvatarsByName, GetRandomAvatarName, GetTakeFirstNElements }
