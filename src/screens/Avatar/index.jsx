@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { MultiAvatarAPI } from 'api/Avatar'
-import { CustomContainer, CustomErrorInScreen } from 'components'
+import { CustomContainer, CustomErrorInScreen, CustomButton } from 'components'
 import { GetTakeFirstNElements } from 'helpers/avatars'
 import { GetSrcDependingOfType } from 'helpers/images'
 import { CustomTypes } from 'common/CustomTypes'
@@ -12,13 +12,15 @@ const Avatar = () => {
   const [selectedAvatar, setSelectedAvatar] = useState()
   const [avatars, setAvatars] = useState({ loading: true, error: undefined, data: [] })
 
+  const ammountAvatarsToLoad = 4
+
   useEffect(() => {
     const LoadAvatars = async () => {
       try {
-        const multiavatars = await MultiAvatarAPI.GetRandomAvatar(6)
+        const multiavatars = await MultiAvatarAPI.GetRandomAvatar(ammountAvatarsToLoad)
         setAvatars({ loading: false, error: false, data: [...multiavatars], web: true })
       } catch (error) {
-        var assetsAvatars = GetTakeFirstNElements(6)
+        var assetsAvatars = GetTakeFirstNElements(ammountAvatarsToLoad)
         setAvatars({ loading: false, error: false, data: [...assetsAvatars], web: false })
       }
     }
@@ -55,6 +57,7 @@ const Avatar = () => {
         <h1>Pick an avatar as your profile picture</h1>
       </div>
       <div className="avatars">{avatars.loading ? <h1>Loading...</h1> : RenderAvatarsOrError()}</div>
+      {!avatars.loading && <CustomButton type={'submit'} text={'Set as Profile Avatar'} />}
     </CustomContainer>
   )
 }
