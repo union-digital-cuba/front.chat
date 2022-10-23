@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
 
 import { MultiAvatarAPI } from 'api/Avatar'
-import { CustomContainer, CustomErrorInScreen, CustomButton } from 'components'
+import { CustomContainer, CustomErrorInScreen, CustomButton, CustomLoader } from 'components'
 import { GetTakeFirstNElements } from 'helpers/avatars'
 import { GetSrcDependingOfType } from 'helpers/images'
 import { CustomTypes } from 'common/CustomTypes'
-import LoaderGif from 'assets/gifs/loader.gif'
 
 import './style.css'
 
@@ -52,12 +51,6 @@ const Avatar = () => {
     )
   }
 
-  const Loader = (
-    <CustomContainer>
-      <img src={LoaderGif} alt="" />
-    </CustomContainer>
-  )
-
   const AvatarPick = (
     <>
       <div className="title-container">
@@ -68,7 +61,7 @@ const Avatar = () => {
     </>
   )
 
-  return <CustomContainer>{avatars.loading ? Loader : AvatarPick}</CustomContainer>
+  return <CustomContainer>{avatars.loading ? <CustomLoader /> : AvatarPick}</CustomContainer>
 }
 
 export default Avatar
