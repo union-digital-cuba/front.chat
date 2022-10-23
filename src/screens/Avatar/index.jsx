@@ -52,7 +52,7 @@ const Avatar = () => {
       try {
         const storage = await JSON.parse(LocalStorage.Get())
         const avatar = avatars.data[selectedAvatar]
-        const response = await AvatarAPI.SetAvatar({ storage, avatar })
+        const response = await AvatarAPI.SetAvatar({ user: storage, avatar })
 
         if (response.statusCode === 200) {
           storage.isSetAvatar = true
