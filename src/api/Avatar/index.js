@@ -32,9 +32,28 @@ export const MultiAvatarAPI = {
 
 export const AvatarAPI = {
   SetAvatar: async ({ user, avatar }) => {
-    const endpoint = `/user/avatar?id=${user.id}`
-    console.log(endpoint, user, avatar)
-    const { data } = await Axios().post(endpoint, { image: avatar })
-    return data
+    try {
+      const endpoint = `user/avatar?id=${user.id}`
+      const { data } = await Axios().post(endpoint, { image: avatar })
+      return data
+    } catch (error) {
+      return error
+    }
+  },
+  GetAvatars: async ({ amount }) => {
+    try {
+      const avatars = []
+      const endpoint = `avatars?amount=${amount}`
+      const { data } = await Axios().get(endpoint, { timeout: 2000 })
+
+      for (let index = 0; index < amount; index++) {
+        // const image = ConvertToBase64(data)
+        avatars[index] = data
+      }
+
+      return avatars
+    } catch (error) {
+      return error
+    }
   },
 }

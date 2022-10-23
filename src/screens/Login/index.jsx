@@ -19,7 +19,10 @@ const Login = () => {
 
   useEffect(() => {
     const storage = JSON.parse(LocalStorage.Get())
-    if (storage) history.push('/')
+    if (storage) {
+      const { isSetAvatar, image } = storage
+      history.push(isSetAvatar && image ? '/' : '/avatar')
+    }
   }, [])
 
   const handleValidate = () => {

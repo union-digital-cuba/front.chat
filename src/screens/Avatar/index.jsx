@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { MultiAvatarAPI, AvatarAPI } from 'api/Avatar'
+import { AvatarAPI } from 'api/Avatar'
 import { CustomContainer, CustomErrorInScreen, CustomButton, CustomLoader, CustomPopUp } from 'components'
-import { GetTakeLocalAvatars } from 'helpers/avatars'
-import { GetSrcDependingOfType } from 'helpers/images'
+import { GetImage } from 'helpers/images'
 import { CustomTypes } from 'common/CustomTypes'
 import { LocalStorage } from 'common'
 
@@ -26,14 +25,15 @@ const Avatar = () => {
 
   useEffect(() => {
     const LoadAvatars = async () => {
-      const ammountAvatarsToLoad = 4
+      const amountAvatarsToLoad = 4
       try {
-        const multiavatars = await MultiAvatarAPI.GetRandomAvatar({ amount: ammountAvatarsToLoad })
-        setAvatars({ loading: false, error: false, data: [...multiavatars], web: true })
+        // const multiavatars = await MultiAvatarAPI.GetRandomAvatar({ amount })
+        // setAvatars({ loading: false, error: false, data: [...multiavatars] })
+        throw Error()
       } catch (multiError) {
         try {
-          var assetsAvatars = GetTakeLocalAvatars(ammountAvatarsToLoad)
-          setAvatars({ loading: false, error: false, data: [...assetsAvatars], web: false })
+          const avatarsFormApi = await AvatarAPI.GetAvatars({ amount: amountAvatarsToLoad })
+          setAvatars({ loading: false, error: false, data: [...avatarsFormApi] })
         } catch (localError) {
           CustomPopUp(CustomTypes.PopUp.Icon.error, `Error loading avatars... ${localError}`)
         }
@@ -58,6 +58,7 @@ const Avatar = () => {
           storage.isSetAvatar = true
           storage.image = response.image
           LocalStorage.Set(JSON.stringify(storage))
+          history.push('/')
         }
       } catch (error) {
         CustomPopUp(CustomTypes.PopUp.Icon.error, 'We cant set the avatar')
@@ -70,15 +71,9 @@ const Avatar = () => {
       <CustomErrorInScreen error={avatars.error} />
     ) : (
       avatars.data.map((avatar, index) => {
-        var imageType = avatars.web ? CustomTypes.ImageTypes.web : CustomTypes.ImageTypes.local
-
         return (
           <div key={index} className={`avatar ${selectedAvatar === index ? 'selected' : ''}`}>
-            <img
-              src={GetSrcDependingOfType(imageType, avatar)}
-              alt="avatar"
-              onClick={() => handleOnClickAvatar(index)}
-            />
+            <img src={GetImage(avatar)} alt="avatar" onClick={() => handleOnClickAvatar(index)} />
           </div>
         )
       })
