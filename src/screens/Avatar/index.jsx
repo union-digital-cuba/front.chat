@@ -3,12 +3,12 @@ import { useHistory } from 'react-router-dom'
 
 import { MultiAvatarAPI, AvatarAPI } from 'api/Avatar'
 import { CustomContainer, CustomErrorInScreen, CustomButton, CustomLoader, CustomPopUp } from 'components'
-import { GetTakeFirstNElements } from 'helpers/avatars'
+import { GetTakeLocalAvatars } from 'helpers/avatars'
 import { GetSrcDependingOfType } from 'helpers/images'
 import { CustomTypes } from 'common/CustomTypes'
+import { LocalStorage } from 'common'
 
 import './style.css'
-import { LocalStorage } from 'common'
 
 const Avatar = () => {
   const history = useHistory()
@@ -17,20 +17,22 @@ const Avatar = () => {
   const [avatars, setAvatars] = useState({ loading: true, error: undefined, data: [] })
 
   useEffect(() => {
-    const storage = JSON.parse(LocalStorage.Get())
-    if (!storage) history.push('/login')
+    const CheckLocalStorage = async () => {
+      const storage = await JSON.parse(LocalStorage.Get())
+      if (!storage) history.push('/login')
+    }
+    CheckLocalStorage()
   }, [])
 
   useEffect(() => {
     const LoadAvatars = async () => {
       const ammountAvatarsToLoad = 4
-
       try {
         const multiavatars = await MultiAvatarAPI.GetRandomAvatar({ amount: ammountAvatarsToLoad })
         setAvatars({ loading: false, error: false, data: [...multiavatars], web: true })
       } catch (multiError) {
         try {
-          var assetsAvatars = GetTakeFirstNElements({ amount: ammountAvatarsToLoad })
+          var assetsAvatars = GetTakeLocalAvatars(ammountAvatarsToLoad)
           setAvatars({ loading: false, error: false, data: [...assetsAvatars], web: false })
         } catch (localError) {
           CustomPopUp(CustomTypes.PopUp.Icon.error, `Error loading avatars... ${localError}`)
@@ -45,16 +47,16 @@ const Avatar = () => {
   }
 
   const handleOnClickSelectAvatar = async () => {
-    if (!selectedAvatar) CustomPopUp(CustomTypes.PopUp.Icon.error, 'Please, select a avatar...')
+    if (!selectedAvatar) CustomPopUp(CustomTypes.PopUp.Icon.info, 'Please, select a avatar...')
     else {
       try {
         const storage = await JSON.parse(LocalStorage.Get())
-        const avatar = avatars[selectedAvatar]
+        const avatar = avatars.data[selectedAvatar]
         const response = await AvatarAPI.SetAvatar({ storage, avatar })
 
         if (response.statusCode === 200) {
-          storage.iAvatarImageSet = true
-          storage.avatarImage = response.image
+          storage.isSetAvatar = true
+          storage.image = response.image
           LocalStorage.Set(JSON.stringify(storage))
         }
       } catch (error) {
@@ -68,7 +70,7 @@ const Avatar = () => {
       <CustomErrorInScreen error={avatars.error} />
     ) : (
       avatars.data.map((avatar, index) => {
-        var imageType = avatars.web ? CustomTypes.ImageTypes.Base64 : CustomTypes.ImageTypes.Assets
+        var imageType = avatars.web ? CustomTypes.ImageTypes.web : CustomTypes.ImageTypes.local
 
         return (
           <div key={index} className={`avatar ${selectedAvatar === index ? 'selected' : ''}`}>
@@ -93,7 +95,7 @@ const Avatar = () => {
         <CustomButton
           type={'submit'}
           text={'Set as Profile Avatar'}
-          onClick={(event) => handleOnClickSelectAvatar(event)}
+          handleOnClick={() => handleOnClickSelectAvatar()}
         />
       )}
     </>

@@ -10,6 +10,6 @@ const CustomTypes = {
       bottomCenter: 'bottom-center',
     },
   },
-  ImageTypes: { Base64: 'base64', Assets: 'assets' },
+  ImageTypes: { local: 'local', web: 'web' },
 }
 export { CustomTypes }

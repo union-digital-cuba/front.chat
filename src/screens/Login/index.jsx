@@ -46,14 +46,19 @@ const Login = () => {
     const valid = handleValidate()
 
     if (valid) {
-      const { username, password } = values
-      const { statusCode, response, message } = await AuthenticationAPI.Login({ username, password })
+      try {
+        const { username, password } = values
+        const { statusCode, response, message } = await AuthenticationAPI.Login({ username, password })
 
-      if (statusCode === 200) {
-        CustomPopUp(CustomTypes.PopUp.Icon.success, 'Login Complete')
-        LocalStorage.Set(response)
-        history.push('/')
-      } else CustomPopUp(CustomTypes.PopUp.Icon.error, message)
+        if (statusCode === 200) {
+          CustomPopUp(CustomTypes.PopUp.Icon.success, 'Login Complete')
+          LocalStorage.Set(JSON.stringify(response))
+
+          response.isSetAvatar ? history.push('/') : history.push('/avatar')
+        } else CustomPopUp(CustomTypes.PopUp.Icon.error, message)
+      } catch (error) {
+        CustomPopUp(CustomTypes.PopUp.Icon.error, error)
+      }
     }
   }
 

@@ -1,20 +1,30 @@
-import fs from 'fs'
 import { GetRandomElementFromList } from './random'
 
-const listOfAvatarsName = ['daniel.jpg', 'elliot.jpg', 'jenny.jpg', 'matthew.png', 'molly.png', 'steve.jpg']
-const avatarFolderPath = 'assets/images/avatars'
-
-const ListOfAvatarsByName = () =>
-  fs.readdirSync(avatarFolderPath).map((file) => {
-    file
-  })
-
+const listOfAvatarsName = [
+  'daniel',
+  'elliot',
+  'jenny',
+  'matthew',
+  'molly',
+  'steve',
+  'berto',
+  'indi',
+  'jenny',
+  'leonard',
+  'lili',
+  'nancy',
+]
 const GetRandomAvatarName = () => {
   return GetRandomElementFromList(listOfAvatarsName)
 }
 
-const GetTakeFirstNElements = ({ amount }) => {
-  return listOfAvatarsName.slice(0, amount > 6 ? 6 : amount)
+const GetTakeLocalAvatars = (amount) => {
+  const avatars = []
+  while (avatars.length < amount) {
+    const name = GetRandomAvatarName()
+    if (avatars.indexOf(name) === -1) avatars.push(`${name}.svg`)
+  }
+  return avatars
 }
 
-export { ListOfAvatarsByName, GetRandomAvatarName, GetTakeFirstNElements }
+export { GetRandomAvatarName, GetTakeLocalAvatars }

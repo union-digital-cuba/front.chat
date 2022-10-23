@@ -7,7 +7,7 @@ const ConvertToBase64 = (data) => {
 }
 
 const GetSrcDependingOfType = (type, image) => {
-  return type === CustomTypes.ImageTypes.Base64 ? `data:image/svg+xml;base64,${image}` : `images/avatars/${image}`
+  return type === CustomTypes.ImageTypes.web ? `data:image/svg+xml;base64,${image}` : `images/avatars/${image}`
 }
 
 export { ConvertToBase64, GetSrcDependingOfType }

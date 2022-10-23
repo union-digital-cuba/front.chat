@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom'
 import Logo from 'assets/images/logo.svg'
 
 import { CustomContainer, CustomButton, CustomForm, CustomInput, CustomLogo, CustomSpan, CustomPopUp } from 'components'
-import { LocalStorage } from 'common'
 import { HelperFunction } from 'helpers/functions'
 
 import { CustomTypes } from 'common/CustomTypes'
@@ -46,15 +45,19 @@ const Register = () => {
 
     const valid = handleValidate()
 
-    if (valid) {
-      const { username, email, password } = values
-      const { statusCode, response, message } = await AuthenticationAPI.Register({ username, email, password })
+    try {
+      if (valid) {
+        const { username, email, password } = values
+        const { statusCode, message } = await AuthenticationAPI.Register({ username, email, password })
 
-      if (statusCode === 200) {
-        CustomPopUp(CustomTypes.PopUp.Icon.success, 'Register Complete')
-        LocalStorage.Set(JSON.stringify(response))
-        history.push('/')
-      } else CustomPopUp(CustomTypes.PopUp.Icon.error, message)
+        if (statusCode === 200) {
+          CustomPopUp(CustomTypes.PopUp.Icon.success, 'Register Complete')
+
+          history.push('/login')
+        } else CustomPopUp(CustomTypes.PopUp.Icon.error, message)
+      }
+    } catch (error) {
+      CustomPopUp(CustomTypes.PopUp.Icon.error, error)
     }
   }
 
