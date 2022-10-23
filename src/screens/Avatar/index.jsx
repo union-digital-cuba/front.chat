@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { AvatarAPI } from 'api/Avatar'
+import { AvatarAPI, MultiAvatarAPI } from 'api/Avatar'
 import { CustomContainer, CustomErrorInScreen, CustomButton, CustomLoader, CustomPopUp } from 'components'
 import { GetImage } from 'helpers/images'
 import { CustomTypes } from 'common/CustomTypes'
@@ -27,9 +27,8 @@ const Avatar = () => {
     const LoadAvatars = async () => {
       const amountAvatarsToLoad = 4
       try {
-        // const multiavatars = await MultiAvatarAPI.GetRandomAvatar({ amount })
-        // setAvatars({ loading: false, error: false, data: [...multiavatars] })
-        throw Error()
+        const multiavatars = await MultiAvatarAPI.GetRandomAvatar({ amount: amountAvatarsToLoad })
+        setAvatars({ loading: false, error: false, data: [...multiavatars] })
       } catch (multiError) {
         try {
           const avatarsFormApi = await AvatarAPI.GetAvatars({ amount: amountAvatarsToLoad })
