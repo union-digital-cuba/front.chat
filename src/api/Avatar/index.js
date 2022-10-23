@@ -17,7 +17,7 @@ export const MultiAvatarAPI = {
       for (let index = 0; index < amount; index++) {
         const avatarName = GetRandomWordFromArrayAndLength(Chars, amount)
         const endpoint = `${api}${avatarName}`
-        const { data } = await axios.get(endpoint)
+        const { data } = await axios.get(endpoint, { timeout: 2000 })
 
         const image = ConvertToBase64(data)
         avatars[index] = image
