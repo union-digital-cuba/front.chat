@@ -1,5 +1,6 @@
 h1 {
   color: white;
+  text-align: center;
 }
 
 .avatars {
@@ -27,9 +28,19 @@ img {
 .avatar:hover {
   transform: scale(1.08);
   transition: all 0.3s ease;
+  border-radius: 100%;
+  border: 0.4rem solid #ffc7a7;
 }
 
 .selected {
   border-radius: 100%;
   border: 0.4rem solid #4e0eff;
+}
+
+@media (max-width: 600px) {
+  .avatars {
+    flex-direction: row;
+    width: auto;
+    flex-wrap: wrap;
+  }
 }
