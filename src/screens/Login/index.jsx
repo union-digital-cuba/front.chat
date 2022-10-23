@@ -60,7 +60,7 @@ const Login = () => {
     HelperFunction.handleChange(event, values, setValues)
   }
 
-  const makeLogoComponent = <CustomLogo text={'Shy, Shy'} logoSource={Logo} />
+  const makeLogoComponent = <CustomLogo text={'Login...'} logoSource={Logo} />
   const makeSubmitButton = <CustomButton type={'submit'} text={'Login'} />
   const makeFooter = <CustomSpan text={'Already have a account?'} redirectTo={'/register'} redirectText={'Register'} />
 
@@ -73,7 +73,13 @@ const Login = () => {
         footer={makeFooter}
       >
         <CustomInput type="text" placeholder="Username" name="username" required={true} handleChange={handleChange} />
-        <CustomInput type="password" placeholder="Password" name="password" required={true} handleChange={handleChange} />
+        <CustomInput
+          type="password"
+          placeholder="Password"
+          name="password"
+          required={true}
+          handleChange={handleChange}
+        />
       </CustomForm>
     </CustomContainer>
   )
