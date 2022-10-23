@@ -5,6 +5,7 @@ import { CustomContainer, CustomErrorInScreen, CustomButton } from 'components'
 import { GetTakeFirstNElements } from 'helpers/avatars'
 import { GetSrcDependingOfType } from 'helpers/images'
 import { CustomTypes } from 'common/CustomTypes'
+import LoaderGif from 'assets/gifs/loader.gif'
 
 import './style.css'
 
@@ -51,15 +52,23 @@ const Avatar = () => {
     )
   }
 
-  return (
+  const Loader = (
     <CustomContainer>
+      <img src={LoaderGif} alt="" />
+    </CustomContainer>
+  )
+
+  const AvatarPick = (
+    <>
       <div className="title-container">
         <h1>Pick an avatar as your profile picture</h1>
       </div>
       <div className="avatars">{avatars.loading ? <h1>Loading...</h1> : RenderAvatarsOrError()}</div>
       {!avatars.loading && <CustomButton type={'submit'} text={'Set as Profile Avatar'} />}
-    </CustomContainer>
+    </>
   )
+
+  return <CustomContainer>{avatars.loading ? Loader : AvatarPick}</CustomContainer>
 }
 
 export default Avatar
