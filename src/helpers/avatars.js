@@ -13,7 +13,7 @@ const GetRandomAvatarName = () => {
   return GetRandomElementFromList(listOfAvatarsName)
 }
 
-const GetTakeFirstNElements = (amount) => {
+const GetTakeFirstNElements = ({ amount }) => {
   return listOfAvatarsName.slice(0, amount > 6 ? 6 : amount)
 }
 

@@ -52,7 +52,7 @@ const Register = () => {
 
       if (statusCode === 200) {
         CustomPopUp(CustomTypes.PopUp.Icon.success, 'Register Complete')
-        LocalStorage.Set(response)
+        LocalStorage.Set(JSON.stringify(response))
         history.push('/')
       } else CustomPopUp(CustomTypes.PopUp.Icon.error, message)
     }

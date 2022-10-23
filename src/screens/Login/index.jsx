@@ -18,7 +18,8 @@ const Login = () => {
   })
 
   useEffect(() => {
-    if (LocalStorage.Get()) history.push('/')
+    const storage = JSON.parse(LocalStorage.Get())
+    if (storage) history.push('/')
   }, [])
 
   const handleValidate = () => {

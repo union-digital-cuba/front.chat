@@ -10,7 +10,7 @@ import { ConvertToBase64 } from 'helpers/images'
 const api = 'https://api.multiavatar.com/'
 
 export const MultiAvatarAPI = {
-  GetRandomAvatar: async (amount) => {
+  GetRandomAvatar: async ({ amount }) => {
     try {
       const avatars = []
 
@@ -28,10 +28,13 @@ export const MultiAvatarAPI = {
       return error
     }
   },
-  SetAvatar: async ({ avatar }) => {
-    const endpoint = `/user/set-avatar/${avatar}`
+}
 
-    const { data } = await Axios().post(endpoint, { avatar })
+export const AvatarAPI = {
+  SetAvatar: async ({ user, avatar }) => {
+    const endpoint = `/user/set-avatar/${user.id}`
+
+    const { data } = await Axios().post(endpoint, { image: avatar })
     return data
   },
 }
