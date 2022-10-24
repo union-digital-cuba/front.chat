@@ -9,7 +9,7 @@ const AppRouter = () => {
         <Route exact path={'/register'} component={Register} />
         <Route exact path={'/login'} component={Login} />
         <Route exact path={'/avatar'} component={Avatar} />
-        <Route path={'/'} component={Chat} />
+        <Route exact path={'/'} component={Chat} />
         <Route path={'*'} component={Error404} />
       </Switch>
     </Router>

@@ -1,0 +1,90 @@
+.main-container {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+
+  gap: 1rem;
+
+  width: 98vw;
+  height: 95vh;
+
+  background-color: #00000076;
+  border-radius: 2rem;
+  padding: 1rem 1rem;
+}
+
+.room-user-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.5rem;
+
+  width: 10%;
+
+  border-radius: 1.3rem 0 0 1.3rem;
+  padding: 0.5rem;
+
+  background-color: white;
+}
+
+.room-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 90%;
+
+  border-radius: 1rem 0 0 0;
+
+  background-color: fuchsia;
+}
+
+.user-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 10%;
+
+  border-radius: 0 0 0 1rem;
+
+  background-color: fuchsia;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  width: 70%;
+
+  background-color: red;
+}
+
+.users-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  width: 20%;
+
+  border-radius: 0 1.3rem 1.3rem 0;
+
+  background-color: chocolate;
+}
+
+@media screen and (min-width: 800px) and (max-width: 1080px) {
+  .main-container {
+    flex-direction: column;
+  }
+
+  .room-user-container {
+    flex-direction: row;
+    justify-content: center;
+    border-radius: 0;
+
+    width: 100%;
+  }
+}

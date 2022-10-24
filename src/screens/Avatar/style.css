@@ -42,5 +42,6 @@ img {
     flex-direction: row;
     width: auto;
     flex-wrap: wrap;
+    margin-bottom: 2rem;
   }
 }
