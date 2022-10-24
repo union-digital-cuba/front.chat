@@ -12,7 +12,7 @@ import './style.css'
 const Avatar = () => {
   const history = useHistory()
 
-  const [selectedAvatar, setSelectedAvatar] = useState()
+  const [selectedAvatar, setSelectedAvatar] = useState(null)
   const [avatars, setAvatars] = useState({ loading: true, error: undefined, data: [] })
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const Avatar = () => {
   }
 
   const handleOnClickSelectAvatar = async () => {
-    if (!selectedAvatar) CustomPopUp(CustomTypes.PopUp.Icon.info, 'Please, select a avatar...')
+    if (selectedAvatar === null) CustomPopUp(CustomTypes.PopUp.Icon.info, 'Please, select a avatar...')
     else {
       try {
         const storage = await JSON.parse(LocalStorage.Get())

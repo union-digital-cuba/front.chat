@@ -1,14 +1,14 @@
 input {
   background-color: white;
-  padding: 1rem;
-  border: 0.1rem solid #4e0eff;
+  padding: 0.8rem;
+  border: 0.1rem solid transparent;
   color: #00000076;
   width: 100%;
   font-size: 1rem;
 }
 
 input:focus {
-  border: 0.1rem solid #997af0;
+  border: 0.1rem solid #65bcf7;
   outline: none;
 }
 
