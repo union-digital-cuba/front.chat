@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import Logo from 'assets/images/logo.svg'
 
-import { CustomContainer, CustomButton, CustomForm, CustomInput, CustomLogo, CustomSpan, CustomPopUp } from 'components'
+import { CustomButton, CustomForm, CustomInput, CustomLogo, CustomSpan, CustomPopUp, CustomLayout } from 'components'
 import { LocalStorage } from 'common'
 import { HelperFunction } from 'helpers/functions'
 
@@ -72,26 +72,18 @@ const Login = () => {
   const makeLogoComponent = <CustomLogo text={'Login...'} logoSource={Logo} />
   const makeSubmitButton = <CustomButton type={'submit'} text={'Login'} />
   const makeFooter = <CustomSpan text={'Already have a account?'} redirectTo={'/register'} redirectText={'Register'} />
-
-  return (
-    <CustomContainer>
-      <CustomForm
-        handleOnSubmit={handleSubmit}
-        logoComponent={makeLogoComponent}
-        submitButton={makeSubmitButton}
-        footer={makeFooter}
-      >
-        <CustomInput type="text" placeholder="Username" name="username" required={true} handleChange={handleChange} />
-        <CustomInput
-          type="password"
-          placeholder="Password"
-          name="password"
-          required={true}
-          handleChange={handleChange}
-        />
-      </CustomForm>
-    </CustomContainer>
+  const loginScreen = (
+    <CustomForm
+      handleOnSubmit={handleSubmit}
+      logoComponent={makeLogoComponent}
+      submitButton={makeSubmitButton}
+      footer={makeFooter}
+    >
+      <CustomInput type="text" placeholder="Username" name="username" required={true} handleChange={handleChange} />
+      <CustomInput type="password" placeholder="Password" name="password" required={true} handleChange={handleChange} />
+    </CustomForm>
   )
+  return <CustomLayout>{loginScreen}</CustomLayout>
 }
 
 export default Login
