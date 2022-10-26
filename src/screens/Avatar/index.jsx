@@ -11,9 +11,11 @@ import { CustomTypes } from 'common/CustomTypes'
 import { LocalStorage } from 'common'
 
 import './style.css'
+import useAuth from 'hooks/useAuth'
 
 const ScreenAvatar = () => {
   const history = useHistory()
+  const auth = useAuth()
   const darkMode = useDarkMode(false)
 
   const [selectedAvatar, setSelectedAvatar] = useState(null)
@@ -47,6 +49,7 @@ const ScreenAvatar = () => {
 
   const handleOnClickAvatar = (index) => {
     setSelectedAvatar(index)
+    auth.ChangeAvatar(avatars.data[index])
   }
 
   const handleOnClickSelectAvatar = async () => {
@@ -75,7 +78,7 @@ const ScreenAvatar = () => {
     return avatars.error ? (
       <CustomErrorInScreen error={avatars.error} />
     ) : (
-      avatars.data.map((url, index) => {
+      avatars.data.map((avatar, index) => {
         return (
           // <div key={index} className={`avatar ${selectedAvatar === index ? 'selected' : ''}`}>
           //   <img src={GetImage(avatar)} alt="avatar" onClick={() => handleOnClickAvatar(index)} />
@@ -85,7 +88,7 @@ const ScreenAvatar = () => {
             css={{ h: '8rem', w: '8rem' }}
             key={index}
             zoomed
-            src={GetImage(url)}
+            src={GetImage(avatar)}
             onClick={() => handleOnClickAvatar(index)}
           />
         )

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import { Navbar, Text, Button, Tooltip, Dropdown, Avatar } from '@nextui-org/react'
 import { SunIcon, MoonIcon } from 'components/Icons'
@@ -10,33 +11,38 @@ import { LocalStorage } from 'common'
 //TODO: Cambiar el logo luego
 // import AcmeLogo from 'assets/images/acme.svg'
 import './style.css'
+import useAuth from 'hooks/useAuth'
+import { GetImage } from 'helpers/images'
 
 const CustomNavBar = () => {
+  const [user, setUser] = useState()
+
+  const history = useHistory()
   const darkMode = useDarkMode(false)
-  const [userData, setUserData] = useState(null)
+  const auth = useAuth()
 
   useEffect(() => {
     const CheckLocalStorage = async () => {
       const storage = await JSON.parse(LocalStorage.Get())
-      if (storage) setUserData(storage)
+      if (storage) {
+        auth.LogIn(storage)
+        setUser(storage)
+      }
     }
     CheckLocalStorage()
   }, [])
 
-  //TODO: El logout es en un contexto
   const handleDropdownActionKey = ({ actionKey }) => {
     if (actionKey === 'logout') {
       LocalStorage.Remove()
-      setUserData(null)
+      auth.LogOut()
+      setUser()
+      history.push('/')
     }
   }
 
   const ColorMode = (
-    <Tooltip
-      content={`${darkMode.value ? 'light' : 'dark'} mode`}
-      color={darkMode.value && 'invert'}
-      placement="bottomEnd"
-    >
+    <Tooltip content={`${darkMode.value ? 'Light' : 'Dark'} Mode`} color={'invert'} placement="bottom">
       <Button light auto onClick={() => darkMode.toggle()} icon={darkMode.value ? <SunIcon /> : <MoonIcon />} />
     </Tooltip>
   )
@@ -45,13 +51,7 @@ const CustomNavBar = () => {
     <Dropdown placement="bottom-right">
       <Navbar.Item>
         <Dropdown.Trigger>
-          <Avatar
-            bordered
-            as="button"
-            color="primary"
-            size="md"
-            src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-          />
+          <Avatar bordered as="button" color="primary" size="md" src={GetImage(user?.image)} />
         </Dropdown.Trigger>
       </Navbar.Item>
       <Dropdown.Menu
@@ -64,7 +64,7 @@ const CustomNavBar = () => {
             Signed in as
           </Text>
           <Text b color="inherit" css={{ d: 'flex' }}>
-            {userData?.email}
+            {user?.email}
           </Text>
         </Dropdown.Item>
         <Dropdown.Item key="settings" withDivider>
@@ -109,7 +109,7 @@ const CustomNavBar = () => {
         }}
       >
         {ColorMode}
-        {userData && UserData}
+        {user && UserData}
       </Navbar.Content>
     </Navbar>
   )
