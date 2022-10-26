@@ -75,6 +75,7 @@ const Login = () => {
       Login
     </Button>
   )
+
   const makeRegisterButton = (
     <Button color="secondary" onClick={() => history.push('/register')} auto>
       Register

@@ -14,7 +14,7 @@ const CustomForm = ({ handleOnSubmit, caption, submitButton, footer, children })
       <Card.Body css={{ py: '$12' }}>
         <div className="form-children">{children}</div>
       </Card.Body>
-      <Card.Footer className="card-footer">
+      <Card.Footer className="card-footer" css={{ ai: 'unset' }}>
         {submitButton}
         {footer}
       </Card.Footer>

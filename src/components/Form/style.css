@@ -13,9 +13,8 @@ form {
 }
 
 .card-footer {
-  display: flex;
   flex-direction: column;
   gap: 0.8rem;
 
-  flex-basis: 100%;
+  flex-basis: 100% !important;
 }
