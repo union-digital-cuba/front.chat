@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import Logo from 'assets/images/logo.svg'
 
-import { CustomContainer, CustomButton, CustomForm, CustomInput, CustomLogo, CustomSpan, CustomPopUp } from 'components'
+import { Button } from '@nextui-org/react'
+
+import { CustomContainer, CustomForm, CustomInput, CustomLogo, CustomPopUp, CustomSpan } from 'components'
 import { HelperFunction } from 'helpers/functions'
 
 import { CustomTypes } from 'common/CustomTypes'
@@ -66,8 +68,13 @@ const Register = () => {
   }
 
   const makeLogoComponent = <CustomLogo text={'Create Account'} logoSource={Logo} />
-  const makeSubmitButton = <CustomButton type={'submit'} text={'Create User'} />
-  const makeFooter = <CustomSpan text={'Already have a account ?'} redirectTo={'/login'} redirectText={'Login'} />
+  const makeSubmitButton = <Button type={'submit'}>Create User</Button>
+  const makeLoginButton = (
+    <Button color="secondary" onClick={() => history.push('/login')} auto>
+      Login
+    </Button>
+  )
+  const makeFooter = <CustomSpan text={'Already have a account ?'} actionComponent={makeLoginButton} />
 
   return (
     <CustomContainer>

@@ -11,23 +11,21 @@ const CustomTypes = {
     },
   },
   ImageTypes: { local: 'local', web: 'web' },
+  Sizes: {
+    xs: 'xs',
+    sm: 'sm',
+    md: 'md',
+    lg: 'lg',
+    xl: 'xl',
+  },
+  ColorsButton: {
+    default: 'default',
+    primary: 'primary',
+    secondary: 'secondary',
+    success: 'success',
+    warning: 'warning',
+    error: 'error',
+  },
 }
 
-const NormalSizes = {
-  xs: 'xs',
-  sm: 'sm',
-  md: 'md',
-  lg: 'lg',
-  xl: 'xl',
-}
-
-const NormalColors = {
-  default: 'default',
-  primary: 'primary',
-  secondary: 'secondary',
-  success: 'success',
-  warning: 'warning',
-  error: 'error',
-}
-
-export { CustomTypes, NormalSizes, NormalColors }
+export { CustomTypes }

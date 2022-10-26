@@ -1,5 +1,4 @@
 export { default as CustomContainer } from './Container'
-export { default as CustomButton } from './Button'
 export { default as CustomForm } from './Form'
 export { default as CustomInput } from './Input'
 export { default as CustomLogo } from './Logo'

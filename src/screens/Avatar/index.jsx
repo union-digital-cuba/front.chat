@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
+import { Button } from '@nextui-org/react'
+
 import { AvatarAPI, MultiAvatarAPI } from 'api/Avatar'
-import { CustomContainer, CustomErrorInScreen, CustomButton, CustomLoader, CustomPopUp } from 'components'
+import { CustomContainer, CustomErrorInScreen, CustomLoader, CustomPopUp } from 'components'
 import { GetImage } from 'helpers/images'
 import { CustomTypes } from 'common/CustomTypes'
 import { LocalStorage } from 'common'
@@ -86,11 +88,9 @@ const Avatar = () => {
       </div>
       <div className="avatars">{RenderAvatarsOrError()}</div>
       {!avatars.loading && (
-        <CustomButton
-          type={'submit'}
-          text={'Set as Profile Avatar'}
-          handleOnClick={() => handleOnClickSelectAvatar()}
-        />
+        <Button type={'submit'} onClick={() => handleOnClickSelectAvatar()}>
+          Set as Profile Avatar
+        </Button>
       )}
     </>
   )

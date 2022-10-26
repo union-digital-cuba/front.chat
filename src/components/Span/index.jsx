@@ -1,13 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-
 import './style.css'
 
-const CustomSpan = ({ text, redirectTo, redirectText }) => {
+const CustomSpan = ({ text, actionComponent }) => {
   return (
     <span>
       {`${text} `}
-      <Link to={redirectTo}>{redirectText}</Link>
+      {actionComponent}
     </span>
   )
 }
