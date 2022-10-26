@@ -3,7 +3,7 @@ import CustomContainer from 'components/Container'
 
 import { NextUIProvider, createTheme } from '@nextui-org/react'
 import useDarkMode from 'use-dark-mode'
-import CustomNavBar from 'components/NavBar'
+import CustomNavBar from './NavBar'
 
 import './style.css'
 
