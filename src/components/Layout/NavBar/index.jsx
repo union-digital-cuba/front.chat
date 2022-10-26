@@ -23,11 +23,19 @@ const CustomNavBar = () => {
     CheckLocalStorage()
   }, [])
 
+  //TODO: El logout es en un contexto
+  const handleDropdownActionKey = ({ actionKey }) => {
+    if (actionKey === 'logout') {
+      LocalStorage.Remove()
+      setUserData(null)
+    }
+  }
+
   const ColorMode = (
     <Tooltip
-      content={`Toggle to ${darkMode.value ? 'light' : 'dark'} mode`}
-      color={!darkMode.value && 'invert'}
-      placement="bottom"
+      content={`${darkMode.value ? 'light' : 'dark'} mode`}
+      color={darkMode.value && 'invert'}
+      placement="bottomEnd"
     >
       <Button light auto onClick={() => darkMode.toggle()} icon={darkMode.value ? <SunIcon /> : <MoonIcon />} />
     </Tooltip>
@@ -49,14 +57,14 @@ const CustomNavBar = () => {
       <Dropdown.Menu
         aria-label="User menu actions"
         color="secondary"
-        onAction={(actionKey) => console.log({ actionKey })}
+        onAction={(actionKey) => handleDropdownActionKey({ actionKey })}
       >
         <Dropdown.Item key="profile" css={{ height: '$18' }}>
           <Text b color="inherit" css={{ d: 'flex' }}>
             Signed in as
           </Text>
           <Text b color="inherit" css={{ d: 'flex' }}>
-            zoey@example.com
+            {userData?.email}
           </Text>
         </Dropdown.Item>
         <Dropdown.Item key="settings" withDivider>

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { LocalStorage } from 'common'
-import { CustomContainer } from 'components'
+import { CustomLayout } from 'components'
 import { useViewport } from 'context/ViewportProvider'
 import ChatDesktop from './desktop'
 import ChatMobile from './mobile'
@@ -28,7 +28,7 @@ const Chat = () => {
     return isMobile ? ChatMobile() : ChatDesktop()
   }
 
-  return <CustomContainer>{GetComponentDependingViewportWidth()}</CustomContainer>
+  return <CustomLayout>{GetComponentDependingViewportWidth()}</CustomLayout>
 }
 
 export default Chat
