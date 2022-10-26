@@ -7,13 +7,14 @@ import AcmeLogo from 'components/Icons/logo'
 
 //TODO: Cambiar el logo luego
 // import AcmeLogo from 'assets/images/acme.svg'
+import './style.css'
 
 const CustomNavBar = () => {
   const darkMode = useDarkMode(false)
 
   return (
     <Navbar isCompact isBordered variant="sticky">
-      <Navbar.Brand css={{ mr: '$4' }}>
+      <Navbar.Brand>
         <AcmeLogo />
         <Text b color="inherit" hideIn="xs">
           Stuch
@@ -28,7 +29,7 @@ const CustomNavBar = () => {
         }}
       >
         <Switch
-          size="xl"
+          size="md"
           iconOn={<SunIcon filled />}
           iconOff={<MoonIcon filled />}
           checked={darkMode.value}

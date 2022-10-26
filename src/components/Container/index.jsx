@@ -1,9 +1,13 @@
 import React from 'react'
+import useDarkMode from 'use-dark-mode'
 
 import './style.css'
 
 const CustomContainer = ({ children }) => {
-  return <div className="custom-container">{children}</div>
+  const darkMode = useDarkMode()
+  const containerClassName = `custom-container-${darkMode.value ? 'dark' : 'light'}`
+
+  return <div className={containerClassName}>{children}</div>
 }
 
 export default CustomContainer

@@ -12,4 +12,22 @@ const CustomTypes = {
   },
   ImageTypes: { local: 'local', web: 'web' },
 }
-export { CustomTypes }
+
+const NormalSizes = {
+  xs: 'xs',
+  sm: 'sm',
+  md: 'md',
+  lg: 'lg',
+  xl: 'xl',
+}
+
+const NormalColors = {
+  default: 'default',
+  primary: 'primary',
+  secondary: 'secondary',
+  success: 'success',
+  warning: 'warning',
+  error: 'error',
+}
+
+export { CustomTypes, NormalSizes, NormalColors }
