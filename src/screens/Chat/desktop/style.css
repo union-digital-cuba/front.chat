@@ -1,12 +1,12 @@
 .main-container {
   display: flex;
   flex-direction: row;
-  align-items: stretch;
+  align-items: flex-start;
 
   gap: 1rem;
 
-  width: 98vw;
-  height: 90vh;
+  width: 98%;
+  height: 85%;
 
   background-color: #00000076;
   border-radius: 2rem;

@@ -2,23 +2,23 @@ import React from 'react'
 
 import './style.css'
 
-import { Card, Text } from '@nextui-org/react'
+import { Text } from '@nextui-org/react'
+import CustomCard from 'components/Card'
 
 const CustomForm = ({ handleOnSubmit, caption, submitButton, footer, children }) => {
   const CardForm = (
-    <Card variant="bordered" isHoverable>
-      <Card.Header css={{ jc: 'center' }}>
-        <Text b>{caption}</Text>
-      </Card.Header>
-      <Card.Divider className="card-divider" />
-      <Card.Body css={{ py: '$12' }}>
-        <div className="form-children">{children}</div>
-      </Card.Body>
-      <Card.Footer className="card-footer" css={{ ai: 'unset' }}>
-        {submitButton}
-        {footer}
-      </Card.Footer>
-    </Card>
+    <CustomCard
+      headerComponent={<Text b>{caption}</Text>}
+      bodyComponent={<div className="form-children">{children}</div>}
+      footerComponent={
+        <>
+          {submitButton}
+          {footer}
+        </>
+      }
+      dividerHeaderBody={true}
+      dividerBodyFooter={false}
+    />
   )
 
   return (
