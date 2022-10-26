@@ -7,6 +7,11 @@
   width: 60vw;
 }
 
+img {
+  border-radius: 100%;
+  height: 6rem;
+}
+
 .avatar {
   border: 0.4rem solid transparent;
   display: flex;
@@ -15,21 +20,25 @@
   padding: 0.2rem;
 }
 
-img {
-  border-radius: 100%;
-  height: 6rem;
-}
-
-.avatar:hover {
+.avatar-light:hover {
   transform: scale(1.04);
   transition: all 0.3s ease;
   border-radius: 100%;
-  border: 0.4rem solid #ffc7a7;
 }
 
-.selected {
+.avatar-dark:hover {
+  transform: scale(1.04);
+  transition: all 0.3s ease;
   border-radius: 100%;
-  border: 0.4rem solid #ff541f;
+}
+
+.selected-light {
+  border-radius: 100%;
+  border: 0.4rem solid #0072f5;
+}
+.selected-dark {
+  border-radius: 100%;
+  border: 0.4rem solid white;
 }
 
 @media (max-width: 600px) {

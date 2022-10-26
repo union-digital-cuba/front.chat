@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { Button, Text } from '@nextui-org/react'
+import { Button, Text, Avatar } from '@nextui-org/react'
 
 import { AvatarAPI, MultiAvatarAPI } from 'api/Avatar'
-import { CustomCard, CustomContainer, CustomErrorInScreen, CustomLoader, CustomPopUp } from 'components'
+import { CustomErrorInScreen, CustomLayout, CustomLoader, CustomPopUp } from 'components'
+import useDarkMode from 'use-dark-mode'
 import { GetImage } from 'helpers/images'
 import { CustomTypes } from 'common/CustomTypes'
 import { LocalStorage } from 'common'
 
 import './style.css'
 
-const Avatar = () => {
+const ScreenAvatar = () => {
   const history = useHistory()
+  const darkMode = useDarkMode(false)
 
   const [selectedAvatar, setSelectedAvatar] = useState(null)
   const [avatars, setAvatars] = useState({ loading: true, error: undefined, data: [] })
@@ -68,34 +70,46 @@ const Avatar = () => {
   }
 
   const RenderAvatarsOrError = () => {
+    const theme = darkMode.dark ? 'dark' : 'light'
+
     return avatars.error ? (
       <CustomErrorInScreen error={avatars.error} />
     ) : (
-      avatars.data.map((avatar, index) => {
+      avatars.data.map((url, index) => {
         return (
-          <div key={index} className={`avatar ${selectedAvatar === index ? 'selected' : ''}`}>
-            <img src={GetImage(avatar)} alt="avatar" onClick={() => handleOnClickAvatar(index)} />
-          </div>
+          // <div key={index} className={`avatar ${selectedAvatar === index ? 'selected' : ''}`}>
+          //   <img src={GetImage(avatar)} alt="avatar" onClick={() => handleOnClickAvatar(index)} />
+          // </div>
+          <Avatar
+            className={`avatar avatar-${theme} ${selectedAvatar === index ? 'selected-' + theme : ''}`}
+            css={{ h: '8rem', w: '8rem' }}
+            key={index}
+            zoomed
+            src={GetImage(url)}
+            onClick={() => handleOnClickAvatar(index)}
+          />
         )
       })
     )
   }
 
   const AvatarPick = (
-    <CustomCard
-      headerComponent={<Text h1>Pick an avatar as your profile picture</Text>}
-      bodyComponent={<div className="avatars">{RenderAvatarsOrError()}</div>}
-      footerComponent={
-        !avatars.loading && (
-          <Button type={'submit'} onClick={() => handleOnClickSelectAvatar()}>
-            Set as Profile Avatar
-          </Button>
-        )
-      }
-    />
+    <>
+      <div className="title-container">
+        <Text h1 css={{ ta: 'center' }}>
+          Pick an avatar as your profile picture
+        </Text>
+      </div>
+      <div className="avatars">{RenderAvatarsOrError()}</div>
+      {!avatars.loading && (
+        <Button type={'submit'} onClick={() => handleOnClickSelectAvatar()}>
+          Set as Profile Avatar
+        </Button>
+      )}
+    </>
   )
 
-  return <CustomContainer>{avatars.loading ? <CustomLoader /> : AvatarPick}</CustomContainer>
+  return <CustomLayout>{avatars.loading ? <CustomLoader /> : AvatarPick}</CustomLayout>
 }
 
-export default Avatar
+export default ScreenAvatar
