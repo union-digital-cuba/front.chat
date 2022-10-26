@@ -7,7 +7,7 @@ const CustomForm = ({ handleOnSubmit, logoComponent, submitButton, footer, child
     <div>
       <form onSubmit={(event) => handleOnSubmit(event)}>
         {logoComponent}
-        {children}
+        <div className="form-children">{children}</div>
         {submitButton}
         {footer}
       </form>

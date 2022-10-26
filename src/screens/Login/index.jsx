@@ -82,7 +82,7 @@ const Login = () => {
       Register
     </Button>
   )
-  const makeFooter = <CustomSpan text={'Create User'} actionComponent={makeRegisterButton} />
+  const makeFooter = <CustomSpan text={'Create user here...'} actionComponent={makeRegisterButton} />
 
   const loginScreen = (
     <CustomForm
