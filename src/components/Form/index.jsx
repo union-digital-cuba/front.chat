@@ -16,8 +16,6 @@ const CustomForm = ({ handleOnSubmit, caption, submitButton, footer, children })
           {footer}
         </>
       }
-      dividerHeaderBody={true}
-      dividerBodyFooter={false}
     />
   )
 

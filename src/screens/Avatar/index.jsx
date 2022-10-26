@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { Button } from '@nextui-org/react'
+import { Button, Text } from '@nextui-org/react'
 
 import { AvatarAPI, MultiAvatarAPI } from 'api/Avatar'
-import { CustomContainer, CustomErrorInScreen, CustomLoader, CustomPopUp } from 'components'
+import { CustomCard, CustomContainer, CustomErrorInScreen, CustomLoader, CustomPopUp } from 'components'
 import { GetImage } from 'helpers/images'
 import { CustomTypes } from 'common/CustomTypes'
 import { LocalStorage } from 'common'
@@ -82,17 +82,17 @@ const Avatar = () => {
   }
 
   const AvatarPick = (
-    <>
-      <div className="title-container">
-        <h1>Pick an avatar as your profile picture</h1>
-      </div>
-      <div className="avatars">{RenderAvatarsOrError()}</div>
-      {!avatars.loading && (
-        <Button type={'submit'} onClick={() => handleOnClickSelectAvatar()}>
-          Set as Profile Avatar
-        </Button>
-      )}
-    </>
+    <CustomCard
+      headerComponent={<Text h1>Pick an avatar as your profile picture</Text>}
+      bodyComponent={<div className="avatars">{RenderAvatarsOrError()}</div>}
+      footerComponent={
+        !avatars.loading && (
+          <Button type={'submit'} onClick={() => handleOnClickSelectAvatar()}>
+            Set as Profile Avatar
+          </Button>
+        )
+      }
+    />
   )
 
   return <CustomContainer>{avatars.loading ? <CustomLoader /> : AvatarPick}</CustomContainer>
