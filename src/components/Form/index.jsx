@@ -2,15 +2,28 @@ import React from 'react'
 
 import './style.css'
 
-const CustomForm = ({ handleOnSubmit, logoComponent, submitButton, footer, children }) => {
-  return (
-    <div>
-      <form onSubmit={(event) => handleOnSubmit(event)}>
-        {logoComponent}
+import { Card, Text } from '@nextui-org/react'
+
+const CustomForm = ({ handleOnSubmit, caption, submitButton, footer, children }) => {
+  const CardForm = (
+    <Card variant="bordered" isHoverable>
+      <Card.Header css={{ jc: 'center' }}>
+        <Text b>{caption}</Text>
+      </Card.Header>
+      <Card.Divider className="card-divider" />
+      <Card.Body css={{ py: '$12' }}>
         <div className="form-children">{children}</div>
+      </Card.Body>
+      <Card.Footer className="card-footer">
         {submitButton}
         {footer}
-      </form>
+      </Card.Footer>
+    </Card>
+  )
+
+  return (
+    <div>
+      <form onSubmit={(event) => handleOnSubmit(event)}>{CardForm}</form>
     </div>
   )
 }

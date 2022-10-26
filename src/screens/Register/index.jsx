@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import Logo from 'assets/images/logo.svg'
 
 import { Button } from '@nextui-org/react'
 
-import { CustomForm, CustomInput, CustomLayout, CustomLogo, CustomPopUp, CustomSpan } from 'components'
+import { CustomForm, CustomInput, CustomLayout, CustomPopUp, CustomSpan } from 'components'
 import { HelperFunction } from 'helpers/functions'
 
 import { CustomTypes } from 'common/CustomTypes'
@@ -67,7 +66,6 @@ const Register = () => {
     HelperFunction.handleChange(event, values, setValues)
   }
 
-  const makeLogoComponent = <CustomLogo text={'Create Account'} logoSource={Logo} />
   const makeSubmitButton = <Button type={'submit'}>Create User</Button>
   const makeLoginButton = (
     <Button color="secondary" onClick={() => history.push('/login')} auto>
@@ -79,7 +77,7 @@ const Register = () => {
   const registerScreen = (
     <CustomForm
       handleOnSubmit={handleSubmit}
-      logoComponent={makeLogoComponent}
+      caption={'Register your data...'}
       submitButton={makeSubmitButton}
       footer={makeFooter}
     >

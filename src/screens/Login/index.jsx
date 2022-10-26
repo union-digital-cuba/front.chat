@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import Logo from 'assets/images/logo.svg'
 
 import { Button } from '@nextui-org/react'
 
-import { CustomForm, CustomInput, CustomLogo, CustomPopUp, CustomLayout, CustomSpan } from 'components'
+import { CustomForm, CustomInput, CustomPopUp, CustomLayout, CustomSpan } from 'components'
 import { LocalStorage } from 'common'
 import { HelperFunction } from 'helpers/functions'
 
@@ -71,7 +70,6 @@ const Login = () => {
     HelperFunction.handleChange(event, values, setValues)
   }
 
-  const makeLogoComponent = <CustomLogo text={'Login...'} logoSource={Logo} />
   const makeSubmitButton = (
     <Button type={'submit'} color="primary">
       Login
@@ -87,7 +85,7 @@ const Login = () => {
   const loginScreen = (
     <CustomForm
       handleOnSubmit={handleSubmit}
-      logoComponent={makeLogoComponent}
+      caption={'Start Chating...'}
       submitButton={makeSubmitButton}
       footer={makeFooter}
     >
