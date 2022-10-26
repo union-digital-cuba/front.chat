@@ -82,9 +82,8 @@ const Login = () => {
       Register
     </Button>
   )
-  const makeFooter = <CustomSpan text={'Already have a account ?'} actionComponent={makeRegisterButton} />
+  const makeFooter = <CustomSpan text={'Create User'} actionComponent={makeRegisterButton} />
 
-  // const makeFooter = <CustomSpan text={'Already have a account?'} redirectTo={'/register'} redirectText={'Register'} />
   const loginScreen = (
     <CustomForm
       handleOnSubmit={handleSubmit}

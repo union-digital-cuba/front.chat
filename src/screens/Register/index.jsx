@@ -4,7 +4,7 @@ import Logo from 'assets/images/logo.svg'
 
 import { Button } from '@nextui-org/react'
 
-import { CustomContainer, CustomForm, CustomInput, CustomLogo, CustomPopUp, CustomSpan } from 'components'
+import { CustomForm, CustomInput, CustomLayout, CustomLogo, CustomPopUp, CustomSpan } from 'components'
 import { HelperFunction } from 'helpers/functions'
 
 import { CustomTypes } from 'common/CustomTypes'
@@ -76,33 +76,27 @@ const Register = () => {
   )
   const makeFooter = <CustomSpan text={'Already have a account ?'} actionComponent={makeLoginButton} />
 
-  return (
-    <CustomContainer>
-      <CustomForm
-        handleOnSubmit={handleSubmit}
-        logoComponent={makeLogoComponent}
-        submitButton={makeSubmitButton}
-        footer={makeFooter}
-      >
-        <CustomInput type="text" placeholder="Username" name="username" required={true} handleChange={handleChange} />
-        <CustomInput type="email" placeholder="Email" name="email" required={true} handleChange={handleChange} />
-        <CustomInput
-          type="password"
-          placeholder="Password"
-          name="password"
-          required={true}
-          handleChange={handleChange}
-        />
-        <CustomInput
-          type="password"
-          placeholder="Confirm Password"
-          name="confirmPassword"
-          required={true}
-          handleChange={handleChange}
-        />
-      </CustomForm>
-    </CustomContainer>
+  const registerScreen = (
+    <CustomForm
+      handleOnSubmit={handleSubmit}
+      logoComponent={makeLogoComponent}
+      submitButton={makeSubmitButton}
+      footer={makeFooter}
+    >
+      <CustomInput type="text" placeholder="Username" name="username" required={true} handleChange={handleChange} />
+      <CustomInput type="email" placeholder="Email" name="email" required={true} handleChange={handleChange} />
+      <CustomInput type="password" placeholder="Password" name="password" required={true} handleChange={handleChange} />
+      <CustomInput
+        type="password"
+        placeholder="Confirm Password"
+        name="confirmPassword"
+        required={true}
+        handleChange={handleChange}
+      />
+    </CustomForm>
   )
+
+  return <CustomLayout>{registerScreen}</CustomLayout>
 }
 
 export default Register
