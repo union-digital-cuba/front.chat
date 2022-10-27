@@ -5,11 +5,11 @@ export const UserContext = createContext()
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null)
 
-  const LogIn = (user) => {
+  const SetUser = (user) => {
     setUser(user)
   }
 
-  const LogOut = () => {
+  const ClearUser = () => {
     setUser(null)
   }
 
@@ -17,13 +17,16 @@ const UserProvider = ({ children }) => {
     setUser({ ...user, image: avatar, isSetAvatar: true })
   }
 
-  const GetUserData = () => user
+  const GetAvatar = () => user?.image
+
+  const GetUser = () => user
 
   const contextValue = {
-    LogIn,
-    LogOut,
+    SetUser,
+    ClearUser,
     ChangeAvatar,
-    GetUserData,
+    GetAvatar,
+    GetUser,
   }
 
   return <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>

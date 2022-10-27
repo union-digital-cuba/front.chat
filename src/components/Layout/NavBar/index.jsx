@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { Navbar, Text, Button, Tooltip, Dropdown, Avatar } from '@nextui-org/react'
@@ -15,19 +15,15 @@ import useAuth from 'hooks/useAuth'
 import { GetImage } from 'helpers/images'
 
 const CustomNavBar = () => {
-  const [user, setUser] = useState()
-
   const history = useHistory()
   const darkMode = useDarkMode(false)
+
   const auth = useAuth()
 
   useEffect(() => {
     const CheckLocalStorage = async () => {
       const storage = await JSON.parse(LocalStorage.Get())
-      if (storage) {
-        auth.LogIn(storage)
-        setUser(storage)
-      }
+      auth.SetUser(storage)
     }
     CheckLocalStorage()
   }, [])
@@ -35,8 +31,7 @@ const CustomNavBar = () => {
   const handleDropdownActionKey = ({ actionKey }) => {
     if (actionKey === 'logout') {
       LocalStorage.Remove()
-      auth.LogOut()
-      setUser()
+      auth.ClearUser()
       history.push('/')
     }
   }
@@ -51,7 +46,7 @@ const CustomNavBar = () => {
     <Dropdown placement="bottom-right">
       <Navbar.Item>
         <Dropdown.Trigger>
-          <Avatar bordered as="button" color="primary" size="md" src={GetImage(user?.image)} />
+          <Avatar bordered as="button" color="primary" size="md" src={GetImage(auth.GetAvatar())} />
         </Dropdown.Trigger>
       </Navbar.Item>
       <Dropdown.Menu
@@ -64,7 +59,7 @@ const CustomNavBar = () => {
             Signed in as
           </Text>
           <Text b color="inherit" css={{ d: 'flex' }}>
-            {user?.email}
+            {auth.GetUser()?.email}
           </Text>
         </Dropdown.Item>
         <Dropdown.Item key="settings" withDivider>
@@ -109,7 +104,7 @@ const CustomNavBar = () => {
         }}
       >
         {ColorMode}
-        {user && UserData}
+        {auth.GetUser() && UserData}
       </Navbar.Content>
     </Navbar>
   )

@@ -12,11 +12,13 @@ import { LocalStorage } from 'common'
 
 import './style.css'
 import useAuth from 'hooks/useAuth'
+// import useAuth from 'hooks/useAuth'
 
 const ScreenAvatar = () => {
-  const history = useHistory()
-  const auth = useAuth()
   const darkMode = useDarkMode(false)
+  const history = useHistory()
+
+  const auth = useAuth()
 
   const [selectedAvatar, setSelectedAvatar] = useState(null)
   const [avatars, setAvatars] = useState({ loading: true, error: undefined, data: [] })
@@ -62,7 +64,7 @@ const ScreenAvatar = () => {
 
         if (response.statusCode === 200) {
           storage.isSetAvatar = true
-          storage.image = response.image
+          storage.image = avatars.data[selectedAvatar]
           LocalStorage.Set(JSON.stringify(storage))
           history.push('/')
         }

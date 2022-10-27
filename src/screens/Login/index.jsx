@@ -9,9 +9,12 @@ import { HelperFunction } from 'helpers/functions'
 
 import { CustomTypes } from 'common/CustomTypes'
 import { AuthenticationAPI } from 'api/Autentication'
+import useAuth from 'hooks/useAuth'
 
 const Login = () => {
   const history = useHistory()
+
+  const auth = useAuth()
 
   const [values, setValues] = useState({
     username: '',
@@ -22,6 +25,7 @@ const Login = () => {
     const storage = JSON.parse(LocalStorage.Get())
     if (storage) {
       const { isSetAvatar, image } = storage
+      auth.SetUser(storage)
       history.push(isSetAvatar && image ? '/' : '/avatar')
     }
   }, [])
@@ -57,6 +61,7 @@ const Login = () => {
         if (statusCode === 200) {
           CustomPopUp(CustomTypes.PopUp.Icon.success, 'Login Complete')
           LocalStorage.Set(JSON.stringify(response))
+          auth.SetUser(response)
 
           response.isSetAvatar ? history.push('/') : history.push('/avatar')
         } else CustomPopUp(CustomTypes.PopUp.Icon.error, message)
@@ -94,6 +99,7 @@ const Login = () => {
       <CustomInput type="password" placeholder="Password" name="password" required={true} handleChange={handleChange} />
     </CustomForm>
   )
+
   return <CustomLayout>{loginScreen}</CustomLayout>
 }
 
