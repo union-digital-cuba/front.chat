@@ -3,18 +3,10 @@ form {
   flex-direction: column;
   gap: 0.8rem;
   padding: 2rem 2rem;
-  /* background-color: black; */
 }
 
 .form-children {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-}
-
-.card-footer {
-  flex-direction: column;
-  gap: 0.8rem;
-
-  flex-basis: 100% !important;
 }

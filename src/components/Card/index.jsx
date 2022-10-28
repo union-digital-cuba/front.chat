@@ -13,7 +13,7 @@ const CustomCard = ({ headerComponent, bodyComponent, footerComponent, dividers 
       <Card.Header css={{ jc: 'center' }}>{headerComponent}</Card.Header>
       {up && <Card.Divider />}
       <Card.Body css={{ py: '$12' }}>
-        <div className="form-children">{bodyComponent}</div>
+        <div>{bodyComponent}</div>
       </Card.Body>
       {down && <Card.Divider />}
       <Card.Footer className="card-footer" css={{ ai: 'unset' }}>

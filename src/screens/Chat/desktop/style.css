@@ -1,17 +1,35 @@
-.main-container {
+.chat-main-container {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-
-  gap: 1rem;
+  justify-content: center;
+  align-items: stretch;
 
   width: 98%;
-  height: 85%;
+  height: 90%;
 
-  background-color: #00000076;
-  border-radius: 2rem;
-  padding: 1rem 1rem;
+  margin-top: -50px;
 }
+
+.chat-body-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  gap: 1rem;
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+
+  overflow: hidden;
+}
+
+/* groups */
+.chat-body-container:nth-child(1) {
+  width: 20%;
+  height: 100%;
+}
+/*
 
 .room-user-container {
   display: flex;
@@ -75,7 +93,7 @@
   background-color: chocolate;
 }
 
-@media screen and (min-width: 800px) and (max-width: 1080px) {
+@media screen and (min-width: 800px) {
   .main-container {
     flex-direction: column;
   }
@@ -87,4 +105,4 @@
 
     width: 100%;
   }
-}
+} */
