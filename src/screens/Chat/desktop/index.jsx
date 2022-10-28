@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Card, Row, Button } from '@nextui-org/react'
+import { Card } from '@nextui-org/react'
 
 import { ChatGroups, ChatMessages, ChatNotification, ChatUsers } from '../components'
 
@@ -28,14 +28,6 @@ const ChatDesktop = () => {
       </Card.Header>
       <Card.Divider />
       <Card.Body css={{ py: '$2' }}>{ChatComponents}</Card.Body>
-      <Card.Footer css={{ ai: 'unset' }}>
-        <Row justify="flex-end">
-          <Button size="sm" light>
-            Cancel
-          </Button>
-          <Button size="sm">Agree</Button>
-        </Row>
-      </Card.Footer>
     </Card>
   )
 
