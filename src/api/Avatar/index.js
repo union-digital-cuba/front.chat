@@ -33,7 +33,7 @@ export const MultiAvatarAPI = {
 export const AvatarAPI = {
   SetAvatar: async ({ user, avatar }) => {
     try {
-      const endpoint = `user/avatar?id=${user.id}`
+      const endpoint = `avatar?id=${user.id}`
       const { data } = await Axios().post(endpoint, { image: avatar })
       return data
     } catch (error) {

@@ -1,7 +1,6 @@
 export { default as CustomContainer } from './Container'
 export { default as CustomForm } from './Form'
 export { default as CustomInput } from './Input'
-export { default as CustomLogo } from './Logo'
 export { default as CustomSpan } from './Span'
 export { default as CustomPopUp } from './PopUp'
 export { default as CustomErrorInScreen } from './Error'

@@ -4,7 +4,7 @@ export const MockMessages = [
     message: 'Hola',
     from: 1,
     to: 2,
-    group: 1,
+    type: 1,
     date: '28/10/2022 12:40:01',
   },
   {
@@ -12,7 +12,7 @@ export const MockMessages = [
     message: 'Hola, como estas...',
     from: 2,
     to: 1,
-    group: 1,
+    type: 1,
     date: '28/10/2022 12:40:10',
   },
   {
@@ -20,7 +20,7 @@ export const MockMessages = [
     message: 'Todo bien, que haces?',
     from: 1,
     to: 2,
-    group: 1,
+    type: 1,
     date: '28/10/2022 12:40:11',
   },
   {
@@ -28,7 +28,7 @@ export const MockMessages = [
     message: 'Bien, y tu?',
     from: 2,
     to: 1,
-    group: 1,
+    type: 1,
     date: '28/10/2022 12:40:13',
   },
 ]

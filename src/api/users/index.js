@@ -13,4 +13,12 @@ export const UsersAPI = {
     const { data } = await Axios().post(endpoint)
     return data
   },
+  GetUsersByGroup: async (id) => {
+    const endpoint = `/users/group?id=${id}`
+
+    console.log(endpoint)
+
+    const { data } = await Axios.post(endpoint)
+    return data
+  },
 }

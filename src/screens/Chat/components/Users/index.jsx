@@ -1,62 +1,44 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { Collapse, Avatar, Link, Text } from '@nextui-org/react'
+import { UsersAPI } from 'api/Users'
+import { User, Loading } from '@nextui-org/react'
+import { CustomPopUp } from 'components'
+import { CustomTypes } from 'common/CustomTypes'
+
 import './style.css'
+import { GetImage } from 'helpers/images'
 
-const ChatUsers = () => {
+const ChatUsers = ({ selectedGroup }) => {
+  const [users, setUsers] = useState({ loading: true, data: [] })
+
+  //cargar todos los usuarios pertenecientes a este grupo
+  useEffect(() => {
+    const LoadUsersFromGroup = async () => {
+      try {
+        if (selectedGroup) {
+          const response = await UsersAPI.GetUsersByGroup(selectedGroup)
+          setUsers({ loading: false, data: response })
+        }
+      } catch (error) {
+        CustomPopUp(CustomTypes.PopUp.Icon.error, `Error loading users... ${error}`)
+      }
+    }
+    LoadUsersFromGroup()
+  }, [])
+
   return (
     <div className="chat-users-container">
-      <Collapse.Group splitted>
-        <Collapse
-          title={<Text h4>Chung Miller</Text>}
-          subtitle="4 unread messages"
-          contentLeft={
-            <Avatar
-              size="lg"
-              src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
-              color="secondary"
-              bordered
-              squared
-            />
-          }
-        >
-          <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat.
-          </Text>
-        </Collapse>
-        <Collapse
-          title={<Text h4>Janelle Lenard</Text>}
-          subtitle="3 incompleted steps"
-          contentLeft={
-            <Avatar size="lg" src="https://i.pravatar.cc/150?u=a042581f4e29026704d" color="success" bordered squared />
-          }
-        >
-          <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat.
-          </Text>
-        </Collapse>
-        <Collapse
-          title={<Text h4>Zoey Lang</Text>}
-          subtitle={
-            <Text>
-              2 issues to <Link color>fix now</Link>
-            </Text>
-          }
-          contentLeft={
-            <Avatar size="lg" src="https://i.pravatar.cc/150?u=a04258114e29026702d" color="error" bordered squared />
-          }
-        >
-          <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat.
-          </Text>
-        </Collapse>
-      </Collapse.Group>
+      {users.loading ? (
+        <Loading type="points" />
+      ) : (
+        users.data.map((user, index) => {
+          return (
+            <User key={index} src={GetImage(user.image)} name={user.username}>
+              <User.Link href="https://nextui.org/">{`@${user.username}`}</User.Link>
+            </User>
+          )
+        })
+      )}
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Card } from '@nextui-org/react'
 
@@ -7,16 +7,22 @@ import { ChatGroups, ChatMessages, ChatNotification, ChatUsers } from '../compon
 import './style.css'
 
 const ChatDesktop = () => {
+  const [selectedGroup, SetSelectedGroup] = useState()
+
+  const handleSelectGroup = (id) => {
+    SetSelectedGroup(id)
+  }
+
   const ChatComponents = (
     <div className="chat-body-container">
       <div className="chat-groups">
-        <ChatGroups />
+        <ChatGroups handleSelectGroup={handleSelectGroup} />
       </div>
       <div className="chat-messages">
         <ChatMessages />
       </div>
       <div className="chat-users">
-        <ChatUsers />
+        <ChatUsers selectedGroup={selectedGroup} />
       </div>
     </div>
   )
