@@ -9,9 +9,15 @@ import './style.css'
 const ChatDesktop = () => {
   const ChatComponents = (
     <div className="chat-body-container">
-      <ChatGroups />
-      <ChatMessages />
-      <ChatUsers />
+      <div className="chat-groups">
+        <ChatGroups />
+      </div>
+      <div className="chat-messages">
+        <ChatMessages />
+      </div>
+      <div className="chat-users">
+        <ChatUsers />
+      </div>
     </div>
   )
 
