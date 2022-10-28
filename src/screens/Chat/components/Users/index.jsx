@@ -4,9 +4,9 @@ import { UsersAPI } from 'api/Users'
 import { User, Loading } from '@nextui-org/react'
 import { CustomPopUp } from 'components'
 import { CustomTypes } from 'common/CustomTypes'
+import { GetImage } from 'helpers/images'
 
 import './style.css'
-import { GetImage } from 'helpers/images'
 
 const ChatUsers = ({ selectedGroup }) => {
   const [users, setUsers] = useState({ loading: true, data: [] })

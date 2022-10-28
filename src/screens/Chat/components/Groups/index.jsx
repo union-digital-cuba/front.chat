@@ -1,62 +1,60 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { Collapse, Avatar, Link, Text } from '@nextui-org/react'
+import { Collapse, Avatar, Text, Loading } from '@nextui-org/react'
+
+import { GroupsAPI } from 'api/Groups'
+import { CustomPopUp } from 'components'
+import { CustomTypes } from 'common/CustomTypes'
+import { GetImage } from 'helpers/images'
+import { LocalStorage } from 'common'
+
 import './style.css'
 
 const ChatGroups = () => {
+  const [groups, setGroups] = useState({ loading: true, data: [] })
+
+  //cargar todos los grupos pertenecientes al usuario
+  useEffect(() => {
+    const LoadGroupsBelongToUser = async () => {
+      try {
+        const storage = JSON.parse(LocalStorage.Get())
+        if (storage) {
+          const { statusCode, response } = await GroupsAPI.GetAllByUserId(storage.id)
+          if (statusCode === 200) {
+            setGroups({ loading: false, data: response })
+          }
+        }
+      } catch (error) {
+        CustomPopUp(CustomTypes.PopUp.Icon.error, `Error loading groups... ${error}`)
+      }
+    }
+    LoadGroupsBelongToUser()
+  }, [])
+
+  const GroupCollapse = (group, index) => {
+    return (
+      <Collapse
+        key={index}
+        title={<Text h4>{group.name}</Text>}
+        subtitle="4 unread messages"
+        contentLeft={<Avatar size="lg" src={GetImage(group.image)} color="secondary" bordered squared />}
+      >
+        <Text>Last Chat from a Group</Text>
+      </Collapse>
+    )
+  }
+
   return (
     <div className="chat-group-container">
-      <Collapse.Group splitted>
-        <Collapse
-          title={<Text h4>Chung Miller</Text>}
-          subtitle="4 unread messages"
-          contentLeft={
-            <Avatar
-              size="lg"
-              src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
-              color="secondary"
-              bordered
-              squared
-            />
-          }
-        >
-          <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat.
-          </Text>
-        </Collapse>
-        <Collapse
-          title={<Text h4>Janelle Lenard</Text>}
-          subtitle="3 incompleted steps"
-          contentLeft={
-            <Avatar size="lg" src="https://i.pravatar.cc/150?u=a042581f4e29026704d" color="success" bordered squared />
-          }
-        >
-          <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat.
-          </Text>
-        </Collapse>
-        <Collapse
-          title={<Text h4>Zoey Lang</Text>}
-          subtitle={
-            <Text>
-              2 issues to <Link color>fix now</Link>
-            </Text>
-          }
-          contentLeft={
-            <Avatar size="lg" src="https://i.pravatar.cc/150?u=a04258114e29026702d" color="error" bordered squared />
-          }
-        >
-          <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat.
-          </Text>
-        </Collapse>
-      </Collapse.Group>
+      {groups.loading ? (
+        <Loading type="points" />
+      ) : (
+        <Collapse.Group splitted>
+          {groups.data.map((group, index) => {
+            return GroupCollapse(group, index)
+          })}
+        </Collapse.Group>
+      )}
     </div>
   )
 }

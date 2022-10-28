@@ -1,8 +1,8 @@
 import Axios from 'common/Axios'
 
-export const UsersAPI = {
-  GetAll: async () => {
-    const endpoint = '/users'
+export const GroupsAPI = {
+  GetAllPublics: async () => {
+    const endpoint = '/groups'
 
     const { data } = await Axios().get(endpoint)
     return data
@@ -13,10 +13,10 @@ export const UsersAPI = {
     const { data } = await Axios().get(endpoint)
     return data
   },
-  GetUsersByGroup: async (id) => {
-    const endpoint = `/users/group?id=${id}`
+  GetAllByUserId: async (id) => {
+    const endpoint = `/groups/user?id=${id}`
 
-    const { data } = await Axios.get(endpoint)
+    const { data } = await Axios().get(endpoint)
     return data
   },
 }
