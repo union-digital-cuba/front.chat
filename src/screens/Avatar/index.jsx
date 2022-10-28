@@ -82,12 +82,8 @@ const ScreenAvatar = () => {
     ) : (
       avatars.data.map((avatar, index) => {
         return (
-          // <div key={index} className={`avatar ${selectedAvatar === index ? 'selected' : ''}`}>
-          //   <img src={GetImage(avatar)} alt="avatar" onClick={() => handleOnClickAvatar(index)} />
-          // </div>
           <Avatar
             className={`avatar avatar-${theme} ${selectedAvatar === index ? 'selected-' + theme : ''}`}
-            css={{ h: '8rem', w: '8rem' }}
             key={index}
             zoomed
             src={GetImage(avatar)}

@@ -15,8 +15,8 @@ import useAuth from 'hooks/useAuth'
 import { GetImage } from 'helpers/images'
 
 const CustomNavBar = () => {
-  const history = useHistory()
   const darkMode = useDarkMode(false)
+  const history = useHistory()
 
   const auth = useAuth()
 
@@ -32,7 +32,7 @@ const CustomNavBar = () => {
     if (actionKey === 'logout') {
       LocalStorage.Remove()
       auth.ClearUser()
-      history.push('/')
+      history.push('/login')
     }
   }
 
