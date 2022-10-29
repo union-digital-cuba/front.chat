@@ -6,8 +6,6 @@ import { SunIcon, MoonIcon } from 'components/Icons'
 import useDarkMode from 'use-dark-mode'
 import AcmeLogo from 'components/Icons/logo'
 
-import { LocalStorage } from 'common'
-
 //TODO: Cambiar el logo luego
 // import AcmeLogo from 'assets/images/acme.svg'
 import './style.css'
@@ -30,9 +28,12 @@ const CustomNavBar = () => {
 
   const handleDropdownActionKey = ({ actionKey }) => {
     if (actionKey === 'logout') {
-      LocalStorage.Remove()
       auth.ClearUser()
       history.push('/login')
+    }
+
+    if (actionKey === 'change_avatar') {
+      history.push('/avatar')
     }
   }
 
@@ -62,8 +63,8 @@ const CustomNavBar = () => {
             {auth.GetUser()?.email}
           </Text>
         </Dropdown.Item>
-        <Dropdown.Item key="settings" withDivider>
-          My Settings
+        <Dropdown.Item key="change_avatar" withDivider>
+          Change Avatar
         </Dropdown.Item>
         <Dropdown.Item key="team_settings">Team Settings</Dropdown.Item>
         <Dropdown.Item key="analytics" withDivider>

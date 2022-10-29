@@ -7,26 +7,25 @@ import { AvatarAPI, MultiAvatarAPI } from 'api/Avatar'
 import { CustomErrorInScreen, CustomLayout, CustomLoader, CustomPopUp } from 'components'
 import useDarkMode from 'use-dark-mode'
 import { GetImage } from 'helpers/images'
+import useAuth from 'hooks/useAuth'
 import { LocalStorage, CustomTypes } from 'common'
 
 import './style.css'
-import useAuth from 'hooks/useAuth'
-// import useAuth from 'hooks/useAuth'
 
 const ScreenAvatar = () => {
   const darkMode = useDarkMode(false)
   const history = useHistory()
 
   const auth = useAuth()
+  const user = auth.GetUser()
 
   const [selectedAvatar, setSelectedAvatar] = useState(null)
   const [avatars, setAvatars] = useState({ loading: true, error: undefined, data: [] })
 
   useEffect(() => {
     const CheckLocalStorage = async () => {
-      const storage = await JSON.parse(LocalStorage.Get())
-      if (!storage) history.push('/login')
-      if (storage?.isSetAvatar) history.push('/')
+      if (!user) history.push('/login')
+      if (user?.isSetAvatar) history.push('/')
     }
     CheckLocalStorage()
   }, [])

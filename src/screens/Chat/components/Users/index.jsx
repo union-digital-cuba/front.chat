@@ -24,6 +24,7 @@ const ChatUsers = ({ users }) => {
               color={color}
               src={GetImage(user.image)}
               name={user.username}
+              pointer
             >
               <User.Link className="link-info" href="https://nextui.org/">{`${user.email}`}</User.Link>
             </User>

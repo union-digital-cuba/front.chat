@@ -7,14 +7,18 @@ const UserProvider = ({ children }) => {
   const [user, setUser] = useState(JSON.parse(LocalStorage.Get()))
 
   const SetUser = (user) => {
+    LocalStorage.Set(JSON.stringify(user))
     setUser(user)
   }
 
   const ClearUser = () => {
+    LocalStorage.Remove()
     setUser(null)
   }
 
   const ChangeAvatar = (avatar) => {
+    3
+
     setUser({ ...user, image: avatar, isSetAvatar: true })
   }
 

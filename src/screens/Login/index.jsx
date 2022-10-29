@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { Button } from '@nextui-org/react'
 
 import { CustomForm, CustomInput, CustomPopUp, CustomLayout, CustomSpan } from 'components'
-import { LocalStorage, CustomTypes } from 'common'
+import { CustomTypes } from 'common'
 import { HelperFunction } from 'helpers/functions'
 
 import { AuthenticationAPI } from 'api/Autentication'
@@ -59,7 +59,6 @@ const Login = () => {
 
         if (statusCode === 200) {
           CustomPopUp(CustomTypes.PopUp.Icon.success, 'Login Complete')
-          LocalStorage.Set(JSON.stringify(response))
           auth.SetUser(response)
 
           response.isSetAvatar ? history.push('/') : history.push('/avatar')
