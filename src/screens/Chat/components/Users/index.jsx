@@ -1,31 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
-import { UsersAPI } from 'api/Users'
 import { User, Loading } from '@nextui-org/react'
-import { CustomPopUp } from 'components'
-import { CustomTypes } from 'common/CustomTypes'
 import { GetImage } from 'helpers/images'
 
 import './style.css'
 
-const ChatUsers = ({ selectedGroup }) => {
-  const [users, setUsers] = useState({ loading: true, data: [] })
-
-  //cargar todos los usuarios pertenecientes a este grupo
-  useEffect(() => {
-    const LoadUsersFromGroup = async () => {
-      try {
-        if (selectedGroup) {
-          const response = await UsersAPI.GetUsersByGroup(selectedGroup)
-          setUsers({ loading: false, data: response })
-        }
-      } catch (error) {
-        CustomPopUp(CustomTypes.PopUp.Icon.error, `Error loading users... ${error}`)
-      }
-    }
-    LoadUsersFromGroup()
-  }, [])
-
+const ChatUsers = ({ users }) => {
   return (
     <div className="chat-users-container">
       {users.loading ? (

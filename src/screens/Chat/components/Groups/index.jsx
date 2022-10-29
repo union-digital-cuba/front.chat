@@ -10,7 +10,7 @@ import { LocalStorage } from 'common'
 
 import './style.css'
 
-const ChatGroups = () => {
+const ChatGroups = ({ handleSelectGroup }) => {
   const [groups, setGroups] = useState({ loading: true, data: [] })
 
   //cargar todos los grupos pertenecientes al usuario
@@ -33,14 +33,15 @@ const ChatGroups = () => {
 
   const GroupCollapse = (group, index) => {
     return (
-      <Collapse
-        key={index}
-        title={<Text h4>{group.name}</Text>}
-        subtitle="4 unread messages"
-        contentLeft={<Avatar size="lg" src={GetImage(group.image)} color="secondary" bordered squared />}
-      >
-        <Text>Last Chat from a Group</Text>
-      </Collapse>
+      <div key={index} onClick={handleSelectGroup(index)}>
+        <Collapse
+          title={<Text h4>{group.name}</Text>}
+          subtitle={`${group.amount} users`}
+          contentLeft={<Avatar size="lg" src={GetImage(group.image)} color="secondary" bordered />}
+        >
+          <Text>Last Chat from a Group</Text>
+        </Collapse>
+      </div>
     )
   }
 

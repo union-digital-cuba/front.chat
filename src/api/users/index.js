@@ -13,10 +13,10 @@ export const UsersAPI = {
     const { data } = await Axios().get(endpoint)
     return data
   },
-  GetUsersByGroup: async (id) => {
-    const endpoint = `/users/group?id=${id}`
+  GetUsersByGroup: async (groupId, userId) => {
+    const endpoint = `/users/group?groupId=${groupId}&userId=${userId}`
 
-    const { data } = await Axios.get(endpoint)
+    const { data } = await Axios().get(endpoint)
     return data
   },
 }
