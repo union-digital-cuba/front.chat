@@ -9,11 +9,9 @@ import { CustomPopUp } from 'components'
 
 import './style.css'
 import { CustomTypes } from 'common'
-import useAuth from 'hooks/useAuth'
 
-const ChatDesktop = () => {
+const ChatDesktop = ({ user }) => {
   const history = useHistory()
-  const user = useAuth().GetUser()
 
   const [selectedGroup, SetSelectedGroup] = useState(null)
   const [users, setUsers] = useState({ loading: true, data: [] })
