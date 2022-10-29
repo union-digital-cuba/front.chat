@@ -8,7 +8,7 @@
   overflow: auto;
 
   background-color: #0072f5;
-  border-radius: 15px;
+  border-radius: 12px;
 }
 
 .chat-group-container::-webkit-scrollbar {
@@ -22,9 +22,3 @@
 .group-info:active {
   transform: scale(0.9);
 }
-
-/* .chat-group-container::-webkit-scrollbar-thumb {
-  background-color: #ffffff39;
-  width: 0.1rem;
-  border-radius: 1rem;
-} */

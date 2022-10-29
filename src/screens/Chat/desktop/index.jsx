@@ -58,7 +58,7 @@ const ChatDesktop = ({ user }) => {
         <ChatNotification />
       </Card.Header>
       <Card.Divider />
-      <Card.Body css={{ py: '$2' }}>{ChatComponents}</Card.Body>
+      <Card.Body css={{ py: '$2', p: '5px' }}>{ChatComponents}</Card.Body>
     </Card>
   )
 

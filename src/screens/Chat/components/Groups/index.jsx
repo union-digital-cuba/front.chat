@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Collapse, Avatar, Text, Loading } from '@nextui-org/react'
 
 import { GroupsAPI } from 'api/Groups'
-import { CustomPopUp } from 'components'
+import { CustomBadge, CustomPopUp } from 'components'
 import { CustomTypes } from 'common'
 import { GetImage } from 'helpers/images'
 import './style.css'
@@ -28,6 +28,12 @@ const ChatGroups = ({ user, handleSelectGroup }) => {
   }, [])
 
   const GroupCollapse = (group, index) => {
+    const GroupDetail = (
+      <CustomBadge>
+        <Avatar size="lg" src={GetImage(group.image)} color="secondary" bordered />
+      </CustomBadge>
+    )
+
     return (
       <Collapse
         className="group-info"
@@ -36,7 +42,7 @@ const ChatGroups = ({ user, handleSelectGroup }) => {
         onClick={handleSelectGroup(index)}
         title={<Text h4>{group.name}</Text>}
         subtitle={`${group.amount} users`}
-        contentLeft={<Avatar size="lg" src={GetImage(group.image)} color="secondary" bordered />}
+        contentLeft={GroupDetail}
       >
         <Text>Last Chat from a Group</Text>
       </Collapse>
