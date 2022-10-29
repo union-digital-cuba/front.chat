@@ -8,17 +8,24 @@ import { CustomTypes } from 'common/CustomTypes'
 import { ChatGroups, ChatMessages, ChatNotification, ChatUsers } from '../components'
 
 import './style.css'
+import { LocalStorage } from 'common'
+import { useHistory } from 'react-router-dom'
 
 const ChatDesktop = () => {
+  const history = useHistory()
+
+  const user = JSON.parse(LocalStorage.Get())
+
   const [selectedGroup, SetSelectedGroup] = useState(null)
   const [users, setUsers] = useState({ loading: true, data: [] })
 
-  //cargar todos los usuarios pertenecientes a este grupo
   useEffect(() => {
     const LoadUsersFromGroup = async () => {
       try {
+        if (!user) history.push('/login')
+
         if (selectedGroup !== null) {
-          const { statusCode, response } = await UsersAPI.GetUsersByGroup(selectedGroup)
+          const { statusCode, response } = await UsersAPI.GetUsersByGroup(selectedGroup, user.id)
           if (statusCode === 200) {
             setUsers({ loading: false, data: response })
           }
@@ -31,14 +38,13 @@ const ChatDesktop = () => {
   }, [selectedGroup])
 
   const handleSelectGroup = (id) => {
-    console.log('handleSelectGroup', id)
     SetSelectedGroup(id)
   }
 
   const ChatComponents = (
     <div className="chat-body-container">
       <div className="chat-groups">
-        <ChatGroups handleSelectGroup={handleSelectGroup} />
+        <ChatGroups user={user} handleSelectGroup={handleSelectGroup} />
       </div>
       <div className="chat-messages">
         <ChatMessages />

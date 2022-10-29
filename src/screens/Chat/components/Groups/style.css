@@ -15,6 +15,14 @@
   width: 0.2rem;
 }
 
+.group-info:hover {
+  transform: scale(1.05);
+}
+
+.group-info:active {
+  transform: scale(0.9);
+}
+
 /* .chat-group-container::-webkit-scrollbar-thumb {
   background-color: #ffffff39;
   width: 0.1rem;

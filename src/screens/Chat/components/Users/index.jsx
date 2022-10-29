@@ -2,6 +2,8 @@ import React from 'react'
 
 import { User, Loading } from '@nextui-org/react'
 import { GetImage } from 'helpers/images'
+import { GetRandomElementFromList } from 'helpers/random'
+import { CustomTypes } from 'common/CustomTypes'
 
 import './style.css'
 
@@ -12,9 +14,18 @@ const ChatUsers = ({ users }) => {
         <Loading type="points" />
       ) : (
         users.data.map((user, index) => {
+          const arrayOfColors = Object.keys(CustomTypes.ColorsButton)
+          const color = GetRandomElementFromList(arrayOfColors)
           return (
-            <User key={index} src={GetImage(user.image)} name={user.username}>
-              <User.Link href="https://nextui.org/">{`@${user.username}`}</User.Link>
+            <User
+              className="user-info"
+              key={index}
+              bordered
+              color={color}
+              src={GetImage(user.image)}
+              name={user.username}
+            >
+              <User.Link className="link-info" href="https://nextui.org/">{`${user.email}`}</User.Link>
             </User>
           )
         })

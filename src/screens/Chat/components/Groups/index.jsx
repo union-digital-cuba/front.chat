@@ -6,20 +6,16 @@ import { GroupsAPI } from 'api/Groups'
 import { CustomPopUp } from 'components'
 import { CustomTypes } from 'common/CustomTypes'
 import { GetImage } from 'helpers/images'
-import { LocalStorage } from 'common'
-
 import './style.css'
 
-const ChatGroups = ({ handleSelectGroup }) => {
+const ChatGroups = ({ user, handleSelectGroup }) => {
   const [groups, setGroups] = useState({ loading: true, data: [] })
 
-  //cargar todos los grupos pertenecientes al usuario
   useEffect(() => {
     const LoadGroupsBelongToUser = async () => {
       try {
-        const storage = JSON.parse(LocalStorage.Get())
-        if (storage) {
-          const { statusCode, response } = await GroupsAPI.GetAllByUserId(storage.id)
+        if (user) {
+          const { statusCode, response } = await GroupsAPI.GetAllByUserId(user.id)
           if (statusCode === 200) {
             setGroups({ loading: false, data: response })
           }
@@ -33,15 +29,17 @@ const ChatGroups = ({ handleSelectGroup }) => {
 
   const GroupCollapse = (group, index) => {
     return (
-      <div key={index} onClick={handleSelectGroup(index)}>
-        <Collapse
-          title={<Text h4>{group.name}</Text>}
-          subtitle={`${group.amount} users`}
-          contentLeft={<Avatar size="lg" src={GetImage(group.image)} color="secondary" bordered />}
-        >
-          <Text>Last Chat from a Group</Text>
-        </Collapse>
-      </div>
+      <Collapse
+        className="group-info"
+        showArrow={false}
+        key={index}
+        onClick={handleSelectGroup(index)}
+        title={<Text h4>{group.name}</Text>}
+        subtitle={`${group.amount} users`}
+        contentLeft={<Avatar size="lg" src={GetImage(group.image)} color="secondary" bordered />}
+      >
+        <Text>Last Chat from a Group</Text>
+      </Collapse>
     )
   }
 
