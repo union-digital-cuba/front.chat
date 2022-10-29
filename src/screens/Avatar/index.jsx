@@ -7,8 +7,7 @@ import { AvatarAPI, MultiAvatarAPI } from 'api/Avatar'
 import { CustomErrorInScreen, CustomLayout, CustomLoader, CustomPopUp } from 'components'
 import useDarkMode from 'use-dark-mode'
 import { GetImage } from 'helpers/images'
-import { CustomTypes } from 'common/CustomTypes'
-import { LocalStorage } from 'common'
+import { LocalStorage, CustomTypes } from 'common'
 
 import './style.css'
 import useAuth from 'hooks/useAuth'
@@ -27,6 +26,7 @@ const ScreenAvatar = () => {
     const CheckLocalStorage = async () => {
       const storage = await JSON.parse(LocalStorage.Get())
       if (!storage) history.push('/login')
+      if (storage?.isSetAvatar) history.push('/')
     }
     CheckLocalStorage()
   }, [])

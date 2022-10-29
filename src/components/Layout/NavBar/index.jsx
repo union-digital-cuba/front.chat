@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { Navbar, Text, Button, Tooltip, Dropdown, Avatar } from '@nextui-org/react'
@@ -20,13 +20,13 @@ const CustomNavBar = () => {
 
   const auth = useAuth()
 
-  useEffect(() => {
-    const CheckLocalStorage = async () => {
-      const storage = await JSON.parse(LocalStorage.Get())
-      auth.SetUser(storage)
-    }
-    CheckLocalStorage()
-  }, [])
+  // useEffect(() => {
+  //   const CheckLocalStorage = async () => {
+  //     const storage = await JSON.parse(LocalStorage.Get())
+  //     auth.SetUser(storage)
+  //   }
+  //   CheckLocalStorage()
+  // }, [])
 
   const handleDropdownActionKey = ({ actionKey }) => {
     if (actionKey === 'logout') {

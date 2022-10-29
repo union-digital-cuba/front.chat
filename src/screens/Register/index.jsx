@@ -6,7 +6,7 @@ import { Button } from '@nextui-org/react'
 import { CustomForm, CustomInput, CustomLayout, CustomPopUp, CustomSpan } from 'components'
 import { HelperFunction } from 'helpers/functions'
 
-import { CustomTypes } from 'common/CustomTypes'
+import { CustomTypes } from 'common'
 import { AuthenticationAPI } from 'api/Autentication'
 
 const Register = () => {

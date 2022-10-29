@@ -17,7 +17,6 @@ const Chat = () => {
     const CheckLocalStorage = async () => {
       const storage = await JSON.parse(LocalStorage.Get())
       if (!storage) history.push('/login')
-
       if (!storage?.isSetAvatar) history.push('/avatar')
     }
     CheckLocalStorage()

@@ -4,7 +4,7 @@ import { Collapse, Avatar, Text, Loading } from '@nextui-org/react'
 
 import { GroupsAPI } from 'api/Groups'
 import { CustomPopUp } from 'components'
-import { CustomTypes } from 'common/CustomTypes'
+import { CustomTypes } from 'common'
 import { GetImage } from 'helpers/images'
 import './style.css'
 

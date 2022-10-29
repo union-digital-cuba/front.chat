@@ -4,10 +4,9 @@ import { useHistory } from 'react-router-dom'
 import { Button } from '@nextui-org/react'
 
 import { CustomForm, CustomInput, CustomPopUp, CustomLayout, CustomSpan } from 'components'
-import { LocalStorage } from 'common'
+import { LocalStorage, CustomTypes } from 'common'
 import { HelperFunction } from 'helpers/functions'
 
-import { CustomTypes } from 'common/CustomTypes'
 import { AuthenticationAPI } from 'api/Autentication'
 import useAuth from 'hooks/useAuth'
 
@@ -22,10 +21,10 @@ const Login = () => {
   })
 
   useEffect(() => {
-    const storage = JSON.parse(LocalStorage.Get())
-    if (storage) {
-      const { isSetAvatar, image } = storage
-      auth.SetUser(storage)
+    const user = auth.GetUser()
+    if (user) {
+      const { isSetAvatar, image } = user
+      auth.SetUser(user)
       history.push(isSetAvatar && image ? '/' : '/avatar')
     }
   }, [])

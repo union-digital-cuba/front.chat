@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import { Card } from '@nextui-org/react'
+import { ChatGroups, ChatMessages, ChatNotification, ChatUsers } from '../components'
 
 import { UsersAPI } from 'api/Users'
 import { CustomPopUp } from 'components'
-import { CustomTypes } from 'common/CustomTypes'
-import { ChatGroups, ChatMessages, ChatNotification, ChatUsers } from '../components'
 
 import './style.css'
-import { LocalStorage } from 'common'
-import { useHistory } from 'react-router-dom'
+import { CustomTypes } from 'common'
+import useAuth from 'hooks/useAuth'
 
 const ChatDesktop = () => {
   const history = useHistory()
-
-  const user = JSON.parse(LocalStorage.Get())
+  const user = useAuth().GetUser()
 
   const [selectedGroup, SetSelectedGroup] = useState(null)
   const [users, setUsers] = useState({ loading: true, data: [] })

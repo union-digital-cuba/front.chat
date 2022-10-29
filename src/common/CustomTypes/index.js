@@ -28,4 +28,4 @@ const CustomTypes = {
   },
 }
 
-export { CustomTypes }
+export default CustomTypes

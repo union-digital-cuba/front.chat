@@ -3,7 +3,7 @@ import React from 'react'
 import { User, Loading } from '@nextui-org/react'
 import { GetImage } from 'helpers/images'
 import { GetRandomElementFromList } from 'helpers/random'
-import { CustomTypes } from 'common/CustomTypes'
+import { CustomTypes } from 'common'
 
 import './style.css'
 
