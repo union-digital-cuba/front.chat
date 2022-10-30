@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
-import { Input } from '@nextui-org/react'
-import SendButton from './components'
+import { Input, Button } from '@nextui-org/react'
+// import SendButton from './components'
+import { SendIcon } from 'components/Icons'
+import { CustomTypes } from 'common'
 
 import './style.css'
-import { SendIcon } from 'components/Icons'
 
-const ChatSendMessage = () => {
+const ChatSendMessage = ({ handleSendMessage }) => {
+  const inputReference = useRef()
+
   return (
     <div className="send-message-container">
       <div className="send-message-input">
@@ -16,10 +19,17 @@ const ChatSendMessage = () => {
           contentRightStyling={false}
           placeholder="Type your message..."
           contentRight={
-            <SendButton>
-              <SendIcon />
-            </SendButton>
+            <Button
+              className="send-button"
+              auto
+              color="error"
+              icon={<SendIcon className="send-button-icon" fill="currentColor" filled size={CustomTypes.Sizes.sm} />}
+              onClick={() => handleSendMessage(inputReference.current)}
+            />
           }
+          onChange={(e) => {
+            inputReference.current = e.target.value
+          }}
           // onPointerDown={() => alert('entrado')}
         />
       </div>

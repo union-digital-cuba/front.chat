@@ -10,8 +10,6 @@ import { CustomPopUp } from 'components'
 import { CustomTypes } from 'common'
 import { ChatGroups, ChatMessages, ChatNotification, ChatUsers } from '../components'
 
-import { MockMessages } from 'helpers/mocks'
-
 import './style.css'
 
 const ChatDesktop = ({ user }) => {
@@ -19,7 +17,6 @@ const ChatDesktop = ({ user }) => {
 
   const [users, setUsers] = useState({ loading: true, data: [] })
   const [groups, setGroups] = useState({ loading: true, data: [] })
-  const [messages, setMessages] = useState({ loading: true, data: [] })
   const [selectedGroup, SetSelectedGroup] = useState(null)
 
   useEffect(() => {
@@ -35,11 +32,7 @@ const ChatDesktop = ({ user }) => {
         CustomPopUp(CustomTypes.PopUp.Icon.error, `Error loading groups... ${error}`)
       }
     }
-    const LoadMessages = async () => {
-      setMessages({ loading: false, data: MockMessages })
-    }
     LoadGroupsBelongToUser()
-    LoadMessages()
   }, [])
 
   useEffect(() => {
@@ -70,7 +63,7 @@ const ChatDesktop = ({ user }) => {
         <ChatGroups groups={groups} handleSelectGroup={handleSelectGroup} />
       </div>
       <div className="chat-messages">
-        <ChatMessages users={users} messages={messages} />
+        <ChatMessages users={users} />
       </div>
       <div className="chat-users">
         <ChatUsers users={users} />

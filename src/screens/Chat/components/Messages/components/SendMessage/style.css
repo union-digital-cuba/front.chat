@@ -11,3 +11,31 @@
 .send-message-input {
   width: 100%;
 }
+
+.send-button {
+  width: 24px;
+  height: 24px;
+  padding: 5px;
+  margin-right: 5px;
+
+  transition: opacity 0.25s ease 0s, transform 0.25s ease 0s;
+}
+
+.send-button:hover {
+  opacity: 0.8;
+}
+
+.send-button:active {
+  transform: scale(0.9);
+}
+
+.send-button-icon {
+  size: 100%;
+  transition: transform 0.25s ease 0s, opacity 200ms ease-in-out 50ms;
+  box-shadow: 0 5px 20px -5px rgba(0, 0, 0, 0.1);
+}
+
+.send-button-icon:active {
+  transform: translate(24px, -24px);
+  opacity: 0;
+}
