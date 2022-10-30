@@ -1,7 +1,7 @@
 import React from 'react'
 
-const ChatMessage = () => {
-  return <div></div>
+const ChatMessage = ({ chat }) => {
+  return <div key={chat.id}>{chat.message}</div>
 }
 
 export default ChatMessage

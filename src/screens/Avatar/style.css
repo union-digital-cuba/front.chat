@@ -37,7 +37,7 @@ img {
 
 .selected-light {
   border-radius: 100%;
-  border: 0.4rem solid #0072f5;
+  border: 0.4rem solid var(--nextui-colors-primary);
 }
 .selected-dark {
   border-radius: 100%;

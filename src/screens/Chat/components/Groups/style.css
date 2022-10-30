@@ -7,7 +7,7 @@
 
   overflow: auto;
 
-  background-color: #0072f5;
+  background-color: var(--nextui-colors-primary);
   border-radius: 12px;
 }
 

@@ -2,17 +2,17 @@ import React from 'react'
 
 import { ChatSendMessage, ChatMessage } from '../../components'
 
-// import { Text } from '@nextui-org/react'
-import './style.css'
 import { MockMessages } from 'helpers/mocks'
+import './style.css'
 
 const ChatMessages = () => {
   const RenderMessages = () => {
-    return MockMessages.map((message) => <ChatMessage key={message.id} message={message} />)
+    return MockMessages.map((chat) => <ChatMessage key={chat.id} chat={chat} />)
   }
 
   return (
     <div className="chat-messages-container">
+      <div className="chat-notification-area"></div>
       <div className="messages">{RenderMessages()}</div>
       <div className="send-message">
         <ChatSendMessage />

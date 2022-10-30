@@ -1,34 +1,22 @@
 import React from 'react'
 
-import { User, Loading } from '@nextui-org/react'
-import { GetImage } from 'helpers/images'
+import { Loading } from '@nextui-org/react'
 import { GetRandomElementFromList } from 'helpers/random'
 import { CustomTypes } from 'common'
 
 import './style.css'
+import CustomUserBadge from './CustomUserBadge'
 
 const ChatUsers = ({ users }) => {
   return (
     <div className="chat-users-container">
       {users.loading ? (
-        <Loading type="points" />
+        <Loading color="error">Loading...</Loading>
       ) : (
         users.data.map((user, index) => {
           const arrayOfColors = Object.keys(CustomTypes.ColorsButton)
           const color = GetRandomElementFromList(arrayOfColors)
-          return (
-            <User
-              className="user-info"
-              key={index}
-              bordered
-              color={color}
-              src={GetImage(user.image)}
-              name={user.username}
-              pointer
-            >
-              <User.Link className="link-info" href="https://nextui.org/">{`${user.email}`}</User.Link>
-            </User>
-          )
+          return <CustomUserBadge key={index} user={user} color={color} />
         })
       )}
     </div>
