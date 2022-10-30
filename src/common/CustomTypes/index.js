@@ -10,6 +10,7 @@ const CustomTypes = {
       bottomCenter: 'bottom-center',
     },
   },
+  ChatType: { group: 'group', user: 'user' },
   ImageTypes: { local: 'local', web: 'web' },
   Sizes: {
     xs: 'xs',

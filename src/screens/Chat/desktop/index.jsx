@@ -17,7 +17,7 @@ const ChatDesktop = ({ user }) => {
 
   const [users, setUsers] = useState({ loading: true, data: [] })
   const [groups, setGroups] = useState({ loading: true, data: [] })
-  const [selectedGroup, SetSelectedGroup] = useState(null)
+  const [selected, SetSelected] = useState({ type: null, index: null })
 
   useEffect(() => {
     const LoadGroupsBelongToUser = async () => {
@@ -40,10 +40,17 @@ const ChatDesktop = ({ user }) => {
       try {
         if (!user) history.push('/login')
 
-        if (selectedGroup !== null) {
-          const { statusCode, response } = await UsersAPI.GetUsersByGroup(selectedGroup, user.id)
-          if (statusCode === 200) {
-            setUsers({ loading: false, data: response })
+        if (selected.id !== null) {
+          if (selected.type === CustomTypes.ChatType.group) {
+            //cuando marco un grupo cargo todos los usuarios del grupo
+            const groupId = groups[selected.index]
+            const { statusCode, response } = await UsersAPI.GetUsersByGroup(groupId, user.id)
+            if (statusCode === 200) {
+              setUsers({ loading: false, data: response })
+            }
+          } else {
+            //en caso que marque un usuario
+            setUsers({ loading: false, data: [] })
           }
         }
       } catch (error) {
@@ -51,22 +58,27 @@ const ChatDesktop = ({ user }) => {
       }
     }
     LoadUsersFromGroup()
-  }, [selectedGroup])
+  }, [selected])
 
-  const handleSelectGroup = (id) => {
-    SetSelectedGroup(id)
+  const handleSelected = (selection) => {
+    SetSelected(selection)
   }
 
   const ChatComponents = (
     <div className="chat-body-container">
       <div className="chat-groups">
-        <ChatGroups groups={groups} handleSelectGroup={handleSelectGroup} />
+        <ChatGroups groups={groups} handleSelectGroup={handleSelected} />
       </div>
       <div className="chat-messages">
-        <ChatMessages users={users} />
+        <ChatMessages
+          users={users}
+          user={user}
+          selected={selected.type === CustomTypes.ChatType.group ? groups[selected.index] : selected}
+          kind={selected.type}
+        />
       </div>
       <div className="chat-users">
-        <ChatUsers users={users} />
+        <ChatUsers users={users} handleSelectUser={handleSelected} />
       </div>
     </div>
   )

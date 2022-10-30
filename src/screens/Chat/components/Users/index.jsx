@@ -34,6 +34,7 @@ const ChatUsers = ({ users }) => {
               status={user.id % 2 === 0 ? CustomTypes.BadgeVariants.dot : CustomTypes.BadgeVariants.points}
               showDetails={true}
               size={size}
+              onClick={() => alert('test')}
             />
           )
         })

@@ -5,8 +5,9 @@ import { ChatSendMessage, ChatMessage, ChatMessagesNotification } from './compon
 import { MockMessages } from 'helpers/mocks'
 
 import './style.css'
+import { HelperDate } from 'helpers/date'
 
-const ChatMessages = ({ users }) => {
+const ChatMessages = ({ users, user, selected, kind }) => {
   const [messages, setMessages] = useState({ loading: true, data: [] })
 
   useEffect(() => {
@@ -17,9 +18,19 @@ const ChatMessages = ({ users }) => {
   }, [])
 
   const handleSendMessage = (msg) => {
-    console.log(msg)
-    // const addMessage = [...messages.data, msg]
-    // setMessages({ loading: false, data: addMessage })
+    const messageStructure = {
+      message: msg,
+      sender: {
+        id: user.id,
+        username: user.username,
+      },
+      receiver: {
+        id: selected.id,
+      },
+      type: kind,
+      date: HelperDate.getNow(),
+    }
+    //enviar al socket
   }
 
   const RenderMessages = () => {
