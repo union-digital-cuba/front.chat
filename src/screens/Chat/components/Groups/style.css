@@ -15,10 +15,6 @@
   width: 0.2rem;
 }
 
-/* .group-info {
-  padding: 0.6rem !important;
-} */
-
 .group-info:hover {
   transform: scale(1.05);
 }

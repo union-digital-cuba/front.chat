@@ -44,9 +44,9 @@ const ChatMessagesNotification = ({ users }) => {
       </div>
       <div className="options">
         <Badge color="error" content="9+" shape="circle" size={CustomTypes.Sizes.sm} isInvisible="false">
-          <IconlyPack.Notification set="bold" />
+          <IconlyPack.Notification className="menu-icons" set="bold" />
         </Badge>
-        <IconlyPack.MoreCircle set="bold" />
+        <IconlyPack.MoreCircle className="menu-icons" set="bold" />
       </div>
     </div>
   )
