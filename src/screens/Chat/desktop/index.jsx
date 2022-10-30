@@ -44,7 +44,7 @@ const ChatDesktop = ({ user }) => {
         <ChatGroups user={user} handleSelectGroup={handleSelectGroup} />
       </div>
       <div className="chat-messages">
-        <ChatMessages />
+        <ChatMessages users={users} />
       </div>
       <div className="chat-users">
         <ChatUsers users={users} />

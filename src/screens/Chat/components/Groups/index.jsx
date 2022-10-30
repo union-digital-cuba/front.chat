@@ -52,7 +52,7 @@ const ChatGroups = ({ user, handleSelectGroup }) => {
   return (
     <div className="chat-group-container">
       {groups.loading ? (
-        <Loading type="points" />
+        <Loading color="error">Loading...</Loading>
       ) : (
         <Collapse.Group splitted>
           {groups.data.map((group, index) => {

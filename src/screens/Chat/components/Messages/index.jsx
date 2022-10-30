@@ -5,7 +5,7 @@ import { ChatSendMessage, ChatMessage, ChatMessagesNotification } from './compon
 import { MockMessages } from 'helpers/mocks'
 import './style.css'
 
-const ChatMessages = () => {
+const ChatMessages = ({ users }) => {
   const RenderMessages = () => {
     return MockMessages.map((chat) => <ChatMessage key={chat.id} chat={chat} />)
   }
@@ -13,7 +13,7 @@ const ChatMessages = () => {
   return (
     <div className="chat-messages-container">
       <div className="chat-notification-area">
-        <ChatMessagesNotification />
+        <ChatMessagesNotification users={users} />
       </div>
       <div className="messages">{RenderMessages()}</div>
       <div className="send-message">
