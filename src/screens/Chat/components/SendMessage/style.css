@@ -3,7 +3,11 @@
   flex-direction: row;
 
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 
+  width: 100%;
+}
+
+.send-message-input {
   width: 100%;
 }
