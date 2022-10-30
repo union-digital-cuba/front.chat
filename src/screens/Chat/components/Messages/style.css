@@ -13,9 +13,9 @@
 
 .chat-notification-area {
   display: flex;
-  flex-direction: column;
 
-  background-color: var(--nextui-colors-backgroundContrast);
+  width: 100%;
+  height: 50px;
 }
 
 .messages {

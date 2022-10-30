@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { ChatSendMessage, ChatMessage } from '../../components'
+import { ChatSendMessage, ChatMessage, ChatMessagesNotification } from './components'
 
 import { MockMessages } from 'helpers/mocks'
 import './style.css'
@@ -12,7 +12,9 @@ const ChatMessages = () => {
 
   return (
     <div className="chat-messages-container">
-      <div className="chat-notification-area"></div>
+      <div className="chat-notification-area">
+        <ChatMessagesNotification />
+      </div>
       <div className="messages">{RenderMessages()}</div>
       <div className="send-message">
         <ChatSendMessage />

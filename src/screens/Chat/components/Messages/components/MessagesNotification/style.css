@@ -1,0 +1,23 @@
+.messages-notification {
+  display: flex;
+  flex-direction: row;
+
+  width: 100%;
+  height: 100%;
+
+  border-radius: var(--nextui--inputBorderRadius);
+  background: var(--nextui-colors-backgroundContrast);
+}
+
+.active-users {
+  display: flex;
+  flex-direction: row;
+
+  width: 90%;
+  height: 100%;
+}
+
+.options {
+  width: 10%;
+  height: 100%;
+}
