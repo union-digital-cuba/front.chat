@@ -5,8 +5,6 @@ import { CustomTypes } from 'common'
 import { CustomUserBadge } from 'components'
 import { GetRandomElementFromList, GetRandomNumber } from 'helpers/random'
 
-// import { Text } from '@nextui-org/react'
-
 import './style.css'
 import { Badge } from '@nextui-org/react'
 
