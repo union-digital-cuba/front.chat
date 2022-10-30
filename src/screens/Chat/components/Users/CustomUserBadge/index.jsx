@@ -5,10 +5,10 @@ import './style.css'
 import { Avatar, Text } from '@nextui-org/react'
 import { GetImage } from 'helpers/images'
 
-const CustomUserBadge = ({ user, color }) => {
+const CustomUserBadge = ({ user, color, pendingMessages, status }) => {
   const CustomUser = (
     <div className="custom-user-container">
-      <CustomBadge>
+      <CustomBadge pendingMessages={pendingMessages} status={status}>
         <Avatar size="lg" src={GetImage(user.image)} color={color} bordered />
       </CustomBadge>
 

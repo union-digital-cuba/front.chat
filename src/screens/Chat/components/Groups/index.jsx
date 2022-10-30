@@ -29,7 +29,7 @@ const ChatGroups = ({ user, handleSelectGroup }) => {
 
   const GroupCollapse = (group, index) => {
     const GroupDetail = (
-      <CustomBadge>
+      <CustomBadge pendingMessages={5} status={CustomTypes.BadgeVariants.points}>
         <Avatar size="lg" src={GetImage(group.image)} color="secondary" bordered />
       </CustomBadge>
     )

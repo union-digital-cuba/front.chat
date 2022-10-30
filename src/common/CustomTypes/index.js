@@ -26,6 +26,13 @@ const CustomTypes = {
     warning: 'warning',
     error: 'error',
   },
+  BadgeVariants: { default: 'default', flat: 'flat', dot: 'dot', points: 'points', bordered: 'bordered' },
+  BadgePlacements: {
+    topRight: 'top-right',
+    topLeft: 'top-left',
+    bottomRight: 'bottom-right',
+    bottomLeft: 'bottom-left',
+  },
 }
 
 export default CustomTypes

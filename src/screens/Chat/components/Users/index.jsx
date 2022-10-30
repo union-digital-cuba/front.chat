@@ -16,7 +16,15 @@ const ChatUsers = ({ users }) => {
         users.data.map((user, index) => {
           const arrayOfColors = Object.keys(CustomTypes.ColorsButton)
           const color = GetRandomElementFromList(arrayOfColors)
-          return <CustomUserBadge key={index} user={user} color={color} />
+          return (
+            <CustomUserBadge
+              key={index}
+              user={user}
+              color={color}
+              pendingMessages={5}
+              status={user.id % 2 === 0 ? CustomTypes.BadgeVariants.dot : CustomTypes.BadgeVariants.points}
+            />
+          )
         })
       )}
     </div>
