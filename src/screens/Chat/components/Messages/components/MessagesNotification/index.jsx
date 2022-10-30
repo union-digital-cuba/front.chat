@@ -1,11 +1,14 @@
+import React from 'react'
+import * as IconlyPack from 'react-iconly'
+
 import { CustomTypes } from 'common'
 import { CustomUserBadge } from 'components'
 import { GetRandomElementFromList, GetRandomNumber } from 'helpers/random'
-import React from 'react'
 
 // import { Text } from '@nextui-org/react'
 
 import './style.css'
+import { Badge } from '@nextui-org/react'
 
 const ChatMessagesNotification = ({ users }) => {
   //Son los usuarios activos en el Grupo, que tengan menos de 5 min
@@ -39,7 +42,12 @@ const ChatMessagesNotification = ({ users }) => {
           )
         })}
       </div>
-      <div className="options"></div>
+      <div className="options">
+        <Badge color="error" content="9+" shape="circle" size={CustomTypes.Sizes.sm} isInvisible="false">
+          <IconlyPack.Notification set="bold" />
+        </Badge>
+        <IconlyPack.MoreCircle set="bold" />
+      </div>
     </div>
   )
 }

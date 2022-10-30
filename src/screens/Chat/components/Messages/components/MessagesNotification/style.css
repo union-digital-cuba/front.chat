@@ -23,6 +23,14 @@
 }
 
 .options {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 10%;
   height: 100%;
+}
+
+.box-icon-menu:hover {
+  cursor: pointer;
 }
