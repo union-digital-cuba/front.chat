@@ -1,32 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import { Collapse, Avatar, Text, Loading } from '@nextui-org/react'
 
-import { GroupsAPI } from 'api/Groups'
-import { CustomBadge, CustomPopUp } from 'components'
+import { CustomBadge } from 'components'
 import { CustomTypes } from 'common'
 import { GetImage } from 'helpers/images'
 import './style.css'
 
-const ChatGroups = ({ user, handleSelectGroup }) => {
-  const [groups, setGroups] = useState({ loading: true, data: [] })
-
-  useEffect(() => {
-    const LoadGroupsBelongToUser = async () => {
-      try {
-        if (user) {
-          const { statusCode, response } = await GroupsAPI.GetAllByUserId(user.id)
-          if (statusCode === 200) {
-            setGroups({ loading: false, data: response })
-          }
-        }
-      } catch (error) {
-        CustomPopUp(CustomTypes.PopUp.Icon.error, `Error loading groups... ${error}`)
-      }
-    }
-    LoadGroupsBelongToUser()
-  }, [])
-
+const ChatGroups = ({ groups, handleSelectGroup }) => {
   const GroupCollapse = (group, index) => {
     const GroupDetail = (
       <CustomBadge

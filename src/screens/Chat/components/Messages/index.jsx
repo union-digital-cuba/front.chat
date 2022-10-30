@@ -1,13 +1,17 @@
 import React from 'react'
 
+import { Loading } from '@nextui-org/react'
 import { ChatSendMessage, ChatMessage, ChatMessagesNotification } from './components'
 
-import { MockMessages } from 'helpers/mocks'
 import './style.css'
 
-const ChatMessages = ({ users }) => {
+const ChatMessages = ({ users, messages }) => {
   const RenderMessages = () => {
-    return MockMessages.map((chat) => <ChatMessage key={chat.id} chat={chat} />)
+    return messages.loading ? (
+      <Loading color="error">Loading...</Loading>
+    ) : (
+      messages.data.map((chat) => <ChatMessage key={chat.id} chat={chat} />)
+    )
   }
 
   return (
