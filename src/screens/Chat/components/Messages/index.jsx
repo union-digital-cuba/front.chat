@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import { Loading } from '@nextui-org/react'
 import { ChatSendMessage, ChatMessage, ChatMessagesNotification } from './components'
+import { MessageAPI } from 'api/Messages'
 import { MockMessages } from 'helpers/mocks'
 
 import './style.css'
@@ -17,20 +18,19 @@ const ChatMessages = ({ users, user, selected, kind }) => {
     LoadMessages()
   }, [])
 
-  const handleSendMessage = (msg) => {
+  const handleSendMessage = async (msg) => {
     const messageStructure = {
       message: msg,
-      sender: {
-        id: user.id,
-        username: user.username,
-      },
-      receiver: {
-        id: selected.id,
-      },
+      sender: user.id,
+      receiver: selected.id,
       type: kind,
       date: HelperDate.getNow(),
     }
-    //enviar al socket
+    //enviar mensaje
+    const { statusCode, response } = await MessageAPI.SendMessage(messageStructure)
+    if (statusCode === 200) {
+      setMessages([...messages, response])
+    }
   }
 
   const RenderMessages = () => {

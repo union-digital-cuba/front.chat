@@ -23,7 +23,7 @@ const ChatSendMessage = ({ handleSendMessage }) => {
               className="send-button"
               auto
               color="error"
-              icon={<SendIcon className="send-button-icon" fill="currentColor" filled size={CustomTypes.Sizes.sm} />}
+              icon={<SendIcon className="send-button-icon" fill="currentColor" filled size={16} />}
               onClick={() => handleSendMessage(inputReference.current)}
             />
           }

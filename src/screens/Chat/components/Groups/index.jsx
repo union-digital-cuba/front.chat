@@ -25,7 +25,8 @@ const ChatGroups = ({ groups, handleSelectGroup }) => {
         className="group-info"
         showArrow={false}
         key={index}
-        onClick={handleSelectGroup({ type: CustomTypes.ChatType.group, index: index })}
+        // onClick={handleSelectGroup({ type: CustomTypes.ChatType.group, index: index })}
+        // onClick={console.log('change')}
         title={<Text h4>{group.name}</Text>}
         subtitle={`${group.amount} users`}
         contentLeft={GroupDetail}
