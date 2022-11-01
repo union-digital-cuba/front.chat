@@ -11,6 +11,7 @@ import { CustomTypes } from 'common'
 import { ChatGroups, ChatMessages, ChatNotification, ChatUsers } from '../components'
 
 import './style.css'
+import Console from 'helpers/console'
 
 const ChatDesktop = ({ user }) => {
   const history = useHistory()
@@ -23,7 +24,7 @@ const ChatDesktop = ({ user }) => {
     const LoadGroupsBelongToUser = async () => {
       try {
         if (user) {
-          console.log('useEffect -> Cargando Grupos que pertenecen a un usuario', user)
+          Console.Info('useEffect -> Cargando Grupos que pertenecen a un usuario')
 
           const { statusCode, response } = await GroupsAPI.GetAllByUserId(user.id)
           if (statusCode === 200) {
@@ -31,7 +32,7 @@ const ChatDesktop = ({ user }) => {
           }
         }
       } catch (error) {
-        CustomPopUp(CustomTypes.PopUp.Icon.error, `Error loading groups... ${error}`)
+        CustomPopUp(CustomTypes.PopUp.Icon.error, `LoadGroupsBelongToUser... ${error}`)
       }
     }
     LoadGroupsBelongToUser()
@@ -44,7 +45,7 @@ const ChatDesktop = ({ user }) => {
 
         if (selected.index !== null) {
           if (selected.type === CustomTypes.ChatType.group) {
-            console.log('useEffect -> Cargando usuarios del grupo', selected, groups)
+            Console.Info('useEffect -> Cargando usuarios del grupo')
 
             //cuando marco un grupo cargo todos los usuarios del grupo
             const groupId = groups.data[selected.index].id
@@ -58,15 +59,15 @@ const ChatDesktop = ({ user }) => {
           }
         }
       } catch (error) {
-        CustomPopUp(CustomTypes.PopUp.Icon.error, `Error loading users... ${error}`)
+        CustomPopUp(CustomTypes.PopUp.Icon.error, `LoadUsersFromGroup... ${error}`)
       }
     }
     LoadUsersFromGroup()
   }, [selected])
 
   const handleSelected = (selection) => {
-    console.log('handleSelected -> cambiando seleccion', selection)
-    SetSelected(selection)
+    Console.Info('handleSelected -> cambiando seleccion')
+    if (JSON.stringify(selection) !== JSON.stringify(selected)) SetSelected(selection)
   }
 
   const ChatComponents = (
@@ -76,8 +77,8 @@ const ChatDesktop = ({ user }) => {
       </div>
       <div className="chat-messages">
         <ChatMessages
-          users={users}
           user={user}
+          users={users}
           selected={selected.type === CustomTypes.ChatType.group ? groups.data[selected.index] : selected}
           kind={selected.type}
         />
