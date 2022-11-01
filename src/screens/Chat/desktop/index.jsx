@@ -42,12 +42,12 @@ const ChatDesktop = ({ user }) => {
       try {
         if (!user) history.push('/login')
 
-        if (selected.id !== null) {
+        if (selected.index !== null) {
           if (selected.type === CustomTypes.ChatType.group) {
-            console.log('useEffect -> Cargando usuarios del grupo', selected)
+            console.log('useEffect -> Cargando usuarios del grupo', selected, groups)
 
             //cuando marco un grupo cargo todos los usuarios del grupo
-            const groupId = groups[selected.index]
+            const groupId = groups.data[selected.index].id
             const { statusCode, response } = await UsersAPI.GetUsersByGroup(groupId, user.id)
             if (statusCode === 200) {
               setUsers({ loading: false, data: response })
@@ -78,7 +78,7 @@ const ChatDesktop = ({ user }) => {
         <ChatMessages
           users={users}
           user={user}
-          selected={selected.type === CustomTypes.ChatType.group ? groups[selected.index] : selected}
+          selected={selected.type === CustomTypes.ChatType.group ? groups.data[selected.index] : selected}
           kind={selected.type}
         />
       </div>

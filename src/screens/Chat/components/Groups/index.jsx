@@ -35,19 +35,17 @@ const ChatGroups = ({ groups, handleSelectGroup }) => {
     )
   }
 
-  return (
-    <div className="chat-group-container">
-      {groups.loading ? (
-        <Loading color="error">Loading...</Loading>
-      ) : (
-        <Collapse.Group splitted>
-          {groups.data.map((group, index) => {
-            return GroupCollapse(group, index)
-          })}
-        </Collapse.Group>
-      )}
-    </div>
+  const GetSplited = (
+    <Collapse.Group splitted>
+      {groups.data.map((group, index) => {
+        return GroupCollapse(group, index)
+      })}
+    </Collapse.Group>
   )
+
+  const GetLoading = <Loading color="error">Loading...</Loading>
+
+  return <div className="chat-group-container">{groups.loading ? GetLoading : GetSplited}</div>
 }
 
 export default ChatGroups
