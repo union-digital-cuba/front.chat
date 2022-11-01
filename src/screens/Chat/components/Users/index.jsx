@@ -7,7 +7,7 @@ import { CustomTypes } from 'common'
 import './style.css'
 import { CustomUserBadge } from 'components'
 
-const ChatUsers = ({ users }) => {
+const ChatUsers = ({ users, handleSelectUser }) => {
   const arrayOfColors = Object.keys(CustomTypes.ColorsButton)
 
   return (
@@ -34,7 +34,7 @@ const ChatUsers = ({ users }) => {
               status={user.id % 2 === 0 ? CustomTypes.BadgeVariants.dot : CustomTypes.BadgeVariants.points}
               showDetails={true}
               size={size}
-              onClick={() => alert('test')}
+              onClick={() => handleSelectUser({ type: CustomTypes.ChatType.user, index: index })}
             />
           )
         })

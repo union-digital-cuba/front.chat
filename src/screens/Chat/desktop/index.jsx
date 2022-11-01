@@ -23,6 +23,8 @@ const ChatDesktop = ({ user }) => {
     const LoadGroupsBelongToUser = async () => {
       try {
         if (user) {
+          console.log('useEffect -> Cargando Grupos que pertenecen a un usuario', user)
+
           const { statusCode, response } = await GroupsAPI.GetAllByUserId(user.id)
           if (statusCode === 200) {
             setGroups({ loading: false, data: response })
@@ -42,6 +44,8 @@ const ChatDesktop = ({ user }) => {
 
         if (selected.id !== null) {
           if (selected.type === CustomTypes.ChatType.group) {
+            console.log('useEffect -> Cargando usuarios del grupo', selected)
+
             //cuando marco un grupo cargo todos los usuarios del grupo
             const groupId = groups[selected.index]
             const { statusCode, response } = await UsersAPI.GetUsersByGroup(groupId, user.id)
@@ -61,6 +65,7 @@ const ChatDesktop = ({ user }) => {
   }, [selected])
 
   const handleSelected = (selection) => {
+    console.log('handleSelected -> cambiando seleccion', selection)
     SetSelected(selection)
   }
 

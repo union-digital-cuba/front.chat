@@ -17,8 +17,6 @@ const UserProvider = ({ children }) => {
   }
 
   const ChangeAvatar = (avatar) => {
-    3
-
     setUser({ ...user, image: avatar, isSetAvatar: true })
   }
 

@@ -3,7 +3,7 @@ import React, { useRef } from 'react'
 import { Input, Button } from '@nextui-org/react'
 // import SendButton from './components'
 import { SendIcon } from 'components/Icons'
-import { CustomTypes } from 'common'
+// import { CustomTypes } from 'common'
 
 import './style.css'
 
