@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
+import { io } from 'socket.io-client'
 
 import { Card } from '@nextui-org/react'
 
@@ -14,6 +15,9 @@ import './style.css'
 import Console from 'helpers/console'
 
 const ChatDesktop = ({ user }) => {
+  const url = `http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}`
+
+  const socket = useRef()
   const history = useHistory()
 
   const [users, setUsers] = useState({ loading: true, data: [] })
@@ -65,6 +69,13 @@ const ChatDesktop = ({ user }) => {
     LoadUsersFromGroup()
   }, [selected])
 
+  useEffect(() => {
+    if (user) {
+      socket.current = io(url)
+      socket.current.emit('add-user', user)
+    }
+  }, [user])
+
   const handleSelected = (selection) => {
     Console.Info('handleSelected -> cambiando seleccion')
     if (JSON.stringify(selection) !== JSON.stringify(selected)) SetSelected(selection)
@@ -81,6 +92,7 @@ const ChatDesktop = ({ user }) => {
           users={users}
           selected={selected.type === CustomTypes.ChatType.group ? groups.data[selected.index] : selected}
           kind={selected.type}
+          socket={socket}
         />
       </div>
       <div className="chat-users">

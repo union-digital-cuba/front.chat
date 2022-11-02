@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import * as IconlyPack from 'react-iconly'
 
 import { CustomTypes } from 'common'
-import { CustomUserBadge } from 'components'
+import { CustomPopUp, CustomUserBadge } from 'components'
 import { GetRandomElementFromList, GetRandomNumber } from 'helpers/random'
 
 import './style.css'
@@ -13,6 +13,16 @@ const ChatMessagesNotification = ({ users }) => {
   //Desde la ultima actividad
   //SOCKET
   const arrayOfColors = Object.keys(CustomTypes.ColorsButton)
+
+  useEffect(() => {
+    LoadOnlineUsers = async () => {
+      try {
+      } catch (error) {
+        CustomPopUp(CustomTypes.PopUp.Icon.error, `LoadOnlineUsers... ${error}`)
+      }
+    }
+    LoadOnlineUsers()
+  }, [])
 
   return (
     <div className="messages-notification">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 import { Loading } from '@nextui-org/react'
 import { ChatSendMessage, ChatMessage, ChatMessagesNotification } from './components'
@@ -8,7 +8,8 @@ import { MockMessages } from 'helpers/mocks'
 import './style.css'
 import { HelperDate } from 'helpers/date'
 
-const ChatMessages = ({ users, user, selected, kind }) => {
+const ChatMessages = ({ user, selected, kind, socket }) => {
+  const scrollRef = useRef()
   const [messages, setMessages] = useState({ loading: true, data: [] })
 
   useEffect(() => {
@@ -44,7 +45,7 @@ const ChatMessages = ({ users, user, selected, kind }) => {
   return (
     <div className="chat-messages-container">
       <div className="chat-notification-area">
-        <ChatMessagesNotification users={users} />
+        <ChatMessagesNotification selected={selected} />
       </div>
       <div className="messages">{RenderMessages()}</div>
       <div className="send-message">
