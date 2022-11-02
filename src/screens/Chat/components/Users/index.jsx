@@ -32,7 +32,7 @@ const ChatUsers = ({ users, handleSelectUser }) => {
           status={user.id % 2 === 0 ? CustomTypes.BadgeVariants.dot : CustomTypes.BadgeVariants.points}
           showDetails={true}
           size={size}
-          onClick={() => handleSelectUser({ type: CustomTypes.ChatType.user, index: index })}
+          onClick={() => handleSelectUser({ type: CustomTypes.ChatType.user, index: user.id })}
         />
       )
     })

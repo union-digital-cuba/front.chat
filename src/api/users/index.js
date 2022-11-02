@@ -19,4 +19,10 @@ export const UsersAPI = {
     const { data } = await Axios().get(endpoint)
     return data
   },
+  GetOnlineUsers: async (groupId) => {
+    const endpoint = `/users/online-by-group?groupId=${groupId}`
+
+    const { data } = await Axios().get(endpoint)
+    return data
+  },
 }

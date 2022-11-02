@@ -89,7 +89,6 @@ const ChatDesktop = ({ user }) => {
       <div className="chat-messages">
         <ChatMessages
           user={user}
-          users={users}
           selected={selected.type === CustomTypes.ChatType.group ? groups.data[selected.index] : selected}
           kind={selected.type}
           socket={socket}

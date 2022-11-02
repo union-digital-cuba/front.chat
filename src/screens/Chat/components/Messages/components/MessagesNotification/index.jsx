@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import * as IconlyPack from 'react-iconly'
 
 import { CustomTypes } from 'common'
@@ -7,27 +7,38 @@ import { GetRandomElementFromList, GetRandomNumber } from 'helpers/random'
 
 import './style.css'
 import { Badge } from '@nextui-org/react'
+import { UsersAPI } from 'api/Users'
+import Console from 'helpers/console'
 
-const ChatMessagesNotification = ({ users }) => {
+const ChatMessagesNotification = ({ selected }) => {
+  const [onlineUsers, setOnlineUsers] = useState([])
   //Son los usuarios activos en el Grupo, que tengan menos de 5 min
   //Desde la ultima actividad
   //SOCKET
   const arrayOfColors = Object.keys(CustomTypes.ColorsButton)
 
   useEffect(() => {
-    LoadOnlineUsers = async () => {
+    const LoadOnlineUsers = async () => {
       try {
+        if (selected) {
+          const { statusCode, response } = await UsersAPI.GetOnlineUsers(selected.id)
+
+          if (statusCode === 200) {
+            Console.Log('useEffect -> Cargando usuarios Online')
+            setOnlineUsers(response)
+          }
+        }
       } catch (error) {
         CustomPopUp(CustomTypes.PopUp.Icon.error, `LoadOnlineUsers... ${error}`)
       }
     }
     LoadOnlineUsers()
-  }, [])
+  }, [selected])
 
   return (
     <div className="messages-notification">
       <div className="active-users">
-        {users.data.map((user, index) => {
+        {onlineUsers.map((user, index) => {
           const color = GetRandomElementFromList(arrayOfColors)
           const number = GetRandomNumber(10)
 
