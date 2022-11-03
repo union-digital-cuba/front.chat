@@ -30,8 +30,14 @@
   padding: 0.8rem;
   margin: 0.5rem 0;
 
+  overflow: auto;
+
   border-radius: 15px;
   background: var(--nextui-colors-backgroundContrast);
+}
+
+.messages::-webkit-scrollbar {
+  width: 0.2rem;
 }
 
 .send-message {

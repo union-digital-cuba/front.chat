@@ -45,7 +45,7 @@ const ChatMessages = ({ user, selected, socket }) => {
         if (selected.data) {
           const { statusCode, response } =
             selected.type === CustomTypes.ChatType.group
-              ? await MessageAPI.GetMessagesFromGroup({ sender: user.id, receiver: selected.data.id })
+              ? await MessageAPI.GetMessagesFromGroup({ groupId: selected.data.id })
               : await MessageAPI.GetMessagesFromUser({ sender: user.id, receiver: selected.data.id })
           if (statusCode === 200) setMessages({ loading: false, data: response })
         }
@@ -75,7 +75,11 @@ const ChatMessages = ({ user, selected, socket }) => {
     return messages.loading ? (
       <Loading color="error">Loading...</Loading>
     ) : (
-      messages.data.map((chat, index) => <ChatMessage key={index} chat={chat} />)
+      messages.data.map((chat, index) => (
+        <div ref={scrollRef} key={index}>
+          <ChatMessage chat={chat} />
+        </div>
+      ))
     )
   }
 
