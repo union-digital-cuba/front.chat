@@ -13,4 +13,16 @@ export const MessageAPI = {
     const { data } = await Axios().post(endpoint, message)
     return data
   },
+  GetMessagesFromGroup: async ({ sender, receiver }) => {
+    const endpoint = '/messages/group'
+
+    const { data } = await Axios().post(endpoint, { sender, receiver })
+    return data
+  },
+  GetMessagesFromUser: async ({ sender, receiver }) => {
+    const endpoint = '/messages/user'
+
+    const { data } = await Axios().post(endpoint, { sender, receiver })
+    return data
+  },
 }

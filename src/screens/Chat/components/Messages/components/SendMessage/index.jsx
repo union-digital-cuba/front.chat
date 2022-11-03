@@ -10,6 +10,12 @@ import './style.css'
 const ChatSendMessage = ({ handleSendMessage }) => {
   const inputReference = useRef()
 
+  const onSendMessage = () => {
+    if (inputReference.current) {
+      handleSendMessage(inputReference.current)
+    }
+  }
+
   return (
     <div className="send-message-container">
       <div className="send-message-input">
@@ -24,7 +30,7 @@ const ChatSendMessage = ({ handleSendMessage }) => {
               auto
               color="error"
               icon={<SendIcon className="send-button-icon" fill="currentColor" filled size={16} />}
-              onClick={() => handleSendMessage(inputReference.current)}
+              onClick={() => onSendMessage()}
             />
           }
           onChange={(e) => {
