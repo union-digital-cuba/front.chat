@@ -39,8 +39,6 @@ const ChatMessage = ({ chat }) => {
     )
   }
 
-  console.log(loggedUser.id, chat.sender.id, chat.receiver.id)
-
   return <>{loggedUser.id === chat.sender.id ? MessageByMe() : MessageByOther()}</>
 }
 

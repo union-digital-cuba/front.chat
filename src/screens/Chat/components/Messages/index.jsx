@@ -14,15 +14,15 @@ const ChatMessages = ({ user, selected, socket }) => {
   const scrollRef = useRef()
   const [messages, setMessages] = useState({ loading: true, data: [] })
 
-  //cuando recivo algo del socket lo ponto en arrival
+  //cuando recivo algo del socket
   useEffect(() => {
     if (socket.current) {
       socket.current.on('message', (data) => {
         Console.Log('useEffect -> Recivido un nuevo mensaje')
-        setMessages((messages) => [...messages, data])
+        setMessages({ loading: false, data: [...messages.data, data] })
       })
     }
-  }, [])
+  })
 
   //me desplazo al mensaje
   useEffect(() => {
