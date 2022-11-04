@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 
 import { Loading } from '@nextui-org/react'
-import { ChatSendMessage, ChatMessage, ChatMessagesNotification } from './components'
+import { ChatSendMessage, ChatMessage, ChatNotificationArea } from './components'
 import { MessageAPI } from 'api/Messages'
 import { HelperDate } from 'helpers/date'
 import { CustomTypes } from 'common'
@@ -72,7 +72,7 @@ const ChatMessages = ({ user, selected, socket }) => {
     ) : (
       messages.data.map((chat, index) => (
         <div ref={scrollRef} key={index}>
-          <ChatMessage chat={chat} />
+          <ChatMessage chat={chat} selected={selected} />
         </div>
       ))
     )
@@ -81,7 +81,7 @@ const ChatMessages = ({ user, selected, socket }) => {
   return (
     <div className="chat-messages-container">
       <div className="chat-notification-area">
-        <ChatMessagesNotification selected={selected} />
+        <ChatNotificationArea selected={selected} />
       </div>
       <div className="messages">{RenderMessages()}</div>
       <div className="send-message">

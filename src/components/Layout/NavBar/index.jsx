@@ -18,14 +18,6 @@ const CustomNavBar = () => {
 
   const auth = useAuth()
 
-  // useEffect(() => {
-  //   const CheckLocalStorage = async () => {
-  //     const storage = await JSON.parse(LocalStorage.Get())
-  //     auth.SetUser(storage)
-  //   }
-  //   CheckLocalStorage()
-  // }, [])
-
   const handleDropdownActionKey = ({ actionKey }) => {
     if (actionKey === 'logout') {
       auth.ClearUser()

@@ -7,11 +7,12 @@ import { CustomTypes } from 'common'
 
 import './style.css'
 
-const ChatMessage = ({ chat }) => {
+const ChatMessage = ({ chat, selected }) => {
   const loggedUser = useAuth().GetUser()
 
   const MessageAvatar = (loadMyAvatar) => {
-    const image = loadMyAvatar ? chat.sender.image : chat.receiver.image
+    const avatar = selected.type === CustomTypes.ChatType.user ? selected.data.image : chat.sender.image
+    const image = loadMyAvatar ? loggedUser.image : avatar
     const color = loadMyAvatar ? CustomTypes.ColorsButton.primary : CustomTypes.ColorsButton.secondary
 
     return <Avatar src={GetImage(image)} color={color} bordered size={CustomTypes.Sizes.sm} />

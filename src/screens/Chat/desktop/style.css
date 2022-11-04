@@ -5,15 +5,13 @@
 
   width: 99%;
   height: 92%;
-
-  margin-top: 50px;
 }
 
-@supports (-moz-appearance: none) {
+/* @supports (-moz-appearance: none) {
   .chat-main-container {
     margin-top: -50px;
   }
-}
+} */
 
 .chat-body-container {
   display: flex;

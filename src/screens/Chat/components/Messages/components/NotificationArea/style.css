@@ -25,10 +25,14 @@
 .options {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 
   width: 10%;
   height: 100%;
+
+  gap: 2px;
+
+  padding-right: 2px;
 }
 
 .menu-icons:hover {

@@ -5,7 +5,7 @@ import './style.css'
 
 const CustomContainer = ({ children }) => {
   const darkMode = useDarkMode()
-  const containerClassName = `custom-container-${darkMode.value ? 'dark' : 'light'}`
+  const containerClassName = `custom-container theme-${darkMode.value ? 'dark' : 'light'}`
 
   return <div className={containerClassName}>{children}</div>
 }

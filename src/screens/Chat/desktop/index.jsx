@@ -101,7 +101,7 @@ const ChatDesktop = ({ user }) => {
   )
 
   const ChatWindow = (
-    <Card variant="bordered" isHoverable>
+    <Card variant="bordered">
       <Card.Header css={{ jc: 'center' }}>
         <ChatNotification />
       </Card.Header>

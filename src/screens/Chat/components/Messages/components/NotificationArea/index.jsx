@@ -6,7 +6,7 @@ import { CustomPopUp, CustomUserBadge } from 'components'
 import { GetRandomElementFromList, GetRandomNumber } from 'helpers/random'
 
 import './style.css'
-import { Badge } from '@nextui-org/react'
+import { Badge, Dropdown, Avatar } from '@nextui-org/react'
 import { UsersAPI } from 'api/Users'
 import Console from 'helpers/console'
 
@@ -38,6 +38,19 @@ const ChatMessagesNotification = ({ selected }) => {
     LoadOnlineUsers()
   }, [selected])
 
+  const MenuDropDown = (
+    <Dropdown>
+      <Dropdown.Trigger>
+        <Avatar icon={<IconlyPack.MoreCircle className="menu-icons" set="bold" />} squared />
+      </Dropdown.Trigger>
+      <Dropdown.Menu color="secondary" aria-label="Actions">
+        <Dropdown.Item key="delete" color="error" command="⌘⇧D">
+          Delete file
+        </Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+  )
+
   return (
     <div className="messages-notification">
       <div className="active-users">
@@ -66,9 +79,9 @@ const ChatMessagesNotification = ({ selected }) => {
       </div>
       <div className="options">
         <Badge color="error" content="9+" shape="circle" size={CustomTypes.Sizes.sm} isInvisible="false">
-          <IconlyPack.Notification className="menu-icons" set="bold" />
+          <Avatar icon={<IconlyPack.Notification className="menu-icons" set="bold" />} squared />
         </Badge>
-        <IconlyPack.MoreCircle className="menu-icons" set="bold" />
+        {MenuDropDown}
       </div>
     </div>
   )
