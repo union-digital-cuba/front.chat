@@ -22,7 +22,7 @@ const ChatDesktop = ({ user }) => {
 
   const [users, setUsers] = useState({ loading: true, data: [] })
   const [groups, setGroups] = useState({ loading: true, data: [] })
-  const [selected, SetSelected] = useState({ type: null, index: null })
+  const [selected, SetSelected] = useState({ type: null, data: null })
 
   useEffect(() => {
     const LoadGroupsBelongToUser = async () => {

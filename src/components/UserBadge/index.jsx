@@ -6,7 +6,7 @@ import { GetImage } from 'helpers/images'
 
 import './style.css'
 
-const CustomUserBadge = ({ user, color, pendingMessages, status, showDetails, size }) => {
+const CustomUserBadge = ({ user, color, pendingMessages, status, showDetails, size, handleOnClick }) => {
   const { sizeAvatar, sizeNotification, sizeStatus } = size
   const CustomUser = (
     <div className="custom-user-container">
@@ -16,7 +16,14 @@ const CustomUserBadge = ({ user, color, pendingMessages, status, showDetails, si
         sizeNotification={sizeNotification}
         sizeStatus={sizeStatus}
       >
-        <Avatar src={GetImage(user.image)} color={color} bordered size={sizeAvatar} />
+        <Avatar
+          src={GetImage(user.image)}
+          color={color}
+          bordered
+          size={sizeAvatar}
+          css={{ cursor: 'pointer' }}
+          onClick={handleOnClick}
+        />
       </CustomBadge>
       {showDetails && (
         <div className="custom-user-container-detail">

@@ -57,17 +57,19 @@ const ChatMessages = ({ user, selected, socket }) => {
   }, [selected])
 
   const handleSendMessage = async (msg) => {
-    const messageToSend = {
-      message: msg,
-      sender: user.id,
-      receiver: selected.data.id,
-      type: selected.type,
-      date: HelperDate.getNow(),
-    }
-    socket.current.emit('send-message', messageToSend)
-    const { statusCode, response } = await MessageAPI.SendMessage({ message: messageToSend })
-    if (statusCode === 200) {
-      setMessages({ loading: false, data: [...messages.data, response] })
+    if (selected.data) {
+      const messageToSend = {
+        message: msg,
+        sender: user.id,
+        receiver: selected.data.id,
+        type: selected.type,
+        date: HelperDate.getNow(),
+      }
+      socket.current.emit('send-message', messageToSend)
+      const { statusCode, response } = await MessageAPI.SendMessage({ message: messageToSend })
+      if (statusCode === 200) {
+        setMessages({ loading: false, data: [...messages.data, response] })
+      }
     }
   }
 

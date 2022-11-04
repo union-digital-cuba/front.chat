@@ -1,18 +1,17 @@
-import React, { useRef } from 'react'
+import React, { useState } from 'react'
 
 import { Input, Button } from '@nextui-org/react'
-// import SendButton from './components'
 import { SendIcon } from 'components/Icons'
-// import { CustomTypes } from 'common'
 
 import './style.css'
 
 const ChatSendMessage = ({ handleSendMessage }) => {
-  const inputReference = useRef()
+  const [message, setMessage] = useState('')
 
   const onSendMessage = () => {
-    if (inputReference.current) {
-      handleSendMessage(inputReference.current)
+    if (message) {
+      handleSendMessage(message)
+      setMessage('')
     }
   }
 
@@ -33,8 +32,10 @@ const ChatSendMessage = ({ handleSendMessage }) => {
               onClick={() => onSendMessage()}
             />
           }
-          onChange={(e) => {
-            inputReference.current = e.target.value
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={(e) => {
+            e.key === 'Enter' && onSendMessage(e.value)
           }}
           // onPointerDown={() => alert('entrado')}
         />
