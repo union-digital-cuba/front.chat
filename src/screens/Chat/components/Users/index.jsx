@@ -62,7 +62,7 @@ const ChatUsers = ({ users, handleSelectUser }) => {
 
     return (
       <>
-        <div className="user-search-bar">
+        <div className="search-bar">
           <Input
             clearable
             color="secondary"
@@ -74,7 +74,7 @@ const ChatUsers = ({ users, handleSelectUser }) => {
             onClearClick={() => setSearch({ loading: users.loading, data: [...users.data] })}
           />
         </div>
-        <div className="user-content">{GetChatUsersContainer()}</div>
+        <div className="content">{GetChatUsersContainer()}</div>
       </>
     )
   }

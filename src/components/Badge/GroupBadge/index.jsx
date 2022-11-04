@@ -6,29 +6,22 @@ import { GetImage } from 'helpers/images'
 
 import './style.css'
 
-const CustomUserBadge = ({ user, color, pendingMessages, status, showDetails, size, clickeable, handleOnClick }) => {
+const CustomGroupBadge = ({ group, color, pendingMessages, status, showDetails, size, clickeable, handleOnClick }) => {
   const { sizeAvatar, sizeNotification, sizeStatus } = size
   const CustomUser = (
-    <div className={`custom-user-container ${clickeable && 'clickeable'}`}>
+    <div className={`custom-user-container ${clickeable && 'clickeable'}`} onClick={() => handleOnClick()}>
       <CustomBadge
         pendingMessages={pendingMessages}
         status={status}
         sizeNotification={sizeNotification}
         sizeStatus={sizeStatus}
       >
-        <Avatar
-          src={GetImage(user.image)}
-          color={color}
-          bordered
-          size={sizeAvatar}
-          css={{ cursor: 'pointer' }}
-          onClick={handleOnClick}
-        />
+        <Avatar src={GetImage(group.image)} color={color} bordered size={sizeAvatar} css={{ cursor: 'pointer' }} />
       </CustomBadge>
       {showDetails && (
         <div className="custom-user-container-detail">
-          <Text>{user.username}</Text>
-          <Text size="$xs">{user.email}</Text>
+          <Text>{group.name}</Text>
+          <Text size="$xs">{'Last Message...'}</Text>
         </div>
       )}
     </div>
@@ -37,4 +30,4 @@ const CustomUserBadge = ({ user, color, pendingMessages, status, showDetails, si
   return CustomUser
 }
 
-export default CustomUserBadge
+export default CustomGroupBadge

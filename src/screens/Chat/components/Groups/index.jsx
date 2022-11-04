@@ -1,51 +1,85 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
-import { Collapse, Avatar, Text, Loading } from '@nextui-org/react'
-
-import { CustomBadge } from 'components'
+import { Loading, Input } from '@nextui-org/react'
+import * as IconlyPack from 'react-iconly'
+import { CustomGroupBadge } from 'components'
 import { CustomTypes } from 'common'
-import { GetImage } from 'helpers/images'
 import './style.css'
+import { GetRandomElementFromList, GetRandomNumber } from 'helpers/random'
 
 const ChatGroups = ({ groups, handleSelectGroup }) => {
-  const GroupCollapse = (group, index) => {
-    const GroupDetail = (
-      <CustomBadge
-        pendingMessages={5}
-        status={CustomTypes.BadgeVariants.points}
-        sizeNotification={CustomTypes.Sizes.md}
-        sizeStatus={CustomTypes.Sizes.md}
-      >
-        <Avatar size="lg" src={GetImage(group.image)} color="secondary" bordered />
-      </CustomBadge>
-    )
+  const [search, setSearch] = useState({ loading: groups.loading, data: [...groups.data] })
+
+  useEffect(() => {
+    const LoadGroupsToSearch = () => {
+      setSearch({ loading: groups.loading, data: [...groups.data] })
+    }
+    LoadGroupsToSearch()
+  }, [groups])
+
+  const onSearch = (e) => {
+    e.preventDefault()
+    const value = e.target.value
+    if (value) {
+      const filtered = groups.data.filter((p) => p.name.includes(value))
+      console.log(value, filtered)
+      setSearch({ loading: false, data: [...filtered] })
+    } else setSearch({ loading: false, data: [...groups.data] })
+  }
+
+  const GetLoading = <Loading color="error">Loading...</Loading>
+  const GetGroups = () => {
+    const arrayOfColors = Object.keys(CustomTypes.ColorsButton)
+
+    return search.data.map((group, index) => {
+      const color = GetRandomElementFromList(arrayOfColors)
+      const number = GetRandomNumber(10)
+
+      const size = {
+        sizeAvatar: CustomTypes.Sizes.md,
+        sizeNotification: CustomTypes.Sizes.md,
+        sizeStatus: CustomTypes.Sizes.md,
+      }
+
+      return (
+        <CustomGroupBadge
+          clickeable={true}
+          key={index}
+          group={group}
+          color={color}
+          pendingMessages={number}
+          status={group.id % 2 === 0 ? CustomTypes.BadgeVariants.dot : CustomTypes.BadgeVariants.points}
+          showDetails={true}
+          size={size}
+          handleOnClick={() => handleSelectGroup({ type: CustomTypes.ChatType.group, data: group })}
+        />
+      )
+    })
+  }
+
+  const GroupComponent = () => {
+    const SearchIcon = <IconlyPack.Search set="bulk" />
 
     return (
-      <Collapse
-        className="group-info"
-        showArrow={false}
-        key={index}
-        onClick={() => handleSelectGroup({ type: CustomTypes.ChatType.group, data: group })}
-        title={<Text h4>{group.name}</Text>}
-        subtitle={`${group.amount} users`}
-        contentLeft={GroupDetail}
-      >
-        <Text>Last Chat from a Group</Text>
-      </Collapse>
+      <>
+        <div className="search-bar">
+          <Input
+            clearable
+            color="secondary"
+            placeholder="Search..."
+            contentRight={search.loading ? <Loading size="xs" /> : SearchIcon}
+            onKeyDown={(e) => {
+              e.key === 'Enter' && onSearch(e)
+            }}
+            onClearClick={() => setSearch({ loading: groups.loading, data: [...groups.data] })}
+          />
+        </div>
+        <div className="content">{GetGroups()}</div>
+      </>
     )
   }
 
-  const GetSplited = (
-    <Collapse.Group splitted>
-      {groups.data.map((group, index) => {
-        return GroupCollapse(group, index)
-      })}
-    </Collapse.Group>
-  )
-
-  const GetLoading = <Loading color="error">Loading...</Loading>
-
-  return <div className="chat-group-container">{groups.loading ? GetLoading : GetSplited}</div>
+  return <div className="chat-group-container">{groups.loading ? GetLoading : GroupComponent()}</div>
 }
 
 export default ChatGroups
