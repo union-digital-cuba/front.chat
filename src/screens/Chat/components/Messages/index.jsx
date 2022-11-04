@@ -13,23 +13,16 @@ import './style.css'
 const ChatMessages = ({ user, selected, socket }) => {
   const scrollRef = useRef()
   const [messages, setMessages] = useState({ loading: true, data: [] })
-  const [arrivalMessage, setArrivalMessage] = useState()
 
   //cuando recivo algo del socket lo ponto en arrival
   useEffect(() => {
     if (socket.current) {
-      socket.current.on('message-recieve', (data) => {
+      socket.current.on('message', (data) => {
         Console.Log('useEffect -> Recivido un nuevo mensaje')
-        setArrivalMessage(data)
+        setMessages((messages) => [...messages, data])
       })
     }
   }, [])
-
-  //adiciono el arrival a los mensajes
-  useEffect(() => {
-    Console.Log('useEffect -> Almacenar nuevo mensaje')
-    arrivalMessage && setMessages((prev) => [...prev, arrivalMessage])
-  }, [arrivalMessage])
 
   //me desplazo al mensaje
   useEffect(() => {
@@ -65,9 +58,9 @@ const ChatMessages = ({ user, selected, socket }) => {
         type: selected.type,
         date: HelperDate.getNow(),
       }
-      socket.current.emit('send-message', messageToSend)
       const { statusCode, response } = await MessageAPI.SendMessage({ message: messageToSend })
       if (statusCode === 200) {
+        socket.current.emit('send-message', response)
         setMessages({ loading: false, data: [...messages.data, response] })
       }
     }

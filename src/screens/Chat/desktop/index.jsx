@@ -55,6 +55,7 @@ const ChatDesktop = ({ user }) => {
             const groupId = selected.data.id
             const { statusCode, response } = await UsersAPI.GetUsersByGroup(groupId, user.id)
             if (statusCode === 200) {
+              socket.current.emit('join', groupId)
               setUsers({ loading: false, data: response })
             }
           } else {
