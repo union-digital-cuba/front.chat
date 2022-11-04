@@ -20,8 +20,11 @@ const ChatMessagesNotification = ({ selected }) => {
   useEffect(() => {
     const LoadOnlineUsers = async () => {
       try {
-        if (selected.type === CustomTypes.ChatType.group) {
-          const { statusCode, response } = await UsersAPI.GetOnlineUsers(selected.data.id)
+        if (selected.data) {
+          const { statusCode, response } =
+            selected.type === CustomTypes.ChatType.group
+              ? await UsersAPI.GetOnlineUsers(selected.data.id)
+              : await UsersAPI.GetOneById(selected.data.id)
 
           if (statusCode === 200) {
             Console.Log('useEffect -> Cargando usuarios Online')

@@ -81,6 +81,12 @@ const ChatDesktop = ({ user }) => {
     if (JSON.stringify(selection) !== JSON.stringify(selected)) SetSelected(selection)
   }
 
+  const ChatUser = (
+    <div className="chat-users">
+      <ChatUsers users={users} handleSelectUser={handleSelected} />
+    </div>
+  )
+
   const ChatComponents = (
     <div className="chat-body-container">
       <div className="chat-groups">
@@ -89,9 +95,7 @@ const ChatDesktop = ({ user }) => {
       <div className="chat-messages">
         <ChatMessages user={user} selected={selected} socket={socket} />
       </div>
-      <div className="chat-users">
-        <ChatUsers users={users} handleSelectUser={handleSelected} />
-      </div>
+      {selected.type === CustomTypes.ChatType.group && ChatUser}
     </div>
   )
 
