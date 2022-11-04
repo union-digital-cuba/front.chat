@@ -8,30 +8,32 @@
 
   width: auto;
   height: 50px;
+
+  padding: 5px;
 }
 
 .custom-user-container:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
   cursor: pointer;
   transition: 0.2s ease-in;
+
+  background-color: gray;
+  border-radius: 10px;
 }
 
 .custom-user-container:active {
   transform: scale(0.9);
   transition: 0.1s ease-in;
+  background-color: rgb(77, 77, 77);
+  border-radius: 10px;
 }
 
 .custom-user-container-detail {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 
   height: 100%;
   width: 100%;
 }
-
-/* .user-info {
-  display: flex;
-
-  justify-content: flex-start;
-  width: 100%;
-} */
