@@ -66,6 +66,7 @@ const ChatMessagesNotification = ({ selected }) => {
 
           return (
             <CustomUserBadge
+              clickeable={false}
               key={index}
               user={user}
               color={color}

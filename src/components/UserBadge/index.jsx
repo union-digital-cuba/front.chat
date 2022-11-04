@@ -6,10 +6,10 @@ import { GetImage } from 'helpers/images'
 
 import './style.css'
 
-const CustomUserBadge = ({ user, color, pendingMessages, status, showDetails, size, handleOnClick }) => {
+const CustomUserBadge = ({ user, color, pendingMessages, status, showDetails, size, clickeable, handleOnClick }) => {
   const { sizeAvatar, sizeNotification, sizeStatus } = size
   const CustomUser = (
-    <div className="custom-user-container">
+    <div className={`custom-user-container ${clickeable && 'clickeable'}`}>
       <CustomBadge
         pendingMessages={pendingMessages}
         status={status}

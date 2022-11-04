@@ -43,6 +43,7 @@ const ChatUsers = ({ users, handleSelectUser }) => {
 
       return (
         <CustomUserBadge
+          clickeable={true}
           key={index}
           user={user}
           color={color}
