@@ -23,16 +23,6 @@
   transition: 0.1s ease-in;
 }
 
-.clickeable:hover {
-  background-color: gray;
-  border-radius: 10px;
-}
-
-.clickeable:active {
-  background-color: rgb(77, 77, 77);
-  border-radius: 10px;
-}
-
 .custom-user-container-detail {
   display: flex;
   flex-direction: column;

@@ -12,9 +12,7 @@ import Console from 'helpers/console'
 
 const ChatMessagesNotification = ({ selected }) => {
   const [onlineUsers, setOnlineUsers] = useState([])
-  //Son los usuarios activos en el Grupo, que tengan menos de 5 min
-  //Desde la ultima actividad
-  //SOCKET
+
   const arrayOfColors = Object.keys(CustomTypes.ColorsButton)
 
   useEffect(() => {
