@@ -49,3 +49,45 @@
   border-radius: 15px 15px 15px 0;
   background: var(--nextui-colors-secondary);
 }
+
+.message-not-last {
+  border-radius: 15px;
+}
+
+.message-detail {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.2rem;
+
+  width: 100%;
+  height: 100%;
+}
+
+.message-detail-msg {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.message-details {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: flex-end;
+
+  gap: 0.2rem;
+
+  width: 100%;
+  height: 100%;
+}
+
+.message-details > p {
+  font-size: small;
+  color: darkgray;
+}
+
+.message-details > span {
+  display: flex;
+  align-items: center;
+}
+/* TickSquareset="two-tone" */

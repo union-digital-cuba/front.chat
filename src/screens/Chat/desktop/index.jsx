@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { io } from 'socket.io-client'
 
 import { Card } from '@nextui-org/react'
 
@@ -13,11 +12,9 @@ import { ChatGroups, ChatMessages, ChatNotification, ChatUsers } from '../compon
 
 import './style.css'
 import Console from 'helpers/console'
+import Socket from 'helpers/sockets'
 
 const ChatDesktop = ({ user }) => {
-  const url = `http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}`
-
-  const socket = useRef()
   const history = useHistory()
 
   const [users, setUsers] = useState({ loading: true, data: [] })
@@ -55,11 +52,11 @@ const ChatDesktop = ({ user }) => {
             const groupId = selected.data.id
             const { statusCode, response } = await UsersAPI.GetUsersByGroup(groupId, user.id)
             if (statusCode === 200) {
-              socket.current.emit('join', groupId)
+              Socket.JoinRoom(selected.data)
               setUsers({ loading: false, data: response })
             }
           } else {
-            //en caso que marque un usuario
+            Socket.LeaveRoom()
             setUsers({ loading: false, data: [] })
           }
         }
@@ -72,8 +69,11 @@ const ChatDesktop = ({ user }) => {
 
   useEffect(() => {
     if (user) {
-      socket.current = io(url)
-      socket.current.emit('add-user', user)
+      Socket.InitializeConnection()
+      Socket.AddUser(user)
+      return () => {
+        Socket.Disconnect()
+      }
     }
   }, [user])
 
@@ -94,7 +94,7 @@ const ChatDesktop = ({ user }) => {
         <ChatGroups groups={groups} handleSelectGroup={handleSelected} />
       </div>
       <div className="chat-messages">
-        <ChatMessages user={user} selected={selected} socket={socket} />
+        <ChatMessages user={user} selected={selected} />
       </div>
       {selected.type === CustomTypes.ChatType.group && ChatUser}
     </div>

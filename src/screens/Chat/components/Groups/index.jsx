@@ -22,7 +22,6 @@ const ChatGroups = ({ groups, handleSelectGroup }) => {
     const value = e.target.value
     if (value) {
       const filtered = groups.data.filter((p) => p.name.includes(value))
-      console.log(value, filtered)
       setSearch({ loading: false, data: [...filtered] })
     } else setSearch({ loading: false, data: [...groups.data] })
   }

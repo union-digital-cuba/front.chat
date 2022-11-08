@@ -5,6 +5,9 @@ import { Avatar } from '@nextui-org/react'
 import { GetImage } from 'helpers/images'
 import { CustomTypes } from 'common'
 
+import { format } from 'timeago.js'
+import * as IconlyPack from 'react-iconly'
+
 import './style.css'
 
 const ChatMessage = ({ chat, selected }) => {
@@ -19,7 +22,21 @@ const ChatMessage = ({ chat, selected }) => {
   }
 
   const MessageDetail = () => {
-    return <div className="message-detail">{chat.message}</div>
+    const MessageTypeIcon = {
+      time: <IconlyPack.TimeSquare set="bold" primaryColor="blueviolet" size={8} />,
+      delivered: <IconlyPack.TickSquare set="bold" primaryColor="blueviolet" size={8} />,
+      sended: <IconlyPack.TickSquare set="two-tone" size={8} />,
+    }
+
+    return (
+      <div className="message-detail">
+        <div className="message-detail-msg">{chat.message}</div>
+        <div className="message-details">
+          <p>{format(chat.date)}</p>
+          <span>{MessageTypeIcon.sended}</span>
+        </div>
+      </div>
+    )
   }
 
   const MessageByOther = () => {

@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import { Input, Button } from '@nextui-org/react'
 import { SendIcon } from 'components/Icons'
 
+import * as IconlyPack from 'react-iconly'
+
 import './style.css'
 
 const ChatSendMessage = ({ handleSendMessage }) => {
@@ -23,6 +25,15 @@ const ChatSendMessage = ({ handleSendMessage }) => {
           clearable
           contentRightStyling={false}
           placeholder="Type your message..."
+          contentLeft={
+            <Button
+              className="send-button"
+              auto
+              color="error"
+              icon={<IconlyPack.Search set="bulk" size={16} />}
+              onClick={() => onSendMessage()}
+            />
+          }
           contentRight={
             <Button
               className="send-button"

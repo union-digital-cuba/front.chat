@@ -15,6 +15,7 @@
     "react-scripts": "4.0.3",
     "socket.io-client": "^4.5.1",
     "sweetalert2": "^11.4.33",
+    "timeago.js": "^4.0.2",
     "use-dark-mode": "^2.3.1"
   },
   "devDependencies": {

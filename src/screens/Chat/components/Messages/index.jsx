@@ -9,28 +9,21 @@ import { CustomPopUp } from 'components'
 import Console from 'helpers/console'
 
 import './style.css'
+import Socket from 'helpers/sockets'
 
-const ChatMessages = ({ user, selected, socket }) => {
+const ChatMessages = ({ user, selected }) => {
   const scrollRef = useRef()
   const [messages, setMessages] = useState({ loading: true, data: [] })
 
-  //cuando recivo algo del socket
   useEffect(() => {
-    if (socket.current) {
-      socket.current.on('message', (data) => {
-        Console.Log('useEffect -> Recivido un nuevo mensaje')
-        setMessages({ loading: false, data: [...messages.data, data] })
-      })
-    }
+    Socket.SubscribeToMessages((data) => setMessages({ loading: false, data: [...messages.data, data] }))
   })
 
-  //me desplazo al mensaje
   useEffect(() => {
     Console.Log('useEffect -> Scroll al Mensaje')
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  //cargar todos los mensajes del chat
   useEffect(() => {
     const LoadMessages = async () => {
       try {
@@ -60,7 +53,7 @@ const ChatMessages = ({ user, selected, socket }) => {
       }
       const { statusCode, response } = await MessageAPI.SendMessage({ message: messageToSend })
       if (statusCode === 200) {
-        socket.current.emit('send-message', response)
+        Socket.SendMessage({ data: response, type: messageToSend.type })
         setMessages({ loading: false, data: [...messages.data, response] })
       }
     }
