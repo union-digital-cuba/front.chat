@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, memo } from 'react'
 
 import { Loading, Input } from '@nextui-org/react'
 import * as IconlyPack from 'react-iconly'
@@ -7,7 +7,7 @@ import { CustomTypes } from 'common'
 import './style.css'
 import { GetRandomElementFromList, GetRandomNumber } from 'helpers/random'
 
-const ChatGroups = ({ groups, handleSelectGroup }) => {
+const ChatGroups = memo(({ groups, handleSelectGroup }) => {
   const [search, setSearch] = useState('')
 
   const filteredGroups = useMemo(() => {
@@ -73,6 +73,8 @@ const ChatGroups = ({ groups, handleSelectGroup }) => {
   }
 
   return <div className="chat-group-container">{groups.loading ? GetLoading : GroupComponent()}</div>
-}
+})
+
+ChatGroups.displayName = 'ChatGroups'
 
 export default ChatGroups

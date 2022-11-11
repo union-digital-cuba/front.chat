@@ -81,7 +81,7 @@ const ChatDesktop = ({ user }) => {
   const handleSelected = useCallback((selection) => {
     Console.Info('handleSelected -> cambiando seleccion')
     if (JSON.stringify(selection) !== JSON.stringify(selected)) SetSelected(selection)
-  })
+  }, [])
 
   const ChatUser = (
     <div className="chat-users">

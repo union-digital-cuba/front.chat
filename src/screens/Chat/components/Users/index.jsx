@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, memo } from 'react'
 
 import { Loading, Input } from '@nextui-org/react'
 import { GetRandomElementFromList, GetRandomNumber } from 'helpers/random'
@@ -8,7 +8,7 @@ import * as IconlyPack from 'react-iconly'
 
 import './style.css'
 
-const ChatUsers = ({ users, handleSelectUser }) => {
+const ChatUsers = memo(({ users, handleSelectUser }) => {
   const [search, setSearch] = useState('')
 
   const arrayOfColors = Object.keys(CustomTypes.ColorsButton)
@@ -75,6 +75,8 @@ const ChatUsers = ({ users, handleSelectUser }) => {
   }
 
   return <div className="chat-users-container">{users.loading ? GetLoading : UsersComponent()}</div>
-}
+})
+
+ChatUsers.displayName = 'ChatUsers'
 
 export default ChatUsers
