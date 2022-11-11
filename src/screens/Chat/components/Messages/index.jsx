@@ -16,7 +16,21 @@ const ChatMessages = ({ user, selected }) => {
   const [messages, setMessages] = useState({ loading: true, data: [] })
 
   useEffect(() => {
-    Socket.SubscribeToMessages((data) => setMessages({ loading: false, data: [...messages.data, data] }))
+    Socket.SubscribeToMessages((data) => {
+      console.log('mensaje -> ', data)
+      console.log('selected -> ', selected)
+      console.log('-----------------------------------------')
+
+      if (selected.type === data.type) {
+        if (selected.type === CustomTypes.ChatType.group && selected.data.id === data.receiver.id) {
+          setMessages({ loading: false, data: [...messages.data, data] })
+        }
+
+        if (selected.type === CustomTypes.ChatType.user && selected.data.id === data.sender.id) {
+          setMessages({ loading: false, data: [...messages.data, data] })
+        }
+      }
+    })
   })
 
   useEffect(() => {
@@ -53,7 +67,7 @@ const ChatMessages = ({ user, selected }) => {
       }
       const { statusCode, response } = await MessageAPI.SendMessage({ message: messageToSend })
       if (statusCode === 200) {
-        Socket.SendMessage({ data: response, type: messageToSend.type })
+        Socket.SendMessage({ data: response })
         setMessages({ loading: false, data: [...messages.data, response] })
       }
     }

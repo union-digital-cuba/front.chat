@@ -45,6 +45,8 @@ const ChatDesktop = ({ user }) => {
         if (!user) history.push('/login')
 
         if (selected.data !== null) {
+          Socket.LeaveRoom()
+
           if (selected.type === CustomTypes.ChatType.group) {
             Console.Info('useEffect -> Cargando usuarios del grupo')
 
@@ -56,7 +58,6 @@ const ChatDesktop = ({ user }) => {
               setUsers({ loading: false, data: response })
             }
           } else {
-            Socket.LeaveRoom()
             setUsers({ loading: false, data: [] })
           }
         }

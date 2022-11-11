@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useMemo } from 'react'
 
 import { Loading, Input } from '@nextui-org/react'
 import { GetRandomElementFromList, GetRandomNumber } from 'helpers/random'
@@ -9,29 +9,24 @@ import * as IconlyPack from 'react-iconly'
 import './style.css'
 
 const ChatUsers = ({ users, handleSelectUser }) => {
-  const [search, setSearch] = useState({ loading: users.loading, data: [...users.data] })
+  const [search, setSearch] = useState('')
 
-  useEffect(() => {
-    const LoadUsersToSearch = () => {
-      setSearch({ loading: users.loading, data: [...users.data] })
-    }
-    LoadUsersToSearch()
-  }, [users])
+  const arrayOfColors = Object.keys(CustomTypes.ColorsButton)
+  const filteredUsers = useMemo(
+    () => users.data.filter((p) => p.username?.toLowerCase().includes(search?.toLowerCase())),
+    [users, search]
+  )
 
   const onSearch = (e) => {
     e.preventDefault()
     const value = e.target.value
-    if (value) {
-      const filtered = users.data.filter((p) => p.username.includes(value))
-      setSearch({ loading: false, data: [...filtered] })
-    } else setSearch({ loading: false, data: [...users.data] })
+    setSearch(value)
   }
 
-  const arrayOfColors = Object.keys(CustomTypes.ColorsButton)
-
   const GetLoading = <Loading color="error">Loading...</Loading>
+
   const GetChatUsersContainer = () => {
-    return search.data.map((user, index) => {
+    return filteredUsers.map((user, index) => {
       const color = GetRandomElementFromList(arrayOfColors)
       const number = GetRandomNumber(10)
 
@@ -67,11 +62,11 @@ const ChatUsers = ({ users, handleSelectUser }) => {
             clearable
             color="secondary"
             placeholder="Search..."
-            contentRight={search.loading ? <Loading size="xs" /> : SearchIcon}
+            contentRight={SearchIcon}
             onKeyDown={(e) => {
               e.key === 'Enter' && onSearch(e)
             }}
-            onClearClick={() => setSearch({ loading: users.loading, data: [...users.data] })}
+            onClearClick={() => setSearch('')}
           />
         </div>
         <div className="content">{GetChatUsersContainer()}</div>

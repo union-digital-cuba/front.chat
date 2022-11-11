@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useMemo } from 'react'
 
 import { Loading, Input } from '@nextui-org/react'
 import * as IconlyPack from 'react-iconly'
@@ -8,29 +8,23 @@ import './style.css'
 import { GetRandomElementFromList, GetRandomNumber } from 'helpers/random'
 
 const ChatGroups = ({ groups, handleSelectGroup }) => {
-  const [search, setSearch] = useState({ loading: groups.loading, data: [...groups.data] })
+  const [search, setSearch] = useState('')
 
-  useEffect(() => {
-    const LoadGroupsToSearch = () => {
-      setSearch({ loading: groups.loading, data: [...groups.data] })
-    }
-    LoadGroupsToSearch()
-  }, [groups])
+  const filteredGroups = useMemo(() => {
+    return groups.data.filter((p) => p.name?.toLowerCase().includes(search.toLowerCase()))
+  }, [groups, search])
 
   const onSearch = (e) => {
     e.preventDefault()
     const value = e.target.value
-    if (value) {
-      const filtered = groups.data.filter((p) => p.name.includes(value))
-      setSearch({ loading: false, data: [...filtered] })
-    } else setSearch({ loading: false, data: [...groups.data] })
+    setSearch(value)
   }
 
   const GetLoading = <Loading color="error">Loading...</Loading>
   const GetGroups = () => {
     const arrayOfColors = Object.keys(CustomTypes.ColorsButton)
 
-    return search.data.map((group, index) => {
+    return filteredGroups.map((group, index) => {
       const color = GetRandomElementFromList(arrayOfColors)
       const number = GetRandomNumber(10)
 
@@ -66,11 +60,11 @@ const ChatGroups = ({ groups, handleSelectGroup }) => {
             clearable
             color="secondary"
             placeholder="Search..."
-            contentRight={search.loading ? <Loading size="xs" /> : SearchIcon}
+            contentRight={SearchIcon}
             onKeyDown={(e) => {
               e.key === 'Enter' && onSearch(e)
             }}
-            onClearClick={() => setSearch({ loading: groups.loading, data: [...groups.data] })}
+            onClearClick={() => setSearch('')}
           />
         </div>
         <div className="content">{GetGroups()}</div>

@@ -35,6 +35,7 @@ const Socket = {
   },
   SubscribeToMessages: (callBack) => {
     if (!Socket.Current) return true
+
     Socket.Current.on('message', (data) => {
       return callBack(data)
     })
