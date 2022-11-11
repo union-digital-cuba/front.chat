@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { Card } from '@nextui-org/react'
@@ -78,10 +78,10 @@ const ChatDesktop = ({ user }) => {
     }
   }, [user])
 
-  const handleSelected = (selection) => {
+  const handleSelected = useCallback((selection) => {
     Console.Info('handleSelected -> cambiando seleccion')
     if (JSON.stringify(selection) !== JSON.stringify(selected)) SetSelected(selection)
-  }
+  })
 
   const ChatUser = (
     <div className="chat-users">
