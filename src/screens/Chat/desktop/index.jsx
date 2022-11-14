@@ -45,8 +45,6 @@ const ChatDesktop = ({ user }) => {
         if (!user) history.push('/login')
 
         if (selected.data !== null) {
-          Socket.LeaveRoom()
-
           if (selected.type === CustomTypes.ChatType.group) {
             Console.Info('useEffect -> Cargando usuarios del grupo')
 
@@ -54,7 +52,11 @@ const ChatDesktop = ({ user }) => {
             const groupId = selected.data.id
             const { statusCode, response } = await UsersAPI.GetUsersByGroup(groupId, user.id)
             if (statusCode === 200) {
-              Socket.JoinRoom(selected.data)
+              Socket.JoinRoom({
+                name: user.username,
+                room: `${selected.data.name}-${selected.data.id}`,
+                type: CustomTypes.ChatType.group,
+              })
               setUsers({ loading: false, data: response })
             }
           } else {
@@ -71,7 +73,7 @@ const ChatDesktop = ({ user }) => {
   useEffect(() => {
     if (user) {
       Socket.InitializeConnection()
-      Socket.AddUser(user)
+      Socket.JoinRoom({ name: user.username, room: `${user.username}-${user.id}`, type: CustomTypes.ChatType.user })
       return () => {
         Socket.Disconnect()
       }
