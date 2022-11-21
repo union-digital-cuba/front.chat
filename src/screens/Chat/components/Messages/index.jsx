@@ -34,13 +34,6 @@ const ChatMessages = ({ user, selected }) => {
     }
     Socket?.Current?.on('message', CallBack)
     return () => Socket?.Current?.off('message', CallBack)
-    // const HandleListener = (data) => {
-
-    //   }
-    // }
-    // Socket.Current.on('message', (data) => HandleListener(data))
-    // return () => Socket.Current.off('message', (data) => HandleListener(data))
-    // Socket.SubscribeToMessages(HandleListener)
   }, [Socket.Current, messages, selected])
 
   useEffect(() => {
