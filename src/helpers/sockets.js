@@ -7,7 +7,7 @@ const Socket = {
   Current: undefined,
   InitializeConnection: () => {
     Socket.Current = io(url)
-    Console.Log('Socket: Connected...')
+    Console.Log('Socket: Connected...}')
   },
   Reconnection: () => {
     Socket.Current.on('connect_error', () => {
@@ -19,11 +19,18 @@ const Socket = {
   },
   Disconnect: () => {
     Console.Log('Socket: Disconnected...')
-    if (Socket.Current) Socket.Current.disconnect()
+    if (Socket.Current) {
+      Socket.Current.disconnect()
+    }
   },
-  JoinRoom: (room) => {
-    Console.Log(`Socket: Add Room...${room.name}`)
-    Socket.Current.emit('join', room)
+  AddUser: ({ name, room }) => {
+    Socket.Current.emit('new-user', { name, room })
+  },
+  JoinRoom: ({ name, room }) => {
+    Socket.Current.emit('join', { name, room })
+  },
+  LeaveRoom: ({ name, room }) => {
+    Socket.Current.emit('leave', { name, room })
   },
   SubscribeToMessages: (callBack) => {
     if (!Socket.Current) return true
@@ -32,8 +39,8 @@ const Socket = {
       return callBack(data)
     })
   },
-  SendMessage: ({ message }) => {
-    if (Socket.Current) Socket.Current.emit('send-message', { message })
+  SendMessage: ({ room, message }) => {
+    if (Socket.Current) Socket.Current.emit('send-message', { room, message })
   },
 }
 

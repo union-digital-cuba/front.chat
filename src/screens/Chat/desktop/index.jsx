@@ -55,11 +55,14 @@ const ChatDesktop = ({ user }) => {
               Socket.JoinRoom({
                 name: user.username,
                 room: `${selected.data.name}-${selected.data.id}`,
-                type: CustomTypes.ChatType.group,
               })
               setUsers({ loading: false, data: response })
             }
           } else {
+            Socket.JoinRoom({
+              name: user.username,
+              room: `${selected.data.username}-${selected.data.id}`,
+            })
             setUsers({ loading: false, data: [] })
           }
         }
@@ -70,20 +73,26 @@ const ChatDesktop = ({ user }) => {
     LoadUsersFromGroup()
   }, [selected])
 
-  useEffect(() => {
-    if (user) {
-      Socket.InitializeConnection()
-      Socket.JoinRoom({ name: user.username, room: `${user.username}-${user.id}`, type: CustomTypes.ChatType.user })
-      return () => {
-        Socket.Disconnect()
-      }
-    }
-  }, [user])
+  const handleSelected = useCallback(
+    (selection) => {
+      Console.Info('handleSelected -> cambiando seleccion')
 
-  const handleSelected = useCallback((selection) => {
-    Console.Info('handleSelected -> cambiando seleccion')
-    if (JSON.stringify(selection) !== JSON.stringify(selected)) SetSelected(selection)
-  }, [])
+      if (selected.data) {
+        //objeto con la data para salir del grupo seleccionado
+        const data = {
+          name: user.username,
+          room:
+            selected.type === CustomTypes.ChatType.group
+              ? `${selected.data.name}-${selected.data.id}`
+              : `${selected.data.username}-${selected.data.id}`,
+        }
+        Socket.LeaveRoom({ ...data, room: data.room.toLowerCase() })
+      }
+
+      if (JSON.stringify(selection) !== JSON.stringify(selected)) SetSelected(selection)
+    },
+    [selected]
+  )
 
   const ChatUser = (
     <div className="chat-users">

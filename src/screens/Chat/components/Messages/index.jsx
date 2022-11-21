@@ -16,10 +16,32 @@ const ChatMessages = ({ user, selected }) => {
   const [messages, setMessages] = useState({ loading: true, data: [] })
 
   useEffect(() => {
-    Socket.SubscribeToMessages((data) => {
-      setMessages({ loading: false, data: [...messages.data, data] })
-    })
-  })
+    const CallBack = (message) => {
+      if (selected.data) {
+        const selectedRoom =
+          selected.type === CustomTypes.ChatType.group
+            ? `${selected.data.name}-${selected.data.id}`
+            : `${selected.data.username}-${selected.data.id}`
+        const receiverRoom =
+          message.type === CustomTypes.ChatType.group
+            ? `${message.receiver.name}-${message.receiver.id}`
+            : `${message.sender.username}-${message.sender.id}`
+        const canInsertMessage =
+          selected.type === message.type && selectedRoom.toLowerCase() === receiverRoom.toLowerCase()
+        console.log(selectedRoom, receiverRoom, canInsertMessage)
+        if (canInsertMessage) setMessages({ loading: false, data: [...messages.data, message] })
+      }
+    }
+    Socket?.Current?.on('message', CallBack)
+    return () => Socket?.Current?.off('message', CallBack)
+    // const HandleListener = (data) => {
+
+    //   }
+    // }
+    // Socket.Current.on('message', (data) => HandleListener(data))
+    // return () => Socket.Current.off('message', (data) => HandleListener(data))
+    // Socket.SubscribeToMessages(HandleListener)
+  }, [Socket.Current, messages, selected])
 
   useEffect(() => {
     Console.Log('useEffect -> Scroll al Mensaje')
@@ -55,7 +77,12 @@ const ChatMessages = ({ user, selected }) => {
       }
       const { statusCode, response } = await MessageAPI.SendMessage({ message: messageToSend })
       if (statusCode === 200) {
-        Socket.SendMessage({ message: response })
+        const room =
+          selected.type === CustomTypes.ChatType.group
+            ? `${selected.data.name}-${selected.data.id}`
+            : `${selected.data.username}-${selected.data.id}`
+
+        Socket.SendMessage({ room: room.toLowerCase(), message: response })
         setMessages({ loading: false, data: [...messages.data, response] })
       }
     }

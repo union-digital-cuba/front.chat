@@ -14,7 +14,7 @@
   },
   "plugins": ["react", "jest"],
   "rules": {
-    "indent": ["error", 2],
+    "indent": ["error", 2, { "SwitchCase": 1 }],
     // "linebreak-style": ["error", "windows"],
     "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
     "quotes": ["error", "single"],

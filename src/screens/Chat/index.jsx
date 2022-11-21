@@ -9,6 +9,8 @@ import { CustomLayout } from 'components'
 import ChatDesktop from './desktop'
 import ChatMobile from './mobile'
 
+import Socket from 'helpers/sockets'
+
 const Chat = () => {
   const history = useHistory()
 
@@ -24,6 +26,16 @@ const Chat = () => {
     }
     CheckLocalStorage()
   }, [])
+
+  useEffect(() => {
+    if (user) {
+      Socket.InitializeConnection()
+      Socket.AddUser({ name: user.username, room: `${user.username}-${user.id}` })
+      return () => {
+        Socket.Disconnect()
+      }
+    }
+  }, [user])
 
   const GetComponentDependingViewportWidth = () => {
     const isMobile = width < breakpoint
